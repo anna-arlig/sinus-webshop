@@ -1,13 +1,11 @@
-import Vue from 'vue'
+import Vue from 'vue' 
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import About from '../views/About.vue'
-import Meny from '../views/Meny.vue'
+import ProductList from '../views/ProductList.vue'
+import SingleProduct from '../views/SingleProduct.vue'
 import Cart from '../views/Cart.vue'
-import OrderStatus from '../views/OrderStatus.vue'
-import Login from '../views/Login.vue'
-import Profile from '../views/Profile.vue'
-import Navigation from '../views/Navigation.vue'
+import ProfileAccount from '../views/ProfileAccount.vue'
+import Checkout from '../views/Checkout.vue'
 
 Vue.use(VueRouter)
 
@@ -18,14 +16,14 @@ const routes = [
     component: Home
   },
   {
-    path: '/our-coffee',
-    name: '',
-    component: About
+    path: '/products',
+    name: 'ProductList',
+    component: ProductList
   },
   {
-    path: '/meny',
-    name: 'Meny',
-    component: Meny
+    path: '/product/:id',
+    name: 'SingleProduct',
+    component: SingleProduct
   },
   {
     path: '/cart',
@@ -33,25 +31,16 @@ const routes = [
     component: Cart
   },
   {
-    path: '/orderstatus',
-    name: 'OrderStatus',
-    component: OrderStatus
+    path: '/checkout',
+    name: 'Checkout',
+    component: Checkout
   },
   {
-    path: '/login',
-    name: 'Login',
-    component: Login
+    path: '/account',
+    name: 'ProfileAccount',
+    component: ProfileAccount
   },
-  {
-    path: '/profile',
-    name: 'Profile',
-    component: Profile
-  },
-  {
-    path: '/navigation',
-    name: 'Navigation',
-    component: Navigation
-  },
+  
 ]
 
 const router = new VueRouter({

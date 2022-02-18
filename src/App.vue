@@ -1,15 +1,21 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <Header/>
+    
     <router-view/>
   </div>
 </template>
 
+<script lang="ts">
+import Header from './components/header.vue'
+
+export default {
+  components: {Header}
+}
+</script>
 <style lang="scss" scoped>
 @import './assets/styles/fonts-colors.scss';
+@import './assets/styles/mixins.scss';
 *{
   box-sizing: border-box;
 }

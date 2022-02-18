@@ -20,7 +20,7 @@ export default new Vuex.Store({
   actions: {
     async fetchItems(context){
       const response = await API.fetchItems()
-      context.commit(Mutations.SAVE_POSTS, response)
+      context.commit('savePosts', response)
     }
   },
   modules: {
