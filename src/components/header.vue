@@ -6,10 +6,21 @@
       <a>Apparel</a>
       <a>Accessories</a>
       <a>Brands</a>
+      <div class="login">
+        <img src="../assets/images/user-icon.svg" alt="login icon">
+        <p>Log in</p>
+      </div>
+      <div class="favourites">
+        <img src="../assets/images/heart-icon.svg" alt="heart icon">
+        <p>Favourites</p>
+      </div>
+      <div class="favourites">
+        <img src="../assets/images/shopping-cart.svg" alt="shopping cart icon">
+        <p>Cart</p>
+      </div>
 
-      <img src="../assets/images/user-icon.svg" alt="">
-      <img src="../assets/images/heart-icon.svg" alt="">
-      <img src="" alt="">
+      <input type="text" placeholder="Search">
+      
 
     </div>
     
