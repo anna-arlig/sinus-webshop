@@ -1,41 +1,47 @@
 <template>
   <div id="app">
-    <Header/>
-    
-    <router-view/>
+    <Header />
+    <Footer />
+    <router-view />
   </div>
 </template>
 
-<script lang="ts">
-import Header from './components/header.vue'
+<script>
+import Header from "./components/header.vue";
+import Footer from "./components/footer.vue";
 
 export default {
-  components: {Header}
-}
+  components: { Header, Footer },
+};
 </script>
-<style lang="scss" scoped>
-@import './assets/styles/fonts-colors.scss';
-@import './assets/styles/mixins.scss';
-*{
+<style lang="scss">
+@import "./assets/styles/fonts-colors.scss";
+@import "./assets/styles/mixins.scss";
+* {
   box-sizing: border-box;
 }
-body, html{
+body,
+html {
   margin: 0;
-  padding: 0;  
+  padding: 0;
   font-size: 16px;
   line-height: 1.6;
   list-style: none;
   text-decoration: none;
   @include flex-col-center;
-  #app{
+  #app {
     max-width: 1440px;
-    h1, h2, h3, h4, h5{
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
       font-family: $heading;
     }
-    p, button{
+    p,
+    button {
       font-family: $paragraph;
     }
-
   }
 }
 </style>
