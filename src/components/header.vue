@@ -7,6 +7,10 @@
       <a>Accessories</a>
       <a>Brands</a>
 
+      <img src="../assets/user-icon.svg" alt="">
+      <img src="" alt="">
+      <img src="" alt="">
+
     </div>
     
   </div>
