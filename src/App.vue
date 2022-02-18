@@ -6,14 +6,14 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Header from './components/header.vue'
 
 export default {
   components: {Header}
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 @import './assets/styles/fonts-colors.scss';
 @import './assets/styles/mixins.scss';
 *{
