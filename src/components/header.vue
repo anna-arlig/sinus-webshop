@@ -1,5 +1,7 @@
 <template>
-  <div class="header"></div>
+  <div class="header">
+    <img src="../assets/sinus-logo.svg" alt="" height="50px" width="50px">
+  </div>
 </template>
 
 <script>
