@@ -1,6 +1,14 @@
 <template>
   <div class="header">
-    <img src="../assets/sinus-logo.svg" alt="" height="50px" width="50px">
+    <div id="nav">
+      <img src="../assets/sinus-logo.svg" alt="" height="50px" width="50px">
+      <a>Skateboards</a>
+      <a>Apparel</a>
+      <a>Accessories</a>
+      <a>Brands</a>
+
+    </div>
+    
   </div>
 </template>
 
