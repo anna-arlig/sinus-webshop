@@ -7,6 +7,7 @@
 </template>
 
 <script>
+
 import Header from "./components/header.vue";
 import Footer from "./components/footer.vue";
 
@@ -15,6 +16,7 @@ export default {
 };
 </script>
 <style lang="scss">
+
 @import "./assets/styles/fonts-colors.scss";
 @import "./assets/styles/mixins.scss";
 * {
