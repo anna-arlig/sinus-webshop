@@ -4,7 +4,7 @@
       <div class="container">
         <h1>New <span>SINUS </span>decks in store</h1>
         <button>DISCOVER NOW</button>
-
+        
       </div>
     </div>
   </div>

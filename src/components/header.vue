@@ -75,7 +75,7 @@ export default {};
   p{
     margin:0;
     padding: 0;
-    font-size: .7 rem;
+
   }
   div{
     margin:auto;
@@ -85,5 +85,10 @@ export default {};
 .login, .favourites, .cart{
   flex-direction: column;
   @include flex-center;
+}
+
+input{
+  border-radius: 5px;
+  
 }
 </style>

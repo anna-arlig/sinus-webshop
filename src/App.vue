@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <Header />
-    <Footer />
     <router-view />
+    <Footer />
   </div>
 </template>
 
@@ -14,7 +14,7 @@ import Footer from "./components/footer.vue";
 
 
 export default {
-  components: { Header, Footer },
+  components: { Header, Footer},
 };
 </script>
 
