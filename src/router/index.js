@@ -5,6 +5,7 @@ import ProductList from '../views/ProductList.vue'
 import SingleProduct from '../views/SingleProduct.vue'
 import Cart from '../views/Cart.vue'
 import ProfileAccount from '../views/ProfileAccount.vue'
+import Checkout from '../views/Checkout.vue'
 
 Vue.use(VueRouter)
 
