@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <Header />
-    <Footer />
     <router-view />
+    <Footer />
   </div>
 </template>
 
@@ -18,7 +18,6 @@ export default {
 };
 </script>
 <style lang="scss">
-
 @import "./assets/styles/fonts-colors.scss";
 @import "./assets/styles/mixins.scss";
 * {

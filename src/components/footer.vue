@@ -14,7 +14,7 @@
       </div>
       <div class="created">
         <img
-          src="@/assets/images/skateboard.svg"
+          src="@/assets/images/skateboard-icon.svg"
           alt="Created by skaters icon"
         />
         <h4>Created by skaters</h4>
