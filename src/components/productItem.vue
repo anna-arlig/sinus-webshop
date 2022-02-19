@@ -1,9 +1,128 @@
 <template>
-  <div class="singleProduct"></div>
+  <section :class="{ large }">
+    <div class="title" v-if="large">
+      <h3>Apparel / Hoodie - Red</h3>
+      <div class="first-line"></div>
+    </div>
+    <div class="product-info">
+      <div class="product-img">
+        <img src="../assets/images/hoodie-red.jpg" alt="" />
+      </div>
+      <div class="product-details">
+        <h2>Hoodie - Red</h2>
+        <div class="line" v-if="large"></div>
+        <div class="stars">
+          <img src="../assets/images/star-large.svg" alt="star" />
+          <img src="../assets/images/star-large.svg" alt="star" />
+          <img src="../assets/images/star-large.svg" alt="star" />
+          <img src="../assets/images/star-large.svg" alt="star" />
+          <img src="../assets/images/star-large.svg" alt="star" />
+          <p class="reviews" v-if="large">Read 15 other reviews</p>
+        </div>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Optio
+          praesentium dignissimos, ut quod laborum laudantium, hic obcaecati
+          impedit veritatis natus.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil sint
+          fugit exercitationem eveniet numquam reprehenderit quisquam non,
+          provident aperiam quia.
+        </p>
+        <h3>$85</h3>
+        <button v-if="large">Add to cart</button>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
-export default {};
+export default {
+  props: { large: Boolean },
+}
 </script>
 
-<style></style>
+<style scoped lang="scss">
+@import "@/assets/styles/fonts-colors.scss";
+@import "@/assets/styles/mixins.scss";
+section {
+}
+section.large {
+  max-width: 90%;
+  margin: 3rem auto 10rem;
+  padding: 2rem;
+
+  .title {
+    margin-bottom: 8rem;
+    letter-spacing: 1px;
+
+    .first-line {
+      width: 50%;
+      height: 2px;
+      background-color: $teal;
+    }
+  }
+
+  .product-info {
+    @include flex-center;
+
+    .product-img {
+      @include flex-center;
+      flex: 1;
+      padding: 6rem 1rem;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 5px;
+    }
+
+    .product-details {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1;
+      padding: 0 5rem;
+
+      h2 {
+        font-size: 2rem;
+        letter-spacing: 1px;
+      }
+      .line {
+        width: 100%;
+        height: 2px;
+        background-color: $teal;
+      }
+      .stars {
+        align-self: flex-end;
+        margin: 2rem 0;
+        text-align: right;
+
+        img {
+          margin-left: 0.5rem;
+        }
+      }
+      .reviews {
+        font-size: 0.5rem;
+      }
+      p {
+        font-size: 1rem;
+        margin-top: 0;
+      }
+
+      h3 {
+        font-size: 1.8rem;
+      }
+      button {
+        margin-top: 2rem;
+        padding: 0.8rem 0;
+        background-color: $teal;
+        color: #fff;
+        border-radius: 5px;
+        border: none;
+        box-shadow: (0px 3px 4px rgba(0, 0, 0, 0.25));
+        font-size: 1.3rem;
+        font-weight: bolder;
+        text-transform: uppercase;
+      }
+    }
+  }
+}
+</style>

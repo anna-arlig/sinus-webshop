@@ -1,9 +1,21 @@
 <template>
-  <div class="singleProduct"></div>
+  <div class="single-product">
+    <productItem large />
+    <productItem />
+  </div>
 </template>
 
 <script>
-export default {};
+import productItem from "../components/productItem"
+export default {
+  components: {
+    productItem,
+  },
+}
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.single-product {
+  max-width: 1440px;
+}
+</style>

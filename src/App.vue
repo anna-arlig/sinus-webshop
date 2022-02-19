@@ -1,29 +1,24 @@
 <template>
   <div id="app">
     <Header />
-    <Footer />
     <router-view />
+    <Footer />
   </div>
 </template>
 
 <script>
-
-
-import Header from "./components/header.vue";
-import Footer from "./components/footer.vue";
-
+import Header from "./components/header.vue"
+import Footer from "./components/footer.vue"
 
 export default {
   components: { Header, Footer },
-};
+}
 </script>
 
 <style lang="scss">
-
 @import "./assets/styles/fonts-colors.scss";
 @import "./assets/styles/mixins.scss";
 * {
-
   box-sizing: border-box;
 }
 body,
