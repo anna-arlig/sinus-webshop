@@ -1,5 +1,5 @@
 <template>
-  <section :class="{ large }">
+  <section :class="{ large, small }">
     <div class="title" v-if="large">
       <h3>Apparel / Hoodie - Red</h3>
       <div class="first-line"></div>
@@ -9,27 +9,28 @@
         <img src="../assets/images/hoodie-red.jpg" alt="" />
       </div>
       <div class="product-details">
-        <h2>Hoodie - Red</h2>
+        <h2 v-if="large">Hoodie - Red</h2>
+        <h3 v-if="small">Hoodie - Red</h3>
         <div class="line" v-if="large"></div>
         <div class="stars">
-          <img src="../assets/images/star-large.svg" alt="star" />
-          <img src="../assets/images/star-large.svg" alt="star" />
-          <img src="../assets/images/star-large.svg" alt="star" />
-          <img src="../assets/images/star-large.svg" alt="star" />
-          <img src="../assets/images/star-large.svg" alt="star" />
+          <img src="../assets/images/star.svg" alt="star" />
+          <img src="../assets/images/star.svg" alt="star" />
+          <img src="../assets/images/star.svg" alt="star" />
+          <img src="../assets/images/star.svg" alt="star" />
+          <img src="../assets/images/star.svg" alt="star" />
           <p class="reviews" v-if="large">Read 15 other reviews</p>
         </div>
-        <p>
+        <p v-if="large">
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Optio
           praesentium dignissimos, ut quod laborum laudantium, hic obcaecati
           impedit veritatis natus.
         </p>
-        <p>
+        <p v-if="large">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil sint
           fugit exercitationem eveniet numquam reprehenderit quisquam non,
           provident aperiam quia.
         </p>
-        <h3>$85</h3>
+        <h3 class="price">$85</h3>
         <button v-if="large">Add to cart</button>
       </div>
     </div>
@@ -38,22 +39,60 @@
 
 <script>
 export default {
-  props: { large: Boolean },
+  props: { large: Boolean, small: Boolean },
 }
 </script>
 
 <style scoped lang="scss">
 @import "@/assets/styles/fonts-colors.scss";
 @import "@/assets/styles/mixins.scss";
-section {
+
+// ProductList view
+section.small {
+  margin: 4rem;
+  width: 20rem;
+
+  .product-info {
+    @include flex-col-center;
+    padding: 2rem 2rem 1rem;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+
+    .product-img {
+      margin-bottom: 0.8rem;
+      img {
+        width: 100%;
+      }
+    }
+    .product-details {
+      @include flex-col-center;
+
+      h3 {
+        letter-spacing: 1px;
+        font-size: 1.3rem;
+      }
+      .stars {
+        margin-bottom: 4rem;
+
+        img {
+          margin: 0 0.2rem;
+        }
+      }
+      .price {
+        font-size: 1.3rem;
+      }
+    }
+  }
 }
+
+// SingleProduct view
 section.large {
   max-width: 90%;
   margin: 3rem auto 10rem;
   padding: 2rem;
 
   .title {
-    margin-bottom: 8rem;
+    margin-bottom: 7rem;
     letter-spacing: 1px;
 
     .first-line {
@@ -72,6 +111,10 @@ section.large {
       padding: 6rem 1rem;
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
       border-radius: 5px;
+
+      img {
+        width: 100%;
+      }
     }
 
     .product-details {

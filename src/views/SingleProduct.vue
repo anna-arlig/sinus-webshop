@@ -1,7 +1,7 @@
 <template>
   <div class="single-product">
     <productItem large />
-    <productItem />
+    <productItem small />
   </div>
 </template>
 

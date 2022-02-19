@@ -13,10 +13,10 @@
         <h4>Easy returns</h4>
       </div>
       <div class="created">
-        <img
+        <!-- <img
           src="@/assets/images/skateboard.svg"
           alt="Created by skaters icon"
-        />
+        /> -->
         <h4>Created by skaters</h4>
       </div>
     </div>
