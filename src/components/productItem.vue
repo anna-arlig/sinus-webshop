@@ -70,6 +70,7 @@ section.small {
       h3 {
         letter-spacing: 1px;
         font-size: 1.3rem;
+        margin: 0;
       }
       .stars {
         margin-bottom: 4rem;
@@ -87,7 +88,7 @@ section.small {
 
 // SingleProduct view
 section.large {
-  max-width: 90%;
+  max-width: 85%;
   margin: 3rem auto 10rem;
   padding: 2rem;
 
@@ -103,12 +104,13 @@ section.large {
   }
 
   .product-info {
-    @include flex-center;
+    display: flex;
+    justify-content: space-between;
 
     .product-img {
       @include flex-center;
       flex: 1;
-      padding: 6rem 1rem;
+      padding: 4rem 1rem;
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
       border-radius: 5px;
 
@@ -135,7 +137,6 @@ section.large {
       }
       .stars {
         align-self: flex-end;
-        margin: 2rem 0;
         text-align: right;
 
         img {
@@ -154,7 +155,7 @@ section.large {
         font-size: 1.8rem;
       }
       button {
-        margin-top: 2rem;
+        margin-top: 1rem;
         padding: 0.8rem 0;
         background-color: $teal;
         color: #fff;
@@ -162,7 +163,7 @@ section.large {
         border: none;
         box-shadow: (0px 3px 4px rgba(0, 0, 0, 0.25));
         font-size: 1.3rem;
-        font-weight: bolder;
+        font-weight: 500;
         text-transform: uppercase;
       }
     }

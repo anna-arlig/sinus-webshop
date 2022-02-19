@@ -38,7 +38,6 @@ html {
     h4,
     h5 {
       font-family: $heading;
-      margin: 0;
     }
     p,
     button {
