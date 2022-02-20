@@ -4,15 +4,17 @@
       <div class="container">
         <h1>New <span>SINUS </span>decks in store</h1>
         <button>DISCOVER NOW</button>
-
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import {GET_PRODUCTS} from '@/store/Action.types'
 export default {
-
+  beforeMount() {
+      this.$store.dispatch(GET_PRODUCTS)
+  },
 };
 </script>
 
