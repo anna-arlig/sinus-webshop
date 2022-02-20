@@ -9,8 +9,12 @@
     <CategorySection />
     <section class="carousel">CAROUSEL</section>
     <section class="greta">
-      <h3>GRETA LIMITED EDITION</h3>
-      <button>CHECK IT OUT</button>
+      <article></article>
+      <span>
+        <h3>GRETA <br> LIMITED EDITION</h3>
+        <button>CHECK IT OUT</button>  
+      </span>
+      <article></article>
     </section>
     <section class="carousel">CAROUSEL</section>
   </main>
@@ -71,19 +75,34 @@ export default {
     background-image: url('../assets/images/greta-hero.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    @include flex-col-center;
-    justify-content: center;
-    h3{
-      font-size: 2rem;
-      color: #FFFFFF;
+    @include flex-center;
+    article{
+      width: 30%;
+      height: 80%;
+      background: rgba(0, 0, 0, 0.15);
+      border-radius: 16px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border: 1px solid rgba(0, 0, 0, 0.3);
     }
-    button{
-      padding: .5rem 3rem;
-      background-color: $yellow;
-      border: none;
-      font-size: 1rem;
-      font-weight: bold;
-      color: white;
+    span{
+      text-align: center;
+      max-width: 20rem;
+      @include flex-col-center;
+      margin: 1rem;
+      h3{
+        font-size: 2rem;
+        color: #FFFFFF;
+      }
+      button{
+        padding: .5rem 3rem;
+        background-color: $yellow;
+        border: none;
+        font-size: 1rem;
+        font-weight: bold;
+        color: white;
+      }
     }
   }
 }
