@@ -25,14 +25,19 @@
           </div>
           <div class="cart" @mouseover="cartHover = true" @mouseleave="cartHover = false">
             <Icon icon="clarity:shopping-cart-solid" width="35" />
-            <Transition mode="out-in">
+            <Transition name="fade">
               <CartPopup v-if="cartHover" />
             </Transition>
             <p>Cart</p>
           </div>
         </div>
-
-        <input type="text" placeholder="Search" />
+       
+          <input type="text" placeholder="Search" v-model="search" @input="updateSearchResults" />
+          <!-- Byt ut li nedan mot router-links när det går -->
+          <dialog open class="search-results" v-if="searchResults.length">
+          <li v-for="product of searchResults" :key="product">{{product}}</li>
+          </dialog>
+        
       </div>
     </div>
   </div>
@@ -41,11 +46,23 @@
 <script>
 import { Icon } from '@iconify/vue2';
 import CartPopup from "@/components/cartPopup.vue";
+import Action from '../store/Action.types'
 export default {
   data(){return{
     cartHover: false,
+    search: '',
   }},
-  components: {Icon, CartPopup}
+  components: {Icon, CartPopup},
+  methods:{
+    updateSearchResults(){
+      this.$store.dispatch(Action.UPDATE_SEARCH_RESULTS, this.search.toLowerCase())
+    }
+  },
+  computed:{
+    searchResults(){
+      return this.$store.state.searchResults
+    }
+  }
 }
 </script>
 
@@ -102,14 +119,27 @@ input{
   border: 1px solid black;
   height: 1.5rem; 
 }
-.v-enter-active,
-.v-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity .5s ease;
 }
 
-.v-enter-from,
-.v-leave-to {
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
+}
+.search-results{
+  margin:0;
+  position: relative;
+  top: 0%;
+  width: 100%;
+  border: .5px solid black;
+  font-family: $paragraph;
+
+  li:hover{
+    font-weight: bold;
+    cursor:pointer;
+  }
 }
 
 </style>

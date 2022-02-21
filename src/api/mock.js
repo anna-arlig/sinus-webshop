@@ -8,7 +8,7 @@ export async function fetchItems(){
 export async function getProducts(){
   let response = []
   for(let i = 0; i < 10; i++){
-    const products = {
+    const product = {
         id: Date.now() + Math.floor(Math.random() * 55) + i,
         title: 'Gretas Fury',
         price: 999,
@@ -17,9 +17,9 @@ export async function getProducts(){
         longDesc: 'Skate ipsum dolor sit amet...',
         imgFile: 'skateboard-greta.png'
     }
-    response.push(products)
+    response.push(product)
   }
-  return {...response}
+  return response
 }
 
 export async function getUser(){
