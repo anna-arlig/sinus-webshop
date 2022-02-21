@@ -1,52 +1,51 @@
-import Vue from 'vue' 
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import ProductList from '../views/ProductList.vue'
-import SingleProduct from '../views/SingleProduct.vue'
-import Cart from '../views/Cart.vue'
-import ProfileAccount from '../views/ProfileAccount.vue'
-import Checkout from '../views/Checkout.vue'
+import Vue from "vue"
+import VueRouter from "vue-router"
+import Home from "../views/Home.vue"
+import Products from "../views/Products.vue"
+import SingleProduct from "../views/SingleProduct.vue"
+import Cart from "../views/Cart.vue"
+import ProfileAccount from "../views/ProfileAccount.vue"
+import Checkout from "../views/Checkout.vue"
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: "/",
+    name: "Home",
+    component: Home,
   },
   {
-    path: '/products',
-    name: 'ProductList',
-    component: ProductList
+    path: "/products",
+    name: "Products",
+    component: Products,
   },
   {
-    path: '/product/:id',
-    name: 'SingleProduct',
-    component: SingleProduct
+    path: "/product/:id",
+    name: "SingleProduct",
+    component: SingleProduct,
   },
   {
-    path: '/cart',
-    name: 'Cart',
-    component: Cart
+    path: "/cart",
+    name: "Cart",
+    component: Cart,
   },
   {
-    path: '/checkout',
-    name: 'Checkout',
-    component: Checkout
+    path: "/checkout",
+    name: "Checkout",
+    component: Checkout,
   },
   {
-    path: '/account',
-    name: 'ProfileAccount',
-    component: ProfileAccount
+    path: "/account",
+    name: "ProfileAccount",
+    component: ProfileAccount,
   },
-  
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes
+  routes,
 })
 
 export default router
