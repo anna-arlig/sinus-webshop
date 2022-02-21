@@ -8,31 +8,36 @@
 
       <div class="categories">
         <a>Skateboards <Icon icon="dashicons:arrow-down-alt2" /></a>
-        <a>Apparel</a>
-        <a>Accessories</a>
-        <a>Brands</a>
+        <a>Apparel <Icon icon="dashicons:arrow-down-alt2" /></a>
+        <a>Accessories <Icon icon="dashicons:arrow-down-alt2" /></a>
+        <a>Brands <Icon icon="dashicons:arrow-down-alt2" /></a>
       </div>
 
       <div class="links-and-search">
         <div class="links">
           <div class="login">
-            <img src="../assets/images/user-icon.svg" alt="login icon" />
+            <Icon icon="bxs:user" width="35" />
             <p>Log in</p>
           </div>
           <div class="favourites">
-            <img src="../assets/images/heart-icon.svg" alt="heart icon" />
+            <Icon icon="ant-design:heart-filled" width="35" />
             <p>Favourites</p>
           </div>
-          <div class="cart">
-            <img
-              src="../assets/images/shopping-cart.svg"
-              alt="shopping cart icon"
-            />
+          <div class="cart" @mouseover="cartHover = true" @mouseleave="cartHover = false">
+            <Icon icon="clarity:shopping-cart-solid" width="35" />
+            <Transition name="fade">
+              <CartPopup v-if="cartHover" />
+            </Transition>
             <p>Cart</p>
           </div>
         </div>
-
-        <input type="text" placeholder="Search" />
+       
+          <input type="text" placeholder="Search" v-model="search" @input="updateSearchResults" />
+          <!-- Byt ut li nedan mot router-links när det går -->
+          <dialog open class="search-results" v-if="searchResults.length">
+          <li v-for="product of searchResults" :key="product">{{product}}</li>
+          </dialog>
+        
       </div>
     </div>
   </div>
@@ -40,8 +45,24 @@
 
 <script>
 import { Icon } from '@iconify/vue2';
+import CartPopup from "@/components/cartPopup.vue";
+import Action from '../store/Action.types'
 export default {
-  components: {Icon}
+  data(){return{
+    cartHover: false,
+    search: '',
+  }},
+  components: {Icon, CartPopup},
+  methods:{
+    updateSearchResults(){
+      this.$store.dispatch(Action.UPDATE_SEARCH_RESULTS, this.search.toLowerCase())
+    }
+  },
+  computed:{
+    searchResults(){
+      return this.$store.state.searchResults
+    }
+  }
 }
 </script>
 
@@ -54,6 +75,7 @@ export default {
   width: 100vw;
   display: flex;
   background-color: $yellow;
+  padding: 1rem;
 }
 #nav {
   width: 100%;
@@ -78,7 +100,7 @@ export default {
   p {
     margin: 0;
     padding: 0;
-    font-size: 0.7 rem;
+    font-size: 0.7rem;
   }
   div {
     margin: auto;
@@ -94,7 +116,30 @@ export default {
 
 input{
   border-radius: 3px;
-  border: 1px solid black
-  
+  border: 1px solid black;
+  height: 1.5rem; 
 }
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity .5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+.search-results{
+  margin:0;
+  position: relative;
+  top: 0%;
+  width: 100%;
+  border: .5px solid black;
+  font-family: $paragraph;
+
+  li:hover{
+    font-weight: bold;
+    cursor:pointer;
+  }
+}
+
 </style>
