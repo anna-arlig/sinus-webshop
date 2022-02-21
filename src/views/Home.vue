@@ -7,7 +7,8 @@
       </div>
     </section>
     <CategorySection />
-    <section class="carousel">CAROUSEL</section>
+    <Carousel :tag="tag" />
+
     <section class="greta">
       <article></article>
       <span>
@@ -19,15 +20,15 @@
       </span>
       <article></article>
     </section>
-    <section class="carousel">CAROUSEL</section>
   </main>
 </template>
 
 <script>
 import { GET_PRODUCTS } from "@/store/Action.types";
 import CategorySection from "@/components/CategorySection.vue";
+import Carousel from "@/components/carousel.vue";
 export default {
-  components: { CategorySection },
+  components: { CategorySection, Carousel },
   async mounted() {
     this.$store.dispatch(GET_PRODUCTS);
   },
@@ -38,10 +39,6 @@ export default {
 @import "../assets/styles/fonts-colors.scss";
 @import "../assets/styles/mixins.scss";
 
-.carousel {
-  height: 40rem;
-  background-color: green;
-}
 .home {
   width: 100vw;
   display: grid;
