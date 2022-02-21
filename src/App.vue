@@ -2,17 +2,19 @@
   <div id="app">
     <Header />
     <router-view />
+    <CartPopup />
     <Footer />
   </div>
 </template>
 
 <script>
-import Header from "./components/header.vue"
-import Footer from "./components/footer.vue"
+import Header from "./components/header.vue";
+import Footer from "./components/footer.vue";
+import CartPopup from "@/components/cartPopup.vue";
 
 export default {
-  components: { Header, Footer },
-}
+  components: { Header, Footer, CartPopup },
+};
 </script>
 <style lang="scss">
 @import "./assets/styles/fonts-colors.scss";
