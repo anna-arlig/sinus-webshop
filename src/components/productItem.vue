@@ -33,7 +33,7 @@
           provident aperiam quia.
         </p>
         <h3 class="price">$85</h3>
-        <button v-if="large">Add to cart</button>
+        <button v-if="large" @click="addProductToCart">Add to cart</button>
       </div>
     </div>
   </section>
@@ -41,7 +41,23 @@
 
 <script>
 export default {
-  props: { large: Boolean, small: Boolean },
+  props: {
+    id: Number,
+    title: String,
+    price: Number,
+    specialEdition: Boolean,
+    shortDesc: String,
+    category: String,
+    prototypelongDesc: String,
+    imgFile: String,
+    large: Boolean,
+    small: Boolean,
+  },
+  methods: {
+    addProductToCart() {
+      this.$store.dispatch("addToCart", this.id)
+    },
+  },
 }
 </script>
 
@@ -51,8 +67,14 @@ export default {
 
 // ProductList view SMALL
 section.small {
-  margin: 4rem;
+  margin: 6rem 1rem 1rem;
   width: 17rem;
+  cursor: pointer;
+  transition: 1s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 
   .product-info {
     @include flex-col-center;
