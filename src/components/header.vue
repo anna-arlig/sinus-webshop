@@ -7,7 +7,7 @@
       />
 
       <div class="categories">
-        <a>Skateboards</a>
+        <a>Skateboards <Icon icon="dashicons:arrow-down-alt2" /></a>
         <a>Apparel</a>
         <a>Accessories</a>
         <a>Brands</a>
@@ -39,7 +39,10 @@
 </template>
 
 <script>
-export default {}
+import { Icon } from '@iconify/vue2';
+export default {
+  components: {Icon}
+}
 </script>
 
 <style scoped lang="scss">
@@ -84,7 +87,14 @@ export default {}
 .login,
 .favourites,
 .cart {
-  flex-direction: column;
-  @include flex-center;
+  height: 100%;
+  @include flex-col-center;
+  justify-content: space-between;
+}
+
+input{
+  border-radius: 3px;
+  border: 1px solid black
+  
 }
 </style>
