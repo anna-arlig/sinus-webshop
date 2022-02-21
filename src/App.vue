@@ -14,7 +14,6 @@ export default {
   components: { Header, Footer },
 }
 </script>
-
 <style lang="scss">
 @import "./assets/styles/fonts-colors.scss";
 @import "./assets/styles/mixins.scss";
