@@ -7,15 +7,12 @@
 </template>
 
 <script>
-
-
-import Header from "./components/header.vue";
-import Footer from "./components/footer.vue";
-
+import Header from "./components/header.vue"
+import Footer from "./components/footer.vue"
 
 export default {
   components: { Header, Footer },
-};
+}
 </script>
 <style lang="scss">
 @import "./assets/styles/fonts-colors.scss";
@@ -34,13 +31,13 @@ html {
   @include flex-col-center;
   #app {
     max-width: 1440px;
+    margin: 0 auto;
     h1,
     h2,
     h3,
     h4,
     h5 {
       font-family: $heading;
-      margin: 0;
     }
     p,
     button {
