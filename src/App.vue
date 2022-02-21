@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <Header />
-
     <router-view />
     <Footer />
   </div>
@@ -15,7 +14,6 @@ export default {
   components: { Header, Footer },
 };
 </script>
-
 <style lang="scss">
 @import "./assets/styles/fonts-colors.scss";
 @import "./assets/styles/mixins.scss";
@@ -33,13 +31,13 @@ html {
   @include flex-col-center;
   #app {
     max-width: 1440px;
+    margin: 0 auto;
     h1,
     h2,
     h3,
     h4,
     h5 {
       font-family: $heading;
-      margin: 0;
     }
     p,
     button {

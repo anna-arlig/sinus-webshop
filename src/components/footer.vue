@@ -17,6 +17,7 @@
           src="@/assets/images/skateboard-icon.svg"
           alt="Created by skaters icon"
         />
+
         <h4>Created by skaters</h4>
       </div>
     </div>
@@ -62,6 +63,7 @@ export default {};
 @import "@/assets/styles/mixins.scss";
 .footer {
   width: 100vw;
+  max-width: 1440px;
 }
 img {
   width: 50px;
