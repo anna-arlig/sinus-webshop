@@ -34,7 +34,7 @@
        
           <input type="text" placeholder="Search" v-model="search" @input="updateSearchResults" />
           <!-- Byt ut li nedan mot router-links när det går -->
-          <dialog open class="search-results" v-if="searchResults.length">
+          <dialog open class="search-results" v-if="searchResults.length && cartHover==false">
           <li v-for="product of searchResults" :key="product">{{product}}</li>
           </dialog>
         
