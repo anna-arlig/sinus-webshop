@@ -28,6 +28,7 @@ export default new Vuex.Store({
     }, 
     [Mutation.SAVE_USER](state, newUser){
       state.user = newUser
+      state.logInPopup = !state.logInPopup
     }, 
     [Mutation.LOG_IN_TOGGLE](state){
       state.logInPopup = !state.logInPopup

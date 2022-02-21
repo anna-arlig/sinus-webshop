@@ -1,5 +1,7 @@
 <template>
-  <dialog open v-if="logInModal" class="login-popup">
+  <dialog open class="login-popup"
+    v-if="logInModal && !loggedInUser && !registration"
+  >
     <p>Log in</p>   
     <label for="username">Username</label>
     <input type="text" id="username" required
@@ -17,8 +19,29 @@
       </button>
       <button @click="logInToggle">Cancel</button>
     </span>
-    <button>Sign up</button>
+    <a @click="registration = true"
+    >
+      Sign up
+    </a>
   </dialog>  
+  <dialog class="login-popup"
+    v-else-if="logInModal && loggedInUser && !registration"
+  >
+    <h3>Logged in as</h3>
+    <h5>{{loggedInUser.name}}</h5>
+    <h5>ORDERHISTORY?</h5>
+    <button 
+      @click="logInToggle"
+    >
+      ok</button>
+  </dialog>
+  <dialog class="login-popup"
+    v-else-if="registration"
+  >
+    <small>back</small>
+    <small>close</small>
+    <h2>signup</h2>
+  </dialog>
 </template>
 
 <script>
@@ -26,12 +49,17 @@ import Action from '@/store/Action.types'
 export default {
   data(){return{
     username: '',
-    password: ''
+    password: '', 
+    registration: false
   }},
   computed: {
     logInModal(){
       return this.$store.state.logInPopup
-    }
+    }, 
+    loggedInUser(){
+      return this.$store.state.user
+    }, 
+
   }, 
   methods:{
     logInToggle(){
@@ -39,6 +67,8 @@ export default {
     }, 
     signIn(){
       this.$store.dispatch(Action.GET_USER, {...this.username, ...this.password})
+      this.username = ''
+      this.password = ''
     }
   }
 };
@@ -85,11 +115,14 @@ export default {
       color: $teal;
     }
   }
-    button{
+    a{
       align-self: center;
       margin-top: 3rem;
       background-color: #FFFFFF;
       border: none;
+      &:hover{
+        cursor: pointer;
+      }
     }
     button:hover{
         cursor: pointer;
