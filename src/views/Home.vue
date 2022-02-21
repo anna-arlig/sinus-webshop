@@ -1,6 +1,5 @@
 <template>
   <main class="home">
-    <CartPopup />
     <section class="hero">
       <div class="container">
         <h1>New <span>SINUS </span>decks in store</h1>
@@ -27,9 +26,8 @@
 <script>
 import { GET_PRODUCTS } from "@/store/Action.types";
 import CategorySection from "@/components/CategorySection.vue";
-import CartPopup from "@/components/cartPopup.vue";
 export default {
-  components: { CategorySection, CartPopup },
+  components: { CategorySection },
   async mounted() {
     this.$store.dispatch(GET_PRODUCTS);
   },

@@ -1,6 +1,7 @@
 <template>
   <div class="cartProduct">
     <img
+      class="product-img"
       src="@/assets/images/sinus-skateboard-plastic.png"
       alt="placeholder for product image"
     />
@@ -57,7 +58,7 @@ p {
   font-weight: normal;
   color: #0f201a;
 }
-img {
+.product-img {
   margin-left: 30px;
 }
 .quantity {
