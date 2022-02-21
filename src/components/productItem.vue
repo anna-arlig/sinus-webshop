@@ -9,9 +9,11 @@
         <img src="../assets/images/hoodie-red.jpg" alt="" />
       </div>
       <div class="product-details">
-        <h2 v-if="large">Hoodie - Red</h2>
+        <div class="product-name" v-if="large">
+          <h2>Hoodie - Red</h2>
+          <div class="line"></div>
+        </div>
         <h3 v-if="small">Hoodie - Red</h3>
-        <div class="line" v-if="large"></div>
         <div class="stars">
           <img src="../assets/images/star.svg" alt="star" />
           <img src="../assets/images/star.svg" alt="star" />
@@ -47,10 +49,10 @@ export default {
 @import "@/assets/styles/fonts-colors.scss";
 @import "@/assets/styles/mixins.scss";
 
-// ProductList view
+// ProductList view SMALL
 section.small {
   margin: 4rem;
-  width: 20rem;
+  width: 17rem;
 
   .product-info {
     @include flex-col-center;
@@ -86,7 +88,7 @@ section.small {
   }
 }
 
-// SingleProduct view
+// SingleProduct view LARGE
 section.large {
   max-width: 85%;
   margin: 3rem auto 10rem;
@@ -95,6 +97,10 @@ section.large {
   .title {
     margin-bottom: 7rem;
     letter-spacing: 1px;
+
+    h3 {
+      margin: 0;
+    }
 
     .first-line {
       width: 50%;
@@ -110,7 +116,7 @@ section.large {
     .product-img {
       @include flex-center;
       flex: 1;
-      padding: 4rem 1rem;
+      padding: 4rem 3rem;
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
       border-radius: 5px;
 
@@ -127,6 +133,7 @@ section.large {
       padding: 0 5rem;
 
       h2 {
+        margin: 0;
         font-size: 2rem;
         letter-spacing: 1px;
       }

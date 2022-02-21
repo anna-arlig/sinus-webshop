@@ -1,15 +1,15 @@
 <template>
   <div class="single-product">
-    <productItem large />
-    <productItem small />
+    <ProductItem large />
+    <ProductItem small />
   </div>
 </template>
 
 <script>
-import productItem from "../components/productItem"
+import ProductItem from "../components/productItem"
 export default {
   components: {
-    productItem,
+    ProductItem,
   },
 }
 </script>
