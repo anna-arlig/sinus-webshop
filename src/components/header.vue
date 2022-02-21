@@ -25,7 +25,9 @@
           </div>
           <div class="cart" @mouseover="cartHover = true" @mouseleave="cartHover = false">
             <Icon icon="clarity:shopping-cart-solid" width="35" />
-            <CartPopup v-if="cartHover" />
+            <Transition mode="out-in">
+              <CartPopup v-if="cartHover" />
+            </Transition>
             <p>Cart</p>
           </div>
         </div>
@@ -81,7 +83,7 @@ export default {
   p {
     margin: 0;
     padding: 0;
-    font-size: 0.7 rem;
+    font-size: 0.7rem;
   }
   div {
     margin: auto;
@@ -98,7 +100,16 @@ export default {
 input{
   border-radius: 3px;
   border: 1px solid black;
-  height: 1.5rem;
-  
+  height: 1.5rem; 
 }
+.v-enter-active,
+.v-leave-active {
+  transition: opacity .5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+
 </style>
