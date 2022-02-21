@@ -7,7 +7,7 @@
       </div>
     </section>
     <CategorySection />
-    <Carousel :tag="tag" />
+    <Carousel/>
 
     <section class="greta">
       <article></article>

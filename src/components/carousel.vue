@@ -24,7 +24,7 @@ import ProductItem from '@/components/productItem.vue'
 export default {
   components: {ProductItem},
   data(){return{
-    props: ['tag'],
+    // props: ['tag'],
     mockTag: 'Favourites',
       mockProducts: [
         {id: 1,
