@@ -22,8 +22,8 @@ export default new Vuex.Store({
       }
     }, 
     [Mutation.SAVE_PRODUCTS](state, fetchedProducts){      
-      state.productList.push(...fetchedProducts)
-      Vue.set(state.products, fetchedProducts.page = 1, fetchedProducts)
+      state.productList.push(fetchedProducts)
+      Vue.set(state.products, 1, fetchedProducts)
     }, 
     [Mutation.SAVE_USER](state, newUser){
       state.user = newUser

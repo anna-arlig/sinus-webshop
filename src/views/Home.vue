@@ -12,7 +12,7 @@
 <script>
 import {GET_PRODUCTS} from '@/store/Action.types'
 export default {
-  beforeMount() {
+  async mounted() {
       this.$store.dispatch(GET_PRODUCTS)
   },
 };

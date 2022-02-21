@@ -19,7 +19,7 @@ export async function getProducts(){
     }
     response.push(products)
   }
-  return response
+  return {...response}
 }
 
 export async function getUser(){
