@@ -62,6 +62,7 @@ export default {}
 @import "@/assets/styles/mixins.scss";
 .footer {
   width: 100vw;
+  max-width: 1440px;
 }
 img {
   width: 50px;

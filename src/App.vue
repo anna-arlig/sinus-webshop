@@ -32,6 +32,7 @@ html {
   @include flex-col-center;
   #app {
     max-width: 1440px;
+    margin: 0 auto;
     h1,
     h2,
     h3,
