@@ -24,10 +24,11 @@
 import {GET_PRODUCTS} from '@/store/Action.types'
 import CategorySection from '@/components/CategorySection.vue'
 export default {
-components: {CategorySection}
+components: {CategorySection},
   async mounted() {
       this.$store.dispatch(GET_PRODUCTS)
   },
+}
 </script>
 
 <style lang="scss" scoped>

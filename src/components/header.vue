@@ -15,8 +15,10 @@
 
       <div class="links-and-search">
         <div class="links">
-          <div class="login">
-            <img src="../assets/images/user-icon.svg" alt="login icon" />
+          <div class="login" 
+            @click="logInToggle"
+          >
+            <img src="../assets/images/user-icon.svg" alt="login icon"/>
             <p>Log in</p>
           </div>
           <div class="favourites">
@@ -39,7 +41,14 @@
 </template>
 
 <script>
-export default {}
+import Actions from '@/store/Action.types'
+export default {
+  methods: {
+    logInToggle(){
+      this.$store.dispatch(Actions.TOGGLE_LOGIN)
+    }
+  }
+}
 </script>
 
 <style scoped lang="scss">

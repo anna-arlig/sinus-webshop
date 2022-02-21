@@ -12,7 +12,8 @@ export default new Vuex.Store({
     items: {}, 
     productList: [], 
     products: {}, 
-    user: ''
+    user: '', 
+    logInPopup: false
   },
   mutations: {
     savePosts(state, items){
@@ -27,6 +28,9 @@ export default new Vuex.Store({
     }, 
     [Mutation.SAVE_USER](state, newUser){
       state.user = newUser
+    }, 
+    [Mutation.LOG_IN_TOGGLE](state){
+      state.logInPopup = !state.logInPopup
     }
   },
   actions: {
@@ -38,9 +42,12 @@ export default new Vuex.Store({
       const response = await API.getProducts()
       context.commit(Mutation.SAVE_PRODUCTS, response)
     }, 
-    async [Action.GET_USER](context){
-      const response = await API.getUser()
+    async [Action.GET_USER](context, user){
+      const response = await API.getUser(user)
       context.commit(Mutation.SAVE_USER, response)
+    }, 
+    [Action.TOGGLE_LOGIN](context){
+      context.commit(Mutation.LOG_IN_TOGGLE)
     }
   },
   modules: {

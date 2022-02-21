@@ -1,4 +1,5 @@
 export const SAVE_PRODUCTS = 'SAVE_PRODUCTS'
 export const SAVE_USER = 'SAVE_USER'
+export const LOG_IN_TOGGLE = 'LOG_IN_TOGGLE'
 
-export default {SAVE_PRODUCTS, SAVE_USER}
+export default {SAVE_PRODUCTS, SAVE_USER, LOG_IN_TOGGLE}

@@ -3,15 +3,19 @@
     <Header />
     <router-view />
     <Footer />
+    <LogInPopup />
+    <FadeLayer />
   </div>
 </template>
 
 <script>
 import Header from "./components/header.vue"
 import Footer from "./components/footer.vue"
+import LogInPopup from './components/LogInPopup.vue'
+import FadeLayer from './components/FadeLayer.vue'
 
 export default {
-  components: { Header, Footer },
+  components: { Header, Footer, FadeLayer, LogInPopup },
 }
 </script>
 <style lang="scss">
@@ -30,6 +34,7 @@ html {
   text-decoration: none;
   @include flex-col-center;
   #app {
+    position: relative;
     max-width: 1440px;
     margin: 0 auto;
     h1,
