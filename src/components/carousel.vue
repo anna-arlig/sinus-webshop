@@ -148,7 +148,9 @@ h2{
   background-color: $grey;
 }
 .active{
-  background-color: rgb(59, 59, 59);
+ background-color: rgb(59, 59, 59);
+ transition: .5s ease;
+  
 }
 .icon{
   width: 40px;
@@ -157,6 +159,12 @@ h2{
 button{
   border: none;
   background-color:rgba(0, 255, 255, 0);
+  transition: .2s ease;
+
+  &:hover{
+    transform: scale(1.1)
+    
+  }
 }
 
 
