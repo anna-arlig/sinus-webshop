@@ -2,7 +2,6 @@
   <div id="app">
     <Header />
     <router-view />
-    <CartPopup />
     <Footer />
   </div>
 </template>
@@ -10,10 +9,10 @@
 <script>
 import Header from "./components/header.vue";
 import Footer from "./components/footer.vue";
-import CartPopup from "@/components/cartPopup.vue";
+
 
 export default {
-  components: { Header, Footer, CartPopup },
+  components: { Header, Footer},
 };
 </script>
 <style lang="scss">

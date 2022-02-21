@@ -8,26 +8,24 @@
 
       <div class="categories">
         <a>Skateboards <Icon icon="dashicons:arrow-down-alt2" /></a>
-        <a>Apparel</a>
-        <a>Accessories</a>
-        <a>Brands</a>
+        <a>Apparel <Icon icon="dashicons:arrow-down-alt2" /></a>
+        <a>Accessories <Icon icon="dashicons:arrow-down-alt2" /></a>
+        <a>Brands <Icon icon="dashicons:arrow-down-alt2" /></a>
       </div>
 
       <div class="links-and-search">
         <div class="links">
           <div class="login">
-            <img src="../assets/images/user-icon.svg" alt="login icon" />
+            <Icon icon="bxs:user" width="35" />
             <p>Log in</p>
           </div>
           <div class="favourites">
-            <img src="../assets/images/heart-icon.svg" alt="heart icon" />
+            <Icon icon="ant-design:heart-filled" width="35" />
             <p>Favourites</p>
           </div>
-          <div class="cart">
-            <img
-              src="../assets/images/shopping-cart.svg"
-              alt="shopping cart icon"
-            />
+          <div class="cart" @mouseover="cartHover = true" @mouseleave="cartHover = false">
+            <Icon icon="clarity:shopping-cart-solid" width="35" />
+            <CartPopup v-if="cartHover" />
             <p>Cart</p>
           </div>
         </div>
@@ -40,8 +38,12 @@
 
 <script>
 import { Icon } from '@iconify/vue2';
+import CartPopup from "@/components/cartPopup.vue";
 export default {
-  components: {Icon}
+  data(){return{
+    cartHover: false,
+  }},
+  components: {Icon, CartPopup}
 }
 </script>
 
@@ -54,6 +56,7 @@ export default {
   width: 100vw;
   display: flex;
   background-color: $yellow;
+  padding: 1rem;
 }
 #nav {
   width: 100%;
@@ -94,7 +97,8 @@ export default {
 
 input{
   border-radius: 3px;
-  border: 1px solid black
+  border: 1px solid black;
+  height: 1.5rem;
   
 }
 </style>
