@@ -18,7 +18,7 @@ export default {
 @import '../assets/styles/mixins.scss';
 .categories{
     margin: 4rem;
-    width: 100%;
+    width: 80%;
     display: flex; 
     justify-content: center;
     flex-wrap: wrap;
