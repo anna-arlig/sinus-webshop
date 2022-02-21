@@ -129,12 +129,13 @@ export default {
 }
 ul{
   display: flex;
-  flex-direction: row;
   list-style: none;
   padding: 0;
+  height: fit-content;
 }
 h2{
   text-align: center;
+  margin: 0;
 }
 .carousel-nav{
   width: 70%;
