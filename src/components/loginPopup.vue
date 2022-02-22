@@ -41,6 +41,23 @@
     <small>back</small>
     <small>close</small>
     <h2>signup</h2>
+    <form @submit.prevent="look">
+      <label for="name">Name</label>
+      <input type="text" id="name">
+      <label for="email">Email</label>
+      <input type="text" id="email">
+      <label for="password">Password</label>
+      <input type="password" id="password">
+      <label for="repeat-password">Repeat Password</label>
+      <input type="password" id="repeat-password">
+      <h5>Adress</h5>
+      <label for="street">Street</label>
+      <input type="text" id="street">
+      <label for="zip">Zip</label>
+      <input type="text" id="zip">
+      <label for="city">City</label>
+      <input type="text" id="city">
+    </form>
   </dialog>
 </template>
 
@@ -50,7 +67,18 @@ export default {
   data(){return{
     username: '',
     password: '', 
-    registration: false
+    registration: false,
+    registerUser: {
+      email: '', 
+      name: '',
+      password: '', 
+      adress: {
+        street: '',
+        zip: null,
+        city: ''
+      }
+    }
+
   }},
   computed: {
     logInModal(){
@@ -62,6 +90,9 @@ export default {
 
   }, 
   methods:{
+    look(){
+      console.log(this.registerUser);
+    },
     logInToggle(){
       this.$store.dispatch(Action.TOGGLE_LOGIN)
     }, 
@@ -76,6 +107,13 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/styles/fonts-colors.scss";
+form{
+  display: flex;
+  flex-direction: column;
+  label{
+    margin: 0;
+  }
+}
 .login-popup{
   width: 35rem;
   background-color: #FFFFFF;
@@ -90,7 +128,8 @@ export default {
     font-weight: 600;
   }  
   label{
-    width: 4rem;
+    // width: 4rem;
+    display: block;
     background-color: #FFFFFF;
     transform: translate(12px, 12px);
   }

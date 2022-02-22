@@ -42,11 +42,12 @@
 
 <script>
 import { Icon } from '@iconify/vue2';
+import Action from '@/store/Action.types'
 export default {
   components: {Icon},
   methods: {
     logInToggle(){
-      this.$store.dispatch(Actions.TOGGLE_LOGIN)
+      this.$store.dispatch(Action.TOGGLE_LOGIN)
     }
   }
 }
