@@ -5,7 +5,7 @@
 
           <ul>
             <li v-for="product of carouselProducts" :key="product.id">
-              <ProductItem small />
+              <ProductItem small :product="product"/>
             </li>
           </ul>
         <div class="carousel-nav">
@@ -21,50 +21,16 @@
 
 <script>
 import ProductItem from '@/components/productItem.vue'
-import { Icon } from '@iconify/vue2';
+import Action from '../store/Action.types'
+import { Icon } from '@iconify/vue2'
 export default {
+  async mounted(){
+    this.$store.dispatch(Action.GET_PRODUCTS)
+  },
   components: {ProductItem, Icon},
   data(){return{
     // props: ['tag'],
     mockTag: 'Favourites',
-      mockProducts: [
-        {id: 1,
-        color: 'green',
-        },
-        {id: 2,
-        color: 'blue',
-        },
-        {id: 3,
-        color: 'red',
-        },
-        {id: 4,
-        color: 'yellow',
-        },
-        {id: 5,
-        color: 'brown',
-        },
-        {id: 6,
-        color: 'purple',
-        },
-        {id: 7,
-        color: 'beige',
-        },
-        {id: 8,
-        color: 'grey',
-        },
-        {id: 9,
-        color: 'black',
-        },
-        {id: 10,
-        color: 'lightgreen',
-        },
-        {id: 11,
-        color: 'lightred',
-        },
-        {id: 12,
-        color: 'lightblue',
-        },
-      ],
       start: 0,
       end: 3,
       currentPage: 1,
@@ -107,7 +73,7 @@ export default {
   },
   computed:{
     carouselProducts(){
-      return this.mockProducts.slice(this.start, this.end)
+      return this.$store.getters.products.slice(this.start, this.end)
     },
   }
 };
