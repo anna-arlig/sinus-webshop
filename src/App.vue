@@ -2,7 +2,6 @@
   <div id="app">
     <Header />
     <router-view />
-    <CartPopup />
     <Footer />
     <LogInPopup />
     <FadeLayer />
@@ -10,6 +9,7 @@
 </template>
 
 <script>
+
 import Header from "./components/header.vue"
 import Footer from "./components/footer.vue"
 import LogInPopup from './components/loginPopup.vue'
@@ -19,6 +19,7 @@ import CartPopup from "@/components/cartPopup.vue";
 export default {
   components: { Header, Footer, FadeLayer, LogInPopup, CartPopup },
 }
+
 </script>
 <style lang="scss">
 @import "./assets/styles/fonts-colors.scss";
@@ -26,11 +27,15 @@ export default {
 * {
   box-sizing: border-box;
 }
+body {
+  background-color: #312f30;
+}
 body,
 html {
   margin: 0;
   padding: 0;
   font-size: 16px;
+  color: #312f30;
   line-height: 1.6;
   list-style: none;
   text-decoration: none;
@@ -39,6 +44,7 @@ html {
     position: relative;
     max-width: 1440px;
     margin: 0 auto;
+    background-color: #fff;
     h1,
     h2,
     h3,
