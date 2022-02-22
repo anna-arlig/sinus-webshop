@@ -9,10 +9,9 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    itemList: [],
-    items: {}, 
     productList: [], 
     products: {}, 
+    logInPopup: false
     user: '',
     searchResults: [],
     searchTerms: [...SearchTerms],
@@ -30,6 +29,12 @@ export default new Vuex.Store({
     }, 
     [Mutation.SAVE_USER](state, newUser){
       state.user = newUser
+
+      state.logInPopup = !state.logInPopup
+    }, 
+    [Mutation.LOG_IN_TOGGLE](state){
+      state.logInPopup = !state.logInPopup
+
     },
     [Mutation.UPDATE_SEARCH_RESULTS](state, search){
      //DENNA LÖSNING ANVÄNDER searchTerms.json. Bestäm om vi ska 
@@ -57,9 +62,14 @@ export default new Vuex.Store({
       const response = await API.getProducts()
       context.commit(Mutation.SAVE_PRODUCTS, response)
     }, 
-    async [Action.GET_USER](context){
-      const response = await API.getUser()
+    async [Action.GET_USER](context, user){
+      const response = await API.getUser(user)
       context.commit(Mutation.SAVE_USER, response)
+
+    }, 
+    [Action.TOGGLE_LOGIN](context){
+      context.commit(Mutation.LOG_IN_TOGGLE)
+
     },
     [Action.UPDATE_SEARCH_RESULTS](context, search){
       context.commit(Mutation.UPDATE_SEARCH_RESULTS, search)
