@@ -1,7 +1,7 @@
 <template>
   <section :class="{ large, small }">
     <div class="title" v-if="large">
-      <h3>Apparel / Hoodie - Red</h3>
+      <h3>{{ product.category }}/ {{ product.title }}</h3>
       <div class="first-line"></div>
     </div>
     <div class="product-info">
@@ -10,10 +10,10 @@
       </div>
       <div class="product-details">
         <div class="product-name" v-if="large">
-          <h2>Hoodie - Red</h2>
+          <h2>{{ product.title }}</h2>
           <div class="line"></div>
         </div>
-        <h3 v-if="small">Hoodie - Red</h3>
+        <h3 v-if="small">{{ product.title }}</h3>
         <div class="stars">
           <img src="../assets/images/star.svg" alt="star" />
           <img src="../assets/images/star.svg" alt="star" />
@@ -23,14 +23,10 @@
           <p class="reviews" v-if="large">Read 15 other reviews</p>
         </div>
         <p v-if="large">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Optio
-          praesentium dignissimos, ut quod laborum laudantium, hic obcaecati
-          impedit veritatis natus.
+          {{ longDesc }}
         </p>
         <p v-if="large">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil sint
-          fugit exercitationem eveniet numquam reprehenderit quisquam non,
-          provident aperiam quia.
+          {{ shortDesc }}
         </p>
         <h3 class="price">$85</h3>
         <button v-if="large" @click="addProductToCart">Add to cart</button>
@@ -42,14 +38,7 @@
 <script>
 export default {
   props: {
-    id: Number,
-    title: String,
-    price: Number,
-    specialEdition: Boolean,
-    shortDesc: String,
-    category: String,
-    prototypelongDesc: String,
-    imgFile: String,
+    product: Object,
     large: Boolean,
     small: Boolean,
   },
