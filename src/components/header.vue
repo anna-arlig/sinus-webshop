@@ -90,6 +90,10 @@ export default {
   justify-content: space-between;
   align-items: flex-end;
   font-family: $heading;
+
+  a{
+    @include flex-center;
+  }
 }
 
 .links {
