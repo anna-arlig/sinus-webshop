@@ -11,7 +11,7 @@ export default new Vuex.Store({
   state: {
     productList: [], 
     products: {}, 
-    logInPopup: false
+    logInPopup: false,
     user: '',
     searchResults: [],
     searchTerms: [...SearchTerms],
