@@ -9,11 +9,11 @@
             </li>
           </ul>
         <div class="carousel-nav">
-        <button @click="updatePageCounter('back')">back</button>
+        <button @click="updatePageCounter('back')"><Icon icon="dashicons:arrow-left-alt2" class="icon" /></button>
         <div class="circle" :class="{active: isActive.first}"></div>
         <div class="circle" :class="{active: isActive.second}"></div>
         <div class="circle" :class="{active: isActive.third}"></div>
-        <button @click="updatePageCounter('forward')">forward</button>
+        <button @click="updatePageCounter('forward')"><Icon icon="dashicons:arrow-right-alt2" class="icon" /></button>
 
         </div>
   </div>
@@ -21,8 +21,9 @@
 
 <script>
 import ProductItem from '@/components/productItem.vue'
+import { Icon } from '@iconify/vue2';
 export default {
-  components: {ProductItem},
+  components: {ProductItem, Icon},
   data(){return{
     // props: ['tag'],
     mockTag: 'Favourites',
@@ -128,16 +129,18 @@ export default {
 }
 ul{
   display: flex;
-  flex-direction: row;
   list-style: none;
   padding: 0;
+  height: fit-content;
 }
 h2{
   text-align: center;
+  margin: 0;
 }
 .carousel-nav{
-  display: flex;
-  flex-direction: row;
+  width: 70%;
+  @include flex-center;
+  justify-content: space-evenly;
 }
 .circle{
   width: 20px;
@@ -145,9 +148,24 @@ h2{
   border-radius: 50%;
   background-color: $grey;
 }
-
 .active{
-  background-color: black;
+ background-color: rgb(59, 59, 59);
+ transition: .5s ease;
+  
+}
+.icon{
+  width: 40px;
+  height: 40px;
+}
+button{
+  border: none;
+  background-color:rgba(0, 255, 255, 0);
+  transition: .2s ease;
+
+  &:hover{
+    transform: scale(1.1)
+    
+  }
 }
 
 

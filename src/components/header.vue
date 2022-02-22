@@ -15,8 +15,14 @@
 
       <div class="links-and-search">
         <div class="links">
-          <div class="login">
+
+          <div class="login" 
+            @click="logInToggle"
+          >
+           
+        
             <Icon icon="bxs:user" width="35" />
+
             <p>Log in</p>
           </div>
           <div class="favourites">
@@ -54,6 +60,9 @@ export default {
   }},
   components: {Icon, CartPopup},
   methods:{
+  logInToggle(){
+      this.$store.dispatch(Action.TOGGLE_LOGIN)
+      },
     updateSearchResults(){
       this.$store.dispatch(Action.UPDATE_SEARCH_RESULTS, this.search.toLowerCase())
     }
@@ -61,6 +70,7 @@ export default {
   computed:{
     searchResults(){
       return this.$store.state.searchResults
+
     }
   }
 }
@@ -90,6 +100,10 @@ export default {
   justify-content: space-between;
   align-items: flex-end;
   font-family: $heading;
+
+  a{
+    @include flex-center;
+  }
 }
 
 .links {

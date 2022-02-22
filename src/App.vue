@@ -3,17 +3,23 @@
     <Header />
     <router-view />
     <Footer />
+    <LogInPopup />
+    <FadeLayer />
   </div>
 </template>
 
 <script>
-import Header from "./components/header.vue";
-import Footer from "./components/footer.vue";
 
+import Header from "./components/header.vue"
+import Footer from "./components/footer.vue"
+import LogInPopup from './components/loginPopup.vue'
+import FadeLayer from './components/FadeLayer.vue'
+import CartPopup from "@/components/cartPopup.vue";
 
 export default {
-  components: { Header, Footer},
-};
+  components: { Header, Footer, FadeLayer, LogInPopup, CartPopup },
+}
+
 </script>
 <style lang="scss">
 @import "./assets/styles/fonts-colors.scss";
@@ -35,6 +41,7 @@ html {
   text-decoration: none;
   @include flex-col-center;
   #app {
+    position: relative;
     max-width: 1440px;
     margin: 0 auto;
     background-color: #fff;
