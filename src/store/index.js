@@ -1,33 +1,31 @@
-import Vue from "vue"
-import Vuex from "vuex"
-import * as API from "@/api/mock.js"
-import Action from "./Action.types"
-import Mutation from "./Mutations.types"
-import SearchTerms from "@/assets/searchTerms.json"
+import Vue from 'vue'
+import Vuex from 'vuex'
+import * as API from '@/api/API.js'
+import Action from './Action.types'
+import Mutation from './Mutations.types'
+import SearchTerms from '@/assets/searchTerms.json'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    productList: [],
-    products: {},
+    productList: [], 
+    products: {}, 
     logInPopup: false,
-    user: "",
+    user: '',
     searchResults: [],
     searchTerms: [...SearchTerms],
   },
   mutations: {
-    savePosts(state, items) {
-      for (let item of items) {
-        state.postList.push(item)
-        Vue.set(state.items, item.id, item)
-      }
-    },
-    [Mutation.SAVE_PRODUCTS](state, fetchedProducts) {
+    
+    [Mutation.SAVE_PRODUCTS](state, fetchedProducts){
+     
       state.productList.push(...fetchedProducts)
-      Vue.set(state.products, 1, { ...fetchedProducts })
-    },
-    [Mutation.SAVE_USER](state, newUser) {
+      for(let product of fetchedProducts){   
+        Vue.set(state.products, product.id, product)   
+      }
+    }, 
+    [Mutation.SAVE_USER](state, newUser){
       state.user = newUser
 
       state.logInPopup = !state.logInPopup
@@ -53,11 +51,13 @@ export default new Vuex.Store({
       const response = await API.fetchItems()
       context.commit("savePosts", response)
     },
-    async [Action.GET_PRODUCTS](context) {
+    async [Action.GET_PRODUCTS](context){
+    
       const response = await API.getProducts()
-      context.commit(Mutation.SAVE_PRODUCTS, response)
-    },
-    async [Action.GET_USER](context, user) {
+     
+      context.commit(Mutation.SAVE_PRODUCTS, response.data.products)
+    }, 
+    async [Action.GET_USER](context, user){
       const response = await API.getUser(user)
       context.commit(Mutation.SAVE_USER, response)
     },
@@ -67,6 +67,12 @@ export default new Vuex.Store({
     [Action.UPDATE_SEARCH_RESULTS](context, search) {
       context.commit(Mutation.UPDATE_SEARCH_RESULTS, search)
     },
+    
+  },
+  getters: {
+    products(state){
+      return state.productList
+    }
   },
   modules: {},
 })
