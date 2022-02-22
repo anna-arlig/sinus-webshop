@@ -11,11 +11,13 @@
 <script>
 import Header from "./components/header.vue"
 import Footer from "./components/footer.vue"
-import LogInPopup from "./components/loginPopup.vue"
-import FadeLayer from "./components/FadeLayer.vue"
+import LogInPopup from './components/loginPopup.vue'
+import FadeLayer from './components/FadeLayer.vue'
+
 
 export default {
-  components: { Header, Footer, FadeLayer, LogInPopup },
+  components: { Header, Footer, FadeLayer, LogInPopup},
+
 }
 </script>
 <style lang="scss">
