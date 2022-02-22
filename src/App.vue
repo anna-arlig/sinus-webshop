@@ -14,10 +14,9 @@ import Header from "./components/header.vue"
 import Footer from "./components/footer.vue"
 import LogInPopup from './components/loginPopup.vue'
 import FadeLayer from './components/FadeLayer.vue'
-import CartPopup from "@/components/cartPopup.vue";
 
 export default {
-  components: { Header, Footer, FadeLayer, LogInPopup, CartPopup },
+  components: { Header, Footer, FadeLayer, LogInPopup},
 }
 
 </script>
