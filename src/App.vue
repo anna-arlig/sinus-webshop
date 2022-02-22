@@ -18,7 +18,6 @@ import FadeLayer from './components/FadeLayer.vue'
 export default {
   components: { Header, Footer, FadeLayer, LogInPopup},
 }
-
 </script>
 <style lang="scss">
 @import "./assets/styles/fonts-colors.scss";

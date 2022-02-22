@@ -2,21 +2,15 @@
   <div class="footer">
     <div class="top-part">
       <div class="shipping">
-        <img
-          src="@/assets/images/local_shipping.svg"
-          alt="Shipping truck icon"
-        />
+        <Icon icon="ic:baseline-local-shipping" width="80" />
         <h4>Fast shipping</h4>
       </div>
       <div class="returns">
-        <img src="@/assets/images/gift-package.svg" alt="Return box icon" />
+        <Icon icon="bxs:package" width="80" />
         <h4>Easy returns</h4>
       </div>
       <div class="created">
-        <img
-          src="@/assets/images/skateboard-icon.svg"
-          alt="Created by skaters icon"
-        />
+        <Icon icon="mdi:skateboard" width="80" />
 
         <h4>Created by skaters</h4>
       </div>
@@ -55,7 +49,12 @@
 </template>
 
 <script>
-export default {};
+import { Icon } from "@iconify/vue2";
+export default {
+  components: {
+    Icon,
+  },
+};
 </script>
 
 <style scoped lang="scss">
