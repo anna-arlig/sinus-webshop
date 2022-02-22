@@ -50,12 +50,12 @@ export default {
         this.end -= 3
         this.currentPage --
       }
-      else if(direction === 'forward' && this.end<this.mockProducts.length -3){
+      else if(direction === 'forward' && this.end<this.$store.getters.products -3){
         this.start += 3
         this.end += 3
         this.currentPage ++
       }
-      this.isActive.first = false
+      this.isActive.first = true
       this.isActive.second = false
       this.isActive.third = false
 
