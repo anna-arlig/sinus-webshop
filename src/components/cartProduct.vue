@@ -11,22 +11,14 @@
           <p class="category">SINUS SKATEBOARD -</p>
           <p class="title">Northern lights</p>
         </div>
-        <img src="@/assets/images/Trash.png" alt="Delete this product icon" />
+        <Icon icon="ci:trash-empty" color="#bf3600" />
       </div>
       <div class="info-part">
-        <p class="price">85$</p>
+        <p class="price">$85</p>
         <div class="quantity">
-          <img
-            class="qty-btn"
-            src="@/assets/images/minus.png"
-            alt="Decrease quantity of this product icon"
-          />
+          <Icon class="qty-btn" icon="akar-icons:minus" color="#006a72" />
           <p class="quantity-paragraph">1</p>
-          <img
-            class="qty-btn"
-            src="@/assets/images/Plus.png"
-            alt="Increase quantity of this product icon"
-          />
+          <Icon class="qty-btn" icon="akar-icons:plus" color="#006a72" />
         </div>
       </div>
     </div>
@@ -34,12 +26,18 @@
 </template>
 
 <script>
-export default {};
+import { Icon } from "@iconify/vue2";
+export default {
+  components: {
+    Icon,
+  },
+};
 </script>
 
 <style scoped lang="scss">
 @import "@/assets/styles/fonts-colors.scss";
 @import "@/assets/styles/mixins.scss";
+
 .cartProduct {
   border: 1px solid $teal;
   border-radius: 5px;
