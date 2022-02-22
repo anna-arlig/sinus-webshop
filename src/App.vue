@@ -33,7 +33,7 @@ html {
   line-height: 1.6;
   list-style: none;
   text-decoration: none;
-  @include flex-col-center;
+  // @include flex-col-center;
   #app {
     max-width: 1440px;
     margin: 0 auto;
