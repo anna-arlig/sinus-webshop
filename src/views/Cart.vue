@@ -4,16 +4,12 @@
     <main>
       <div class="cart-items">
         <div class="headers">
-          <div class="left-part">
-            <p>PRODUCT</p>
-          </div>
-          <div class="right-part">
-            <p>PRICE</p>
-            <p>QTY</p>
-            <p>TOTAL PRICE</p>
-          </div>
+          <p>PRODUCT</p>
+          <p>PRICE</p>
+          <p>QTY</p>
+          <p>TOTAL PRICE</p>
         </div>
-        <CartProduct
+        <CartViewProduct
           v-for="product in cart"
           :key="product.id"
           class="cart-product"
@@ -21,8 +17,8 @@
       </div>
       <div class="checkout">
         <div class="subtotal">
-          <p>SUBTOTAL</p>
-          <p>$150</p>
+          <p><strong>SUBTOTAL</strong></p>
+          <p><strong>$150</strong></p>
         </div>
         <div class="shipping-fee">
           <p>SHIPPING FEE</p>
@@ -43,10 +39,10 @@
 </template>
 
 <script>
-import CartProduct from "@/components/cartProduct.vue";
+import CartViewProduct from "@/components/cartViewProduct.vue";
 import Carousel from "@/components/carousel.vue";
 export default {
-  components: { CartProduct, Carousel },
+  components: { CartViewProduct, Carousel },
   data() {
     return {
       carousel: false,
@@ -95,12 +91,12 @@ main {
 }
 
 .cart-items {
-  min-width: 538px;
+  min-width: 55%;
   margin-left: 30px;
 }
 
 .checkout {
-  min-width: 237px;
+  min-width: 30%;
   margin-right: 30px;
 }
 
@@ -114,13 +110,17 @@ main {
 
 .headers {
   border-bottom: 1px solid $teal;
-  @include flex-center;
-  justify-content: space-between;
+  display: grid;
+  text-align: center;
+  grid-template-columns: 2fr 0.8fr 1fr 1.3fr;
+  p:first-of-type {
+    text-align: left;
+  }
   p {
     margin: 15px;
   }
 }
-.right-part,
+
 .subtotal,
 .shipping-fee,
 .total {
@@ -128,8 +128,20 @@ main {
   justify-content: space-between;
 }
 
+.shipping-fee {
+  p {
+    margin: 0px;
+  }
+}
+
+.total {
+  p {
+    margin: 0px;
+  }
+}
 .tax {
   border-bottom: 1px solid $teal;
+  margin-top: 60px;
 }
 
 button {
