@@ -24,14 +24,14 @@
 </template>
 
 <script>
-import { GET_PRODUCTS } from "@/store/Action.types";
+// import { GET_PRODUCTS } from "@/store/Action.types";
 import CategorySection from "@/components/CategorySection.vue";
 import Carousel from "@/components/carousel.vue";
 export default {
   components: { CategorySection, Carousel },
-  async mounted() {
-    this.$store.dispatch(GET_PRODUCTS);
-  },
+  // async mounted() {
+  //   // this.$store.dispatch(GET_PRODUCTS);
+  // },
 };
 </script>
 
