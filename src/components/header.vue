@@ -16,8 +16,15 @@
 
       <div class="links-and-search">
         <div class="links">
-          <div class="login" @click="logInToggle">
-            <Icon icon="bxs:user" width="30" />
+
+
+          <div class="login" 
+            @click="modalToggle"
+          >
+           
+        
+            <Icon icon="bxs:user" width="35" />
+
 
             <p>Log in</p>
           </div>
@@ -58,23 +65,18 @@ import { Icon } from "@iconify/vue2"
 import CartPopup from "@/components/cartPopup.vue"
 import Action from "../store/Action.types"
 export default {
-  data() {
-    return {
-      cartHover: false,
-      search: "",
+  data(){return{
+    cartHover: false,
+    search: '',
+  }},
+  components: {Icon, CartPopup},
+  methods:{
+  modalToggle(){
+      this.$store.dispatch(Action.TOGGLE_MODAL)
+      },
+    updateSearchResults(){
+      this.$store.dispatch(Action.UPDATE_SEARCH_RESULTS, this.search.toLowerCase())
     }
-  },
-  components: { Icon, CartPopup },
-  methods: {
-    logInToggle() {
-      this.$store.dispatch(Action.TOGGLE_LOGIN)
-    },
-    updateSearchResults() {
-      this.$store.dispatch(
-        Action.UPDATE_SEARCH_RESULTS,
-        this.search.toLowerCase()
-      )
-    },
   },
   computed: {
     searchResults() {

@@ -31,8 +31,7 @@
           <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit eum
             maxime voluptatibus consequuntur unde explicabo laboriosam odit,
-            temporibus, eos officiis deserunt voluptates non suscipit quasi,
-            rerum atque quod odio distinctio!
+            temporibus, eos officiis deserunt!
           </p>
         </div>
         <div class="contact">
@@ -40,9 +39,13 @@
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad commodi
             nulla, minus provident, consequatur doloribus molestias architecto
-            sunt voluptas facere nesciunt dignissimos consequuntur.
+            sunt voluptas.
           </p>
         </div>
+        <img
+          src="http://localhost:5000/images/sinus-logo-landscape.svg"
+          alt=""
+        />
       </div>
     </div>
   </div>
@@ -60,12 +63,13 @@ export default {
 <style scoped lang="scss">
 @import "@/assets/styles/fonts-colors.scss";
 @import "@/assets/styles/mixins.scss";
+p {
+  font-size: 10px;
+}
+
 .footer {
   width: 100vw;
   max-width: 1440px;
-}
-img {
-  width: 50px;
 }
 
 .shipping,
@@ -97,15 +101,20 @@ h4 {
 .bottom-part {
   background-color: $yellow;
   @include flex-col-center;
+  img {
+    width: 250px;
+    margin-left: 10px;
+  }
 }
 
 .info {
   @include flex-center;
+  margin: 20px;
 }
 
 .social,
 .contact,
 .help {
-  margin: 10px;
+  margin: 15px;
 }
 </style>
