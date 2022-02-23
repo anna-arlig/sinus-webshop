@@ -7,7 +7,7 @@
       </div>
     </section>
     <CategorySection />
-    <Carousel/>
+    <Carousel />
 
     <section class="greta">
       <article></article>
@@ -25,14 +25,14 @@
 
 <script>
 // import { GET_PRODUCTS } from "@/store/Action.types";
-import CategorySection from "@/components/CategorySection.vue";
-import Carousel from "@/components/carousel.vue";
+import CategorySection from "@/components/CategorySection.vue"
+import Carousel from "@/components/carousel.vue"
 export default {
   components: { CategorySection, Carousel },
   // async mounted() {
   //   // this.$store.dispatch(GET_PRODUCTS);
   // },
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -46,9 +46,10 @@ export default {
   .hero {
     background-image: url("../assets/images/home-hero.jpg");
     background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
     width: 100%;
-    height: 40rem;
+    height: 35rem;
     display: flex;
     flex-direction: column;
     align-items: flex-end;

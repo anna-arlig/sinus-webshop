@@ -28,7 +28,7 @@
         <p v-if="large">
           {{ shortDesc }}
         </p>
-        <h3 class="price">$85</h3>
+        <h3 class="price">${{ product.price }}</h3>
         <button v-if="large" @click="addProductToCart">Add to cart</button>
       </div>
     </div>
