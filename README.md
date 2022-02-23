@@ -1,6 +1,6 @@
 # sinus-webshop
 
-<img src="@/assets/images/team.png" width="600">
+![This is an image](src/assets/images/team.png)
 
 ## Arbetsplanering
 
