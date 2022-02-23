@@ -53,10 +53,10 @@ export default new Vuex.Store({
 
       context.commit(Mutation.SAVE_PRODUCTS, response.data)
     },
-    // async [Action.GET_USER](context, user) {
-    //   const response = await API.getUser(user)
-    //   context.commit(Mutation.SAVE_USER, response)
-    // },
+    async [Action.GET_USER](context, user) {
+      const response = await API.getUser(user)
+      context.commit(Mutation.SAVE_USER, response)
+    },
     async [Action.GET_CATEGORY](context, query) {
       const response = await API.getCategory(query)
       context.commit(Mutation.SAVE_PRODUCTS, response.data)
