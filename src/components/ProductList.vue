@@ -1,11 +1,10 @@
 <template>
   <section class="product-list">
-    <ProductItem small />
-    <ProductItem small />
-    <ProductItem small />
-    <ProductItem small />
-    <ProductItem small />
-    <ProductItem small />
+    <ul>
+      <li v-for="product in skateboards" :key="product.id">
+        <ProductItem small :product="product" />
+      </li>
+    </ul>
   </section>
 </template>
 
@@ -14,6 +13,9 @@ import ProductItem from "../components/productItem"
 export default {
   components: {
     ProductItem,
+  },
+  props: {
+    skateboards: Array,
   },
 }
 </script>

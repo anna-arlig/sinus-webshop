@@ -4,7 +4,7 @@
       <h1>Apparel / Hoodies</h1>
       <div class="first-line"></div>
     </div>
-    <ProductList />
+    <ProductList :skateboards="skateboards" />
   </div>
 </template>
 
@@ -13,6 +13,9 @@ import ProductList from "../components/ProductList"
 export default {
   components: {
     ProductList,
+  },
+  props: {
+    skateboards: Array,
   },
 }
 </script>
