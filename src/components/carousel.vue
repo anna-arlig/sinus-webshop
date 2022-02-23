@@ -51,7 +51,7 @@ export default {
         this.end -= 3
         this.currentPage --
       }
-      else if(direction === 'forward' && this.end < this.$store.getters.productList -3){
+      else if(direction === 'forward' && this.end < this.$store.getters.products.length -3){
         this.start += 3
         this.end += 3
         this.currentPage ++
@@ -75,7 +75,7 @@ export default {
   computed:{
     
     carouselProducts(){
-      return this.$store.getters.productList.slice(this.start, this.end)
+      return this.$store.getters.products.slice(this.start, this.end)
     },
   }
 };

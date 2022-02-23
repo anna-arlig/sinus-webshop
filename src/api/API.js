@@ -1,5 +1,5 @@
 import axios from 'axios'
-axios.defaults.baseURL = 'http://localhost:5001/api'
+axios.defaults.baseURL = 'http://localhost:5000/api'
 
 export function saveToken(token){
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`

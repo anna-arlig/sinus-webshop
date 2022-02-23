@@ -11,8 +11,6 @@
         <a>Apparel <Icon icon="dashicons:arrow-down-alt2" /></a>
         <a>Accessories <Icon icon="dashicons:arrow-down-alt2" /></a>
         <a>Brands <Icon icon="dashicons:arrow-down-alt2" /></a>
-        <p>{{BASE_URL}}</p>
-        
       </div>
 
       <div class="links-and-search">
