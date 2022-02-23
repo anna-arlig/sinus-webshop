@@ -34,10 +34,10 @@ export default new Vuex.Store({
       state.showLogIn = !state.showLogIn
     },
     [Mutation.UPDATE_SEARCH_RESULTS](state, search) {
-      //DENNA LÖSNING ANVÄNDER searchTerms.json. Bestäm om vi ska
-      //göra det eller filtrera på category.
+      
 
       if (search.length) {
+      
         state.searchResults = state.searchTerms.filter((product) => {
           return product.toLowerCase().includes(search)
         })
@@ -48,10 +48,8 @@ export default new Vuex.Store({
   },
   actions: {
     async [Action.GET_PRODUCTS](context){
-    
       const response = await API.getProducts()
-     
-      context.commit(Mutation.SAVE_PRODUCTS, response.data.products)
+      context.commit(Mutation.SAVE_PRODUCTS, response.data)
     }, 
     async [Action.GET_USER](context, user){
       const response = await API.getUser(user)

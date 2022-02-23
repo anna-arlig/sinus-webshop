@@ -55,7 +55,6 @@ import CartPopup from "@/components/cartPopup.vue";
 import Action from '../store/Action.types'
 export default {
   data(){return{
-    BASE_URL: process.env.VUE_APP_BASE_URL,
     cartHover: false,
     search: '',
   }},

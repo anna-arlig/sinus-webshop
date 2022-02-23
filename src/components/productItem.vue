@@ -6,7 +6,7 @@
     </div>
     <div class="product-info">
       <div class="product-img">
-        <img src="../assets/images/hoodie-red.jpg" alt="" />
+        <img :src="`${BASE_URL}/images/${product.imgFile}`" alt="" />
       </div>
       <div class="product-details">
         <div class="product-name" v-if="large">
@@ -37,6 +37,9 @@
 
 <script>
 export default {
+  data(){return{
+    BASE_URL: process.env.VUE_APP_BASE_URL
+  }},
   props: {
     product: Object,
     large: Boolean,

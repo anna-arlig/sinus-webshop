@@ -1,12 +1,16 @@
 import axios from 'axios'
-axios.defaults.baseURL = 'http://localhost:5000/api'
+axios.defaults.baseURL = process.env.VUE_APP_BASE_URL+'/api'
+
+
+
+
 
 export function saveToken(token){
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
 }
 
 export async function getProducts(){
-  return await axios.get('/items')
+  return await axios.get('/items/')
 }
 
 export async function getUser({email, password}){
