@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { Icon } from "@iconify/vue2";
+import { Icon } from "@iconify/vue2"
 export default {
   data(){return{
     BASE_URL: process.env.VUE_APP_BASE_URL
@@ -60,7 +60,7 @@ export default {
   components: {
     Icon,
   },
-};
+}
 </script>
 
 <style scoped lang="scss">

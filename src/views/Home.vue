@@ -9,6 +9,7 @@
     <CategorySection />
     <Carousel/>
     <GretaSection :gretaProducts="greta" />
+    <Carousel />
   </main>
 </template>
 
@@ -40,9 +41,10 @@ export default {
   .hero {
     background-image: url("../assets/images/home-hero.jpg");
     background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
     width: 100%;
-    height: 40rem;
+    height: 35rem;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
