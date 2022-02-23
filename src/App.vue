@@ -14,7 +14,6 @@ import Footer from "./components/footer.vue"
 import LogInPopup from './components/loginPopup.vue'
 import FadeLayer from './components/FadeLayer.vue'
 
-
 export default {
   components: { Header, Footer, FadeLayer, LogInPopup},
   mounted(){

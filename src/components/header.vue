@@ -19,7 +19,7 @@
         <div class="links">
 
           <div class="login" 
-            @click="logInToggle"
+            @click="modalToggle"
           >
            
         
@@ -63,8 +63,8 @@ export default {
   }},
   components: {Icon, CartPopup},
   methods:{
-  logInToggle(){
-      this.$store.dispatch(Action.TOGGLE_LOGIN)
+  modalToggle(){
+      this.$store.dispatch(Action.TOGGLE_MODAL)
       },
     updateSearchResults(){
       this.$store.dispatch(Action.UPDATE_SEARCH_RESULTS, this.search.toLowerCase())

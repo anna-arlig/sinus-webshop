@@ -6,7 +6,7 @@
 export default {
   computed:{
     fading(){
-      return this.$store.state.logInPopup
+      return this.$store.state.modal
     }
   }
 }
