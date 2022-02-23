@@ -44,7 +44,7 @@
         </div>
         <img
           src="http://localhost:5000/images/sinus-logo-landscape.svg"
-          alt=""
+          alt="Sinus logo"
         />
       </div>
     </div>
