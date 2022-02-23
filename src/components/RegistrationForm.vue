@@ -7,44 +7,44 @@
     <h2>Signup</h2>
     <form @submit.prevent="signUp">
       <label for="name">Name</label>
-      <input type="text" id="name"
+      <input type="text" id="name" placeholder="Bingo Berra"
         :class="{error: error.name}"
         @input="validateCharacters" 
         v-model="name" 
       >
       <small>{{error.name}}</small>
       <label for="email">Email</label>
-      <input type="text" id="email"
+      <input type="text" id="email" placeholder="bingo@berra.com"
         v-model="email" 
         :class="{error: error.email}"
       >
       <small>{{error.email}}</small>
       <label for="password">Password</label>
-      <input type="password" id="password"
+      <input type="password" id="password" placeholder="minimum 8 characters"
         v-model="password" 
         :class="{error: error.password}"
       >
       <small>{{error.password}}</small>
       <label for="repeat-password">Repeat Password</label>
-      <input type="password" id="repeat-password"
+      <input type="password" id="repeat-password" placeholder="repeat password"
         v-model="repeatPassword" 
         :class="{error: error.password}"
       >
       <h2>Adress</h2>
       <label for="street">Street</label>
-      <input type="text" id="street"
+      <input type="text" id="street" placeholder="jörgansväg 33"
         v-model="street" 
         :class="{error: error.street}"
       >
       <small>{{error.street}}</small>
       <label for="zip">Zip</label>
-      <input type="text" maxlength="5" minlength="5"
+      <input type="text" maxlength="5" minlength="5" placeholder="12345"
         v-model="zip" 
         :class="{error: error.zip}"
       >
       <small>{{error.zip}}</small>
       <label for="city">City</label>
-      <input type="text" id="city"
+      <input type="text" id="city" placeholder="City"
         v-model="city" 
         :class="{error: error.city}"
       >
@@ -70,13 +70,13 @@ export default {
 	},
   data(){return{
     minPasswordLength: 8,
-    email: 'd@b.com', 
-    name: 'bingo berra',
-    password: '12121212', 
-    repeatPassword: '12121212',
-    street: 'reter',
-    zip: 12345,
-    city: 'qwert',
+    email: '', 
+    name: '',
+    password: '', 
+    repeatPassword: '',
+    street: '',
+    zip: null,
+    city: '',
     validName: false, 
     noNumberInName: false,
     validPassword: false,

@@ -7,11 +7,11 @@
       <i @click="logInToggle"><Icon icon="mdi:close" width="25" /></i>
     </span>
     <label for="email">Email</label>
-    <input type="text" id="email" required
+    <input type="text" id="email" required placeholder="bingo@berra.com"
       v-model="email"
     >
     <label for="password">Password</label>
-    <input type="password" id="password" required
+    <input type="password" id="password" required placeholder="********"
       v-model="password"
     >
     <span class="btn-controller">
@@ -40,8 +40,8 @@ export default {
   components: {RegistrationForm, Icon},
   data(){return{
     currentModal: 'login',
-    email: 'customer@example.com',
-    password: 'password', 
+    email: '',
+    password: '', 
   }},
   computed: {
     modal(){
@@ -49,6 +49,9 @@ export default {
     }, 
   }, 
   methods:{
+    logInToggle(){
+      this.$store.dispatch(Action.TOGGLE_MODAL)
+    }, 
     setCurrentModal(){
       this.currentModal = 'login'
     },
