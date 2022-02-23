@@ -17,6 +17,9 @@ import FadeLayer from './components/FadeLayer.vue'
 
 export default {
   components: { Header, Footer, FadeLayer, LogInPopup},
+  mounted(){
+    console.log(process.env)
+  }
 
 }
 </script>

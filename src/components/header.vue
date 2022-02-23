@@ -11,6 +11,8 @@
         <a>Apparel <Icon icon="dashicons:arrow-down-alt2" /></a>
         <a>Accessories <Icon icon="dashicons:arrow-down-alt2" /></a>
         <a>Brands <Icon icon="dashicons:arrow-down-alt2" /></a>
+        <p>{{BASE_URL}}</p>
+        
       </div>
 
       <div class="links-and-search">
@@ -55,6 +57,7 @@ import CartPopup from "@/components/cartPopup.vue";
 import Action from '../store/Action.types'
 export default {
   data(){return{
+    BASE_URL: process.env.VUE_APP_BASE_URL,
     cartHover: false,
     search: '',
   }},

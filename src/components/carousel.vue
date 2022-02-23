@@ -16,6 +16,7 @@
         <button @click="updatePageCounter('forward')"><Icon icon="dashicons:arrow-right-alt2" class="icon" /></button>
 
         </div>
+      
   </div>
 </template>
 
