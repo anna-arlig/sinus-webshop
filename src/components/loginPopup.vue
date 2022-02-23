@@ -1,104 +1,67 @@
 <template>
   <dialog open class="login-popup"
-    v-if="logInModal && !loggedInUser && !registration"
+    v-if="modal && currentModal == 'login'"
   >
-    <p>Log in</p>   
-    <label for="username">Username</label>
-    <input type="text" id="username" required
-      v-model="username"
+    <span>
+      <h2>Log in</h2>  
+      <i @click="logInToggle"><Icon icon="mdi:close" width="25" /></i>
+    </span>
+    <label for="email">Email</label>
+    <input type="text" id="email" required
+      v-model="email"
     >
     <label for="password">Password</label>
     <input type="password" id="password" required
       v-model="password"
     >
-    <span>
+    <span class="btn-controller">
       <button
         @click="signIn"
       >
         Log in
       </button>
-      <button @click="logInToggle">Cancel</button>
+      <button @click="closeModal">Cancel</button>
     </span>
-    <a @click="registration = true"
+    <a @click="currentModal = 'registration'"
     >
       Sign up
     </a>
-  </dialog>  
-  <dialog class="login-popup"
-    v-else-if="logInModal && loggedInUser && !registration"
-  >
-    <h3>Logged in as</h3>
-    <h5>{{loggedInUser.name}}</h5>
-    <h5>ORDERHISTORY?</h5>
-    <button 
-      @click="logInToggle"
-    >
-      ok</button>
   </dialog>
-  <dialog class="login-popup"
-    v-else-if="registration"
-  >
-    <small>back</small>
-    <small>close</small>
-    <h2>signup</h2>
-    <form @submit.prevent="look">
-      <label for="name">Name</label>
-      <input type="text" id="name">
-      <label for="email">Email</label>
-      <input type="text" id="email">
-      <label for="password">Password</label>
-      <input type="password" id="password">
-      <label for="repeat-password">Repeat Password</label>
-      <input type="password" id="repeat-password">
-      <h5>Adress</h5>
-      <label for="street">Street</label>
-      <input type="text" id="street">
-      <label for="zip">Zip</label>
-      <input type="text" id="zip">
-      <label for="city">City</label>
-      <input type="text" id="city">
-    </form>
-  </dialog>
+  <RegistrationForm v-else-if="modal && currentModal == 'registration'"
+    @goBack='setCurrentModal'
+  />
 </template>
 
 <script>
+import { Icon } from '@iconify/vue2';
+import RegistrationForm from './RegistrationForm.vue'
 import Action from '@/store/Action.types'
 export default {
+  components: {RegistrationForm, Icon},
   data(){return{
-    username: '',
-    password: '', 
-    registration: false,
-    registerUser: {
-      email: '', 
-      name: '',
-      password: '', 
-      adress: {
-        street: '',
-        zip: null,
-        city: ''
-      }
-    }
-
+    currentModal: 'login',
+    email: 'customer@example.com',
+    password: 'password', 
   }},
   computed: {
-    logInModal(){
-      return this.$store.state.logInPopup
+    modal(){
+      return this.$store.state.showLogIn
     }, 
-    loggedInUser(){
-      return this.$store.state.user
-    }, 
-
   }, 
   methods:{
-    look(){
-      console.log(this.registerUser);
+    setCurrentModal(){
+      this.currentModal = 'login'
     },
-    logInToggle(){
-      this.$store.dispatch(Action.TOGGLE_LOGIN)
+    closeModal(){
+      this.$store.dispatch(Action.TOGGLE_MODAL)
     }, 
     signIn(){
-      this.$store.dispatch(Action.GET_USER, {...this.username, ...this.password})
-      this.username = ''
+      const user = {
+        email: this.email, 
+        password: this.password
+      }
+      this.$store.dispatch(Action.GET_USER, user)
+      this.email = ''
       this.password = ''
     }
   }
@@ -123,12 +86,23 @@ form{
   display: flex;
   flex-direction: column;
   z-index: 5;
-  p{
+  padding: 1rem 2rem;
+  box-sizing: border-box;
+  span{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    i:hover{
+      cursor: pointer;
+    }
+  }
+  h2{
     font-size: 2rem;
     font-weight: 600;
+    margin: 0;
   }  
   label{
-    // width: 4rem;
+    width: 4rem;
     display: block;
     background-color: #FFFFFF;
     transform: translate(12px, 12px);
@@ -138,11 +112,11 @@ form{
     border-radius: 4px;
     border: 1px solid $teal;
   }
-  span{
+  .btn-controller{
     align-self: flex-end;
     button{
       border-radius: 4px;
-      margin: 1rem 1rem 0 0;
+      margin: 1rem 0 0 1rem;
       padding: .5rem 3rem;
       text-align: center;
       color: #FFFFFF;
