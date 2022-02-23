@@ -15,6 +15,7 @@ export default new Vuex.Store({
     user: '',
     searchResults: [],
     searchTerms: [...SearchTerms],
+    savedSearchResults: [],
   },
   mutations: {
     
@@ -45,6 +46,9 @@ export default new Vuex.Store({
         state.searchResults = []
       }
     },
+    saveSearchResult(state, search){
+      state.savedSearchResults = [...search]
+    }
   },
   actions: {
     async [Action.GET_PRODUCTS](context){
@@ -68,6 +72,11 @@ export default new Vuex.Store({
       const response = await API.createUser(newUser)
       context
       console.log(response);
+    },
+    async [Action.MARKUS_SEARCH](context, searchWord){
+      const response = await API.markusSearch(searchWord.toLowerCase())
+      context.commit('saveSearchResults', response)
+      console.log(response.data)
     }
     
   },
