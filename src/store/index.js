@@ -47,15 +47,11 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    async fetchItems(context) {
-      const response = await API.fetchItems()
-      context.commit("savePosts", response)
-    },
     async [Action.GET_PRODUCTS](context){
     
       const response = await API.getProducts()
      
-      context.commit(Mutation.SAVE_PRODUCTS, response.data.products)
+      context.commit(Mutation.SAVE_PRODUCTS, response.data)
     }, 
     async [Action.GET_USER](context, user){
       const response = await API.getUser(user)
@@ -74,12 +70,20 @@ export default new Vuex.Store({
       const response = await API.createUser(newUser)
       context
       console.log(response);
+    }, 
+    async searchItems(context, searchString){
+      const response = await API.searchItems(searchString)
+      console.log(response);
+      context.commit(Mutation.SAVE_PRODUCTS, response.data)
     }
     
   },
   getters: {
     products(state){
       return state.productList
+    }, 
+    gretaProducts(state){
+      return state.productList.filter(product => product.specialEdition)
     }
   },
   modules: {},
