@@ -9,10 +9,10 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    productList: [], 
-    products: {}, 
+    productList: [],
+    products: {},
     showLogIn: false,
-    user: '',
+    user: "",
     searchResults: [],
     searchTerms: [...SearchTerms],
   },
@@ -25,7 +25,6 @@ export default new Vuex.Store({
         Vue.set(state.products, product.id, product)
       }
     },
-
     [Mutation.SAVE_USER](state, newUser) {
       state.user = newUser
 
@@ -35,9 +34,6 @@ export default new Vuex.Store({
       state.showLogIn = !state.showLogIn
     },
     [Mutation.UPDATE_SEARCH_RESULTS](state, search) {
-      //DENNA LÖSNING ANVÄNDER searchTerms.json. Bestäm om vi ska
-      //göra det eller filtrera på category.
-
       if (search.length) {
         state.searchResults = state.searchTerms.filter((product) => {
           return product.toLowerCase().includes(search)
@@ -50,7 +46,6 @@ export default new Vuex.Store({
   actions: {
     async [Action.GET_PRODUCTS](context) {
       const response = await API.getProducts()
-
       context.commit(Mutation.SAVE_PRODUCTS, response.data)
     },
     async [Action.GET_USER](context, user) {
@@ -58,27 +53,22 @@ export default new Vuex.Store({
       API.saveToken(response.data.token)
       context.commit(Mutation.SAVE_USER, response)
       context.commit(Mutation.MODAL_TOGGLE)
-      
     },
-
     async [Action.GET_CATEGORY](context, query) {
       const response = await API.getCategory(query)
       context.commit(Mutation.SAVE_PRODUCTS, response.data)
     },
     [Action.TOGGLE_MODAL](context) {
       context.commit(Mutation.MODAL_TOGGLE)
-
     },
     [Action.UPDATE_SEARCH_RESULTS](context, search) {
       context.commit(Mutation.UPDATE_SEARCH_RESULTS, search)
     },
-
-    async [Action.CREATE_USER](context, newUser){
+    async [Action.CREATE_USER](context, newUser) {
       const response = await API.createUser(newUser)
       context
-      console.log(response);
-    }
-    
+      console.log(response)
+    },
   },
   getters: {
     products(state) {
