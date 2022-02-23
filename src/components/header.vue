@@ -44,17 +44,13 @@
             <p>Cart</p>
           </div>
         </div>
-
-        <input
-          type="text"
-          placeholder="Search"
-          v-model="search"
-          @input="updateSearchResults"
-        />
-        <!-- Byt ut li nedan mot router-links när det går -->
-        <dialog open class="search-results" v-if="searchResults.length">
-          <li v-for="product of searchResults" :key="product">{{ product }}</li>
-        </dialog>
+       
+          <input type="text" placeholder="Search" v-model="search" @input="updateSearchResults" @keyup.enter="searchProduct(search)" />
+          <!-- Byt ut li nedan mot router-links när det går -->
+          <dialog open class="search-results" v-if="searchResults.length && cartHover==false">
+          <li v-for="product of searchResults" :key="product" @click="searchProduct(product)">{{product}}</li>
+          </dialog>
+        
       </div>
     </div>
   </div>
@@ -71,6 +67,10 @@ export default {
   }},
   components: {Icon, CartPopup},
   methods:{
+  searchProduct(searchWord){
+    this.$store.dispatch(Action.MARKUS_SEARCH, searchWord)
+    this.$router.push('/products')
+  },
   modalToggle(){
       this.$store.dispatch(Action.TOGGLE_MODAL)
       },
