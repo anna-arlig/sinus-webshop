@@ -2,21 +2,15 @@
   <div class="footer">
     <div class="top-part">
       <div class="shipping">
-        <img
-          src="@/assets/images/local_shipping.svg"
-          alt="Shipping truck icon"
-        />
+        <Icon icon="ic:baseline-local-shipping" width="80" />
         <h4>Fast shipping</h4>
       </div>
       <div class="returns">
-        <img src="@/assets/images/gift-package.svg" alt="Return box icon" />
+        <Icon icon="bxs:package" width="80" />
         <h4>Easy returns</h4>
       </div>
       <div class="created">
-        <img
-          src="@/assets/images/skateboard-icon.svg"
-          alt="Created by skaters icon"
-        />
+        <Icon icon="mdi:skateboard" width="80" />
 
         <h4>Created by skaters</h4>
       </div>
@@ -37,8 +31,7 @@
           <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit eum
             maxime voluptatibus consequuntur unde explicabo laboriosam odit,
-            temporibus, eos officiis deserunt voluptates non suscipit quasi,
-            rerum atque quod odio distinctio!
+            temporibus, eos officiis deserunt!
           </p>
         </div>
         <div class="contact">
@@ -46,27 +39,37 @@
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad commodi
             nulla, minus provident, consequatur doloribus molestias architecto
-            sunt voluptas facere nesciunt dignissimos consequuntur.
+            sunt voluptas.
           </p>
         </div>
+        <img
+          src="http://localhost:5000/images/sinus-logo-landscape.svg"
+          alt=""
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import { Icon } from "@iconify/vue2";
+export default {
+  components: {
+    Icon,
+  },
+};
 </script>
 
 <style scoped lang="scss">
 @import "@/assets/styles/fonts-colors.scss";
 @import "@/assets/styles/mixins.scss";
+p {
+  font-size: 10px;
+}
+
 .footer {
   width: 100vw;
   max-width: 1440px;
-}
-img {
-  width: 50px;
 }
 
 .shipping,
@@ -98,15 +101,20 @@ h4 {
 .bottom-part {
   background-color: $yellow;
   @include flex-col-center;
+  img {
+    width: 250px;
+    margin-left: 10px;
+  }
 }
 
 .info {
   @include flex-center;
+  margin: 20px;
 }
 
 .social,
 .contact,
 .help {
-  margin: 10px;
+  margin: 15px;
 }
 </style>

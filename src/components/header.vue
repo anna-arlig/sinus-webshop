@@ -11,12 +11,20 @@
         <a>Apparel <Icon icon="dashicons:arrow-down-alt2" /></a>
         <a>Accessories <Icon icon="dashicons:arrow-down-alt2" /></a>
         <a>Brands <Icon icon="dashicons:arrow-down-alt2" /></a>
+        <p>{{BASE_URL}}</p>
+        
       </div>
 
       <div class="links-and-search">
         <div class="links">
-          <div class="login">
+
+          <div class="login" 
+            @click="modalToggle"
+          >
+           
+        
             <Icon icon="bxs:user" width="35" />
+
             <p>Log in</p>
           </div>
           <div class="favourites">
@@ -49,11 +57,15 @@ import CartPopup from "@/components/cartPopup.vue";
 import Action from '../store/Action.types'
 export default {
   data(){return{
+    BASE_URL: process.env.VUE_APP_BASE_URL,
     cartHover: false,
     search: '',
   }},
   components: {Icon, CartPopup},
   methods:{
+  modalToggle(){
+      this.$store.dispatch(Action.TOGGLE_MODAL)
+      },
     updateSearchResults(){
       this.$store.dispatch(Action.UPDATE_SEARCH_RESULTS, this.search.toLowerCase())
     }
@@ -61,6 +73,7 @@ export default {
   computed:{
     searchResults(){
       return this.$store.state.searchResults
+
     }
   }
 }
@@ -90,6 +103,10 @@ export default {
   justify-content: space-between;
   align-items: flex-end;
   font-family: $heading;
+
+  a{
+    @include flex-center;
+  }
 }
 
 .links {
