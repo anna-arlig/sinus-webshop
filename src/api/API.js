@@ -1,5 +1,11 @@
-import axios from 'axios'
 
+import axios from "axios"
+axios.defaults.baseURL = process.env.VUE_APP_BASE_URL+'/api'
+
+
+export async function getCategory(query) {
+  return await axios.get(query)
+}
 export function saveToken(token){
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
 }
@@ -23,3 +29,4 @@ export async function createUser({email, password, name, address}){
     address
   })
 }
+

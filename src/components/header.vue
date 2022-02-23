@@ -4,6 +4,7 @@
       <img
         src="../assets/images/sinus-logo-landscape_1.png"
         alt="sinus text-logo"
+        width="220"
       />
 
       <div class="categories">
@@ -16,6 +17,7 @@
       <div class="links-and-search">
         <div class="links">
 
+
           <div class="login" 
             @click="modalToggle"
           >
@@ -23,36 +25,45 @@
         
             <Icon icon="bxs:user" width="35" />
 
+
             <p>Log in</p>
           </div>
           <div class="favourites">
-            <Icon icon="ant-design:heart-filled" width="35" />
+            <Icon icon="ant-design:heart-filled" width="30" />
             <p>Favourites</p>
           </div>
-          <div class="cart" @mouseover="cartHover = true" @mouseleave="cartHover = false">
-            <Icon icon="clarity:shopping-cart-solid" width="35" />
+          <div
+            class="cart"
+            @mouseover="cartHover = true"
+            @mouseleave="cartHover = false"
+          >
+            <Icon icon="clarity:shopping-cart-solid" width="30" />
             <Transition name="fade">
               <CartPopup v-if="cartHover" />
             </Transition>
             <p>Cart</p>
           </div>
         </div>
-       
-          <input type="text" placeholder="Search" v-model="search" @input="updateSearchResults" />
-          <!-- Byt ut li nedan mot router-links när det går -->
-          <dialog open class="search-results" v-if="searchResults.length">
-          <li v-for="product of searchResults" :key="product">{{product}}</li>
-          </dialog>
-        
+
+        <input
+          type="text"
+          placeholder="Search"
+          v-model="search"
+          @input="updateSearchResults"
+        />
+        <!-- Byt ut li nedan mot router-links när det går -->
+        <dialog open class="search-results" v-if="searchResults.length">
+          <li v-for="product of searchResults" :key="product">{{ product }}</li>
+        </dialog>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { Icon } from '@iconify/vue2';
-import CartPopup from "@/components/cartPopup.vue";
-import Action from '../store/Action.types'
+import { Icon } from "@iconify/vue2"
+import CartPopup from "@/components/cartPopup.vue"
+import Action from "../store/Action.types"
 export default {
   data(){return{
     cartHover: false,
@@ -67,12 +78,11 @@ export default {
       this.$store.dispatch(Action.UPDATE_SEARCH_RESULTS, this.search.toLowerCase())
     }
   },
-  computed:{
-    searchResults(){
+  computed: {
+    searchResults() {
       return this.$store.state.searchResults
-
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -81,11 +91,10 @@ export default {
 @import "../assets/styles/mixins.scss";
 .header {
   max-width: 1440px;
-  height: 100px;
-  width: 100vw;
+  height: 120px;
   display: flex;
   background-color: $yellow;
-  padding: 1rem;
+  padding: 1.5rem 2rem 1rem;
 }
 #nav {
   width: 100%;
@@ -101,7 +110,7 @@ export default {
   align-items: flex-end;
   font-family: $heading;
 
-  a{
+  a {
     @include flex-center;
   }
 }
@@ -110,7 +119,6 @@ export default {
   display: flex;
 }
 .links-and-search {
-  margin: 0 5rem;
   p {
     margin: 0;
     padding: 0;
@@ -128,32 +136,32 @@ export default {
   justify-content: space-between;
 }
 
-input{
+input {
   border-radius: 3px;
   border: 1px solid black;
-  height: 1.5rem; 
+  height: 1.5rem;
+  margin-top: 0.5rem;
 }
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity .5s ease;
+  transition: opacity 0.5s ease;
 }
 
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
 }
-.search-results{
-  margin:0;
+.search-results {
+  margin: 0;
   position: relative;
   top: 0%;
   width: 100%;
-  border: .5px solid black;
+  border: 0.5px solid black;
   font-family: $paragraph;
 
-  li:hover{
+  li:hover {
     font-weight: bold;
-    cursor:pointer;
+    cursor: pointer;
   }
 }
-
 </style>

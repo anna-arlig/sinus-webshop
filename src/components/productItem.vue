@@ -6,7 +6,7 @@
     </div>
     <div class="product-info">
       <div class="product-img">
-        <img src="../assets/images/hoodie-red.jpg" alt="" />
+        <img :src="`http://localhost:5000/images/${product.imgFile}`" alt="" />
       </div>
       <div class="product-details">
         <div class="product-name" v-if="large">
@@ -28,7 +28,7 @@
         <p v-if="large">
           {{ shortDesc }}
         </p>
-        <h3 class="price">$85</h3>
+        <h3 class="price">${{ product.price }}</h3>
         <button v-if="large" @click="addProductToCart">Add to cart</button>
       </div>
     </div>
