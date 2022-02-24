@@ -18,13 +18,14 @@ export default new Vuex.Store({
   },
   mutations: {
     
-    [Mutation.SAVE_PRODUCTS](state, fetchedProducts){
-     
-      state.productList.push(...fetchedProducts)
-      for(let product of fetchedProducts){   
-        Vue.set(state.products, product.id, product)   
+    [Mutation.SAVE_PRODUCTS](state, fetchedProducts) {
+      for (let product of fetchedProducts) {
+        if (!state.productList.find((prod) => prod.id === product.id)) {
+          state.productList.push(product)
+        }
+        Vue.set(state.products, product.id, product)
       }
-    }, 
+    },
     [Mutation.SAVE_USER](state, newUser){
       state.user = newUser
       state.logInPopup = !state.logInPopup
