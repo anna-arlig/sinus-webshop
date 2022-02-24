@@ -71,18 +71,30 @@ export default new Vuex.Store({
 
       const response = await API.createUser(newUser)
       context
-      console.log(response)
+      console.log(response);
     },
+    // async [Action.MARKUS_SEARCH](context, search){
+    //   const response = await API.markusSearch(search)
+
+    // }, 
+    async [Action.SEARCH_ITEMS](context, searchString){
+      const response = await API.searchItems(searchString)
+      context.commit(Mutation.SAVE_PRODUCTS, response.data)
+    }
+    
   },
   getters: {
     products(state){
       return state.productList
-
+    }, 
+    specialEdition(state){
+      return state.productList.filter(product => product.specialEdition)
     },
     skateboards(state) {
       const skateboards = state.productList.filter((prod) => {
         return prod.category === "skateboard"
       })
+      console.log(skateboards)
       return skateboards
     },
     apparel(state) {

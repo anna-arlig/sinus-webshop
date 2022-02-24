@@ -44,7 +44,6 @@
 
 <script>
 export default {
-  
   props: {
     product: Object,
     large: Boolean,

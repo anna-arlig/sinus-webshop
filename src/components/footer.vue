@@ -43,7 +43,7 @@
           </p>
         </div>
         <img
-          src="http://localhost:5000/images/sinus-logo-landscape.svg"
+          :src="`${BASE_URL}/images/sinus-logo-landscape.svg`"
           alt=""
         />
       </div>
@@ -54,6 +54,9 @@
 <script>
 import { Icon } from "@iconify/vue2"
 export default {
+  data(){return{
+    BASE_URL: process.env.VUE_APP_BASE_URL
+  }},
   components: {
     Icon,
   },

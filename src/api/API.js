@@ -36,3 +36,6 @@ export async function createUser({ email, password, name, address }) {
     address,
   })
 }
+export async function searchItems(searchString){
+  return await axios.get(`/items?search=${searchString}`)
+}
