@@ -22,12 +22,14 @@
             @click="modalToggle"
           >
            
-          <router-link v-if="user" to="/account"></router-link>
+          
             <Icon icon="bxs:user" width="35" />
 
 
-            <p v-if="user">Log in</p>
-            <p v-else>Profile</p>
+            <p v-if="!user">Log in</p>
+            <router-link v-else to="/account">
+            <p>Profile</p>
+            </router-link>
           </div>
           <div class="favourites">
             <Icon icon="ant-design:heart-filled" width="30" />
@@ -73,7 +75,9 @@ export default {
     this.$router.push('/products')
   },
   modalToggle(){
-      this.$store.dispatch(Action.TOGGLE_MODAL)
+      if (this.user == null){
+        this.$store.dispatch(Action.TOGGLE_MODAL)
+      }
       },
     updateSearchResults(){
       this.$store.dispatch(Action.UPDATE_SEARCH_RESULTS, this.search.toLowerCase())

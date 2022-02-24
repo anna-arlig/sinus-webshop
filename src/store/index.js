@@ -44,7 +44,7 @@ export default new Vuex.Store({
       }
     },
     [Mutation.LOG_OUT](state){
-      state.user = ''
+      state.user = null
     }
   },
   actions: {

@@ -12,7 +12,7 @@
             <p>City: Stockholm</p>
           </div>
           <button>Update my info</button>
-          <button @click="logOut">Log out</button>
+          <router-link to="/"><button @click="logOut">Log out</button></router-link>
         </div>
       </div>
 
