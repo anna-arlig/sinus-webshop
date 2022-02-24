@@ -4,8 +4,8 @@ const skateboardQuery = "/items?category=skateboard"
 const apparelQuery = "/items?category=hoodie&category=tshirt"
 const accessoriesQuery =
   "/items?category=cap&category=totebag&category=socks&category=wheel"
-// const accessoriesQueryPageTwo =
-//   "/items?category=cap&category=totebag&category=socks&category=wheel&page=2"
+const accessoriesQueryPageTwo =
+  "/items?category=cap&category=totebag&category=socks&category=wheel&page=2"
 
 export async function markusSearch(searchWord) {
   return await axios.get(`/items?search=${searchWord}`)
@@ -17,14 +17,17 @@ export async function getCategory(query) {
   } else if (query === "Apparel") {
     return await axios.get(apparelQuery)
   } else if (query === "Accessories") {
-    return await axios.get(accessoriesQuery)
+    return (
+      (await axios.get(accessoriesQuery)) &&
+      (await axios.get(accessoriesQueryPageTwo))
+    )
   }
 }
 export function saveToken(token) {
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
 }
-export function clearToken(){
-  delete axios.defaults.headers.common["Authorization"];
+export function clearToken() {
+  delete axios.defaults.headers.common["Authorization"]
 }
 
 export async function getProducts() {
@@ -46,6 +49,6 @@ export async function createUser({ email, password, name, address }) {
     address,
   })
 }
-export async function searchItems(searchString){
+export async function searchItems(searchString) {
   return await axios.get(`/items?search=${searchString}`)
 }
