@@ -16,7 +16,7 @@ const routes = [
     component: Home,
   },
   {
-    path: "/products",
+    path: "/products/:category",
     name: "Products",
     component: Products,
   },
@@ -44,7 +44,6 @@ const routes = [
 
 const router = new VueRouter({
   mode: "history",
-  base: process.env.BASE_URL,
   routes,
 })
 

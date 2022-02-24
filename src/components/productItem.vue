@@ -6,7 +6,14 @@
     </div>
     <div class="product-info">
       <div class="product-img">
-        <img :src="`http://localhost:5000/images/${product.imgFile}`" alt="" />
+
+        <img
+          :src="`${BASE_URL}/images/${product.imgFile}`"
+          width="280"
+          height="220"
+          alt=""
+        />
+
       </div>
       <div class="product-details">
         <div class="product-name" v-if="large">
@@ -28,7 +35,7 @@
         <p v-if="large">
           {{ shortDesc }}
         </p>
-        <h3 class="price">${{ product.price }}</h3>
+        <h3 class="price">€{{ product.price }}</h3>
         <button v-if="large" @click="addProductToCart">Add to cart</button>
       </div>
     </div>
@@ -37,10 +44,18 @@
 
 <script>
 export default {
+  data(){return{
+    BASE_URL: process.env.VUE_APP_BASE_URL
+  }},
   props: {
     product: Object,
     large: Boolean,
     small: Boolean,
+  },
+  data() {
+    return {
+      BASE_URL: process.env.VUE_APP_BASE_URL,
+    }
   },
   methods: {
     addProductToCart() {
@@ -57,7 +72,7 @@ export default {
 // ProductList view SMALL
 section.small {
   margin: 6rem 1rem 1rem;
-  width: 17rem;
+  width: 19rem;
   cursor: pointer;
   transition: 1s ease;
 
@@ -67,7 +82,7 @@ section.small {
 
   .product-info {
     @include flex-col-center;
-    padding: 2rem 2rem 1rem;
+    padding: 2rem 1rem 1rem;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
 
