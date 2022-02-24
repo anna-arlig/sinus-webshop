@@ -26,7 +26,8 @@
             <Icon icon="bxs:user" width="35" />
 
 
-            <p>Log in</p>
+            <p v-if="user">Log in</p>
+            <p v-else>Profile</p>
           </div>
           <div class="favourites">
             <Icon icon="ant-design:heart-filled" width="30" />
@@ -82,6 +83,9 @@ export default {
     searchResults() {
       return this.$store.state.searchResults
     },
+    user(){
+      return this.$store.state.user
+    }
   },
 }
 </script>

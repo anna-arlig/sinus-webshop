@@ -43,6 +43,9 @@ export default new Vuex.Store({
         state.searchResults = []
       }
     },
+    [Mutation.LOG_OUT](state){
+      state.user = ''
+    }
   },
   actions: {
     async [Action.GET_PRODUCTS](context){
@@ -77,6 +80,9 @@ export default new Vuex.Store({
     async [Action.SEARCH_ITEMS](context, searchString){
       const response = await API.searchItems(searchString)
       context.commit(Mutation.SAVE_PRODUCTS, response.data)
+    },
+    [Action.LOG_OUT](context){
+      context.commit(Mutation.LOG_OUT)
     }
     
   },
