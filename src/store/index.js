@@ -82,6 +82,7 @@ export default new Vuex.Store({
       context.commit(Mutation.SAVE_PRODUCTS, response.data)
     },
     [Action.LOG_OUT](context){
+      API.clearToken()
       context.commit(Mutation.LOG_OUT)
     }
     
