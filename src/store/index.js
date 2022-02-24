@@ -12,7 +12,7 @@ export default new Vuex.Store({
     productList: [],
     products: {},
     showLogIn: false,
-    user: "",
+    user: null,
     searchResults: [],
     searchTerms: [...SearchTerms],
   },
@@ -43,6 +43,9 @@ export default new Vuex.Store({
         state.searchResults = []
       }
     },
+    [Mutation.LOG_OUT](state){
+      state.user = null
+    }
   },
   actions: {
     async [Action.GET_PRODUCTS](context){
@@ -77,6 +80,10 @@ export default new Vuex.Store({
     async [Action.SEARCH_ITEMS](context, searchString){
       const response = await API.searchItems(searchString)
       context.commit(Mutation.SAVE_PRODUCTS, response.data)
+    },
+    [Action.LOG_OUT](context){
+      API.clearToken()
+      context.commit(Mutation.LOG_OUT)
     }
     
   },

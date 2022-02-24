@@ -12,6 +12,7 @@
             <p>City: Stockholm</p>
           </div>
           <button>Update my info</button>
+          <router-link to="/"><button @click="logOut">Log out</button></router-link>
         </div>
       </div>
 
@@ -39,12 +40,18 @@
 </template>
 
 <script>
+import Action from "../store/Action.types"
 export default {
   data() {
     return {
       BASE_URL: process.env.VUE_APP_BASE_URL,
     };
   },
+  methods:{
+    logOut(){
+      this.$store.dispatch(Action.LOG_OUT)
+    }
+  }
 };
 </script>
 
