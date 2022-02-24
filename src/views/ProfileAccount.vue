@@ -2,24 +2,27 @@
   <div class="profile">
     <div class="user">
       <h1>Welcome Greta!</h1>
-      <div class="user-info">
-        <h3>About me</h3>
-        <div class="address">
-          <h5>Name: Greta Thunberg</h5>
-          <p>Street: Savetheworld 123</p>
-          <p>Zip: 123 45</p>
-          <p>City: Stockholm</p>
+      <div class="user-container">
+        <div class="user-info">
+          <h2>About me</h2>
+          <div class="address">
+            <h5>Name: Greta Thunberg</h5>
+            <p>Street: Savetheworld 123</p>
+            <p>Zip: 123 45</p>
+            <p>City: Stockholm</p>
+          </div>
+          <button>Update my info</button>
         </div>
-        <button>Update my info</button>
       </div>
+
       <div class="img-container">
         <img
           src="@/assets/images/profile-skate.jpg"
           alt="User skateboard hero image"
-          width="420"
+          width="550"
         />
         <div class="hero-message">
-          <h2>Be more of what makes you YOU with</h2>
+          <h1>Be more of what makes you YOU with</h1>
           <img
             :src="`${BASE_URL}/images/sinus-logo-landscape.svg`"
             alt="Sinus logo"
@@ -55,19 +58,9 @@ h1 {
   grid-area: welcome;
 }
 
-h3 {
-  margin-top: 0px;
-  margin-bottom: 10px;
-}
-
-p,
-h5 {
-  margin: 0px;
-}
-
 button {
   border-radius: 4px;
-  margin: 1rem 0 0 1rem;
+  margin: 2rem 0 0 0;
   padding: 0.5rem 3rem;
   text-align: center;
   color: #ffffff;
@@ -77,17 +70,26 @@ button {
 }
 
 .user {
-  margin-left: 150px;
+  margin: 50px;
   display: grid;
   grid-template-areas:
     "welcome img"
     "userinfo img";
 }
 
+.user-container {
+  @include flex-center;
+}
+
 .user-info {
   grid-area: userinfo;
-  max-width: 50%;
+  min-width: 60%;
   @include flex-center;
+  p,
+  h5 {
+    margin: 0px;
+    font-size: 18px;
+  }
 }
 
 img {
@@ -97,7 +99,7 @@ img {
 
 .hero-message {
   @include flex-col-center;
-  h2 {
+  h1 {
     color: white;
     -webkit-text-stroke: 1px;
     -webkit-text-stroke-color: black;
