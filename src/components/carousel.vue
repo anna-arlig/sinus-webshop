@@ -49,16 +49,14 @@ export default {
       if (direction === "back" && this.currentPage > 1) {
         this.start -= 3
         this.end -= 3
-        this.currentPage--
-      } else if (
-        direction === "forward" &&
-        this.end < this.$store.getters.products - 3
-      ) {
+        this.currentPage --
+      }
+      else if(direction === 'forward' && this.end < this.$store.getters.products.length -3){
         this.start += 3
         this.end += 3
         this.currentPage++
       }
-      this.isActive.first = true
+      this.isActive.first = false
       this.isActive.second = false
       this.isActive.third = false
 
