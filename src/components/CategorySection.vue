@@ -9,7 +9,7 @@
     <router-link :to="{ name: 'Products', params: { category: 'Accessories' } }"
       ><h2>Accessories</h2></router-link
     >
-    <router-link to="/products"><h2>Brands</h2></router-link>
+    <router-link to="/products"><h2>Limited Edition</h2></router-link>
   </section>
 </template>
 

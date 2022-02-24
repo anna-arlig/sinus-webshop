@@ -1,11 +1,11 @@
 import axios from "axios"
 axios.defaults.baseURL = process.env.VUE_APP_BASE_URL + "/api"
-export const skateboardQuery = "/items?category=skateboard"
-export const apparelQuery = "/items?category=hoodie&category=tshirt"
-export const accessoriesQuery =
+const skateboardQuery = "/items?category=skateboard"
+const apparelQuery = "/items?category=hoodie&category=tshirt"
+const accessoriesQuery =
   "/items?category=cap&category=totebag&category=socks&category=wheel"
-export const accessoriesQueryPageTwo =
-  "/items?category=cap&category=totebag&category=socks&category=wheel&page=2"
+// const accessoriesQueryPageTwo =
+//   "/items?category=cap&category=totebag&category=socks&category=wheel&page=2"
 
 export async function markusSearch(searchWord) {
   return await axios.get(`/items?search=${searchWord}`)
