@@ -21,7 +21,7 @@
         <div class="hero-message">
           <h2>Be more of what makes you YOU with</h2>
           <img
-            src="http://localhost:5000/images/sinus-logo-landscape.svg"
+            :src="`${BASE_URL}/images/sinus-logo-landscape.svg`"
             alt="Sinus logo"
             width="200px"
           />
@@ -39,7 +39,7 @@
 export default {
   data() {
     return {
-      BASE_URL: "process.env.VUE_APP_BASE_URL",
+      BASE_URL: process.env.VUE_APP_BASE_URL,
     };
   },
 };
