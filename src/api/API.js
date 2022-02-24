@@ -1,6 +1,5 @@
 import axios from "axios"
-// axios.defaults.baseURL = process.env.VUE_APP_BASE_URL + "/api"
-axios.defaults.baseURL = "http://localhost:5000/api"
+axios.defaults.baseURL = process.env.VUE_APP_BASE_URL + "/api"
 
 export async function getCategory(query) {
   return await axios.get(query)

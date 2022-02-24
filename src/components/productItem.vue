@@ -7,7 +7,7 @@
     <div class="product-info">
       <div class="product-img">
         <img
-          :src="`http://localhost:5000/images/${product.imgFile}`"
+          :src="`${BASE_URL}/images/${product.imgFile}`"
           width="280"
           height="220"
           alt=""
@@ -47,11 +47,11 @@ export default {
     large: Boolean,
     small: Boolean,
   },
-  // data() {
-  //   return {
-  //     BASE_URL: process.env.VUE_APP_BASE_URL,
-  //   }
-  // },
+  data() {
+    return {
+      BASE_URL: process.env.VUE_APP_BASE_URL,
+    }
+  },
   methods: {
     addProductToCart() {
       this.$store.dispatch("addToCart", this.id)
