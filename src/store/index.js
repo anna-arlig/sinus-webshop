@@ -12,7 +12,7 @@ export default new Vuex.Store({
     productList: [],
     products: {},
     showLogIn: false,
-    user: "",
+    user: null,
     searchResults: [],
     searchTerms: [...SearchTerms],
   },

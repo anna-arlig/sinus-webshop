@@ -22,7 +22,7 @@
             @click="modalToggle"
           >
            
-        
+          <router-link v-if="user" to="/account"></router-link>
             <Icon icon="bxs:user" width="35" />
 
 
