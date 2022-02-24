@@ -47,17 +47,19 @@ export default {
     large: Boolean,
     small: Boolean,
   },
+
   data() {
     return {
       BASE_URL: process.env.VUE_APP_BASE_URL,
-    }
+    };
   },
+
   methods: {
     addProductToCart() {
-      this.$store.dispatch("addToCart", this.id)
+      this.$store.dispatch("addToCart", this.id);
     },
   },
-}
+};
 </script>
 
 <style scoped lang="scss">

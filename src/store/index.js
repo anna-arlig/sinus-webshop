@@ -12,7 +12,7 @@ export default new Vuex.Store({
     productList: [],
     products: {},
     showLogIn: false,
-    user: "",
+    user: null,
     searchResults: [],
     searchTerms: [...SearchTerms],
   },
@@ -40,6 +40,9 @@ export default new Vuex.Store({
       } else {
         state.searchResults = []
       }
+    },
+    [Mutation.LOG_OUT](state) {
+      state.user = null
     },
   },
   actions: {
@@ -71,22 +74,27 @@ export default new Vuex.Store({
       context
       console.log(response)
     },
+    async [Action.SEARCH_ITEMS](context, searchString) {
+      const response = await API.searchItems(searchString)
+      context.commit(Mutation.SAVE_PRODUCTS, response.data)
+    },
+    [Action.LOG_OUT](context) {
+      API.clearToken()
+      context.commit(Mutation.LOG_OUT)
+    },
   },
   getters: {
-    // getProductsByCategory: (state) => (category) =>
-    //   state.productList.filter((product) => product.category == category),
-
-    // getProductsByCategories: (state) => (categories) =>
-    //   state.productList.filter((product) =>
-    //     categories.includes(product.category)
-    //   ),
     products(state) {
       return state.productList
+    },
+    specialEdition(state) {
+      return state.productList.filter((product) => product.specialEdition)
     },
     skateboards(state) {
       const skateboards = state.productList.filter((prod) => {
         return prod.category === "skateboard"
       })
+      console.log(skateboards)
       return skateboards
     },
     apparel(state) {
