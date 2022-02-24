@@ -9,10 +9,10 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    productList: [], 
-    products: {}, 
+    productList: [],
+    products: {},
     showLogIn: false,
-    user: '',
+    user: "",
     searchResults: [],
     searchTerms: [...SearchTerms],
   },
@@ -27,15 +27,12 @@ export default new Vuex.Store({
     }, 
     [Mutation.SAVE_USER](state, newUser){
       state.user = newUser
-
       state.logInPopup = !state.logInPopup
     },
     [Mutation.MODAL_TOGGLE](state) {
       state.showLogIn = !state.showLogIn
     },
     [Mutation.UPDATE_SEARCH_RESULTS](state, search) {
-      
-
       if (search.length) {
       
         state.searchResults = state.searchTerms.filter((product) => {
@@ -56,22 +53,28 @@ export default new Vuex.Store({
       API.saveToken(response.data.token)
       context.commit(Mutation.SAVE_USER, response)
       context.commit(Mutation.MODAL_TOGGLE)
-      
     },
+
+    async [Action.GET_CATEGORY](context, query) {
+      const response = await API.getCategory(query)
+      context.commit(Mutation.SAVE_PRODUCTS, response.data)
+    },
+
     [Action.TOGGLE_MODAL](context) {
       context.commit(Mutation.MODAL_TOGGLE)
     },
     [Action.UPDATE_SEARCH_RESULTS](context, search) {
       context.commit(Mutation.UPDATE_SEARCH_RESULTS, search)
     },
+
     async [Action.CREATE_USER](context, newUser){
+
       const response = await API.createUser(newUser)
       context
       console.log(response);
     }, 
-    async searchItems(context, searchString){
+    async [Action.SEARCH_ITEMS](context, searchString){
       const response = await API.searchItems(searchString)
-      console.log(response);
       context.commit(Mutation.SAVE_PRODUCTS, response.data)
     }
     
@@ -80,7 +83,7 @@ export default new Vuex.Store({
     products(state){
       return state.productList
     }, 
-    gretaProducts(state){
+    specialEdition(state){
       return state.productList.filter(product => product.specialEdition)
     },
     skateboards(state) {
@@ -90,6 +93,24 @@ export default new Vuex.Store({
       console.log(skateboards)
       return skateboards
     },
+    apparel(state) {
+      const apparel = state.productList.filter((prod) => {
+        return prod.category === "hoodie" || prod.category === "tshirt"
+      })
+      return apparel
+    },
+    accessories(state) {
+      const accessories = state.productList.filter((prod) => {
+        return (
+          prod.category === "cap" ||
+          prod.category === "socks" ||
+          prod.category === "totebag" ||
+          prod.category === "wheel"
+        )
+      })
+      return accessories
+    },
+
   },
   modules: {},
 })

@@ -6,6 +6,7 @@ export const UPDATE_SEARCH_RESULTS = 'UPDATE_SEARCH_RESULTS'
 export const CREATE_USER = 'CREATE_USER'
 export const MARKUS_SEARCH = 'MARKUS_SEARCH'
 export const GET_CATEGORY = "GET_CATEGORY"
+export const SEARCH_ITEMS = 'SEARCH_ITEMS'
 
 export default {
     GET_CATEGORY,
@@ -14,7 +15,8 @@ export default {
     TOGGLE_MODAL, 
     UPDATE_SEARCH_RESULTS,
     CREATE_USER,
-    MARKUS_SEARCH
+    MARKUS_SEARCH, 
+    SEARCH_ITEMS
 }
 
 

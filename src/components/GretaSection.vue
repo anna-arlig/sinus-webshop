@@ -1,11 +1,11 @@
 <template>
   <section class="greta">
-    <article v-for="product in gretaProducts" :key="product.id">
-      <img :src="`${BASE_URL}/images/${product.imgFile}`">
-      <h3>{{product.category}} - {{product.title}}</h3>
+    <article>
+      <img :src="`${BASE_URL}/images/${gretaProducts[0].imgFile}`">
+      <h3>{{gretaProducts[0].category}} - {{gretaProducts[0].title}}</h3>
       <div>
-        <h3>{{product.shortDesc}}</h3>
-        <h3>{{product.price}}$</h3>
+        <h3>{{gretaProducts[0].shortDesc}}</h3>
+        <h3>{{gretaProducts[0].price}}$</h3>
       </div>
     </article>
     <span>
@@ -15,6 +15,14 @@
       </h3>
       <button>CHECK IT OUT</button>
     </span>
+    <article>
+      <img :src="`${BASE_URL}/images/${gretaProducts[1].imgFile}`">
+      <h3>{{gretaProducts[1].category}} - {{gretaProducts[1].title}}</h3>
+      <div>
+        <h3>{{gretaProducts[1].shortDesc}}</h3>
+        <h3>{{gretaProducts[1].price}}$</h3>
+      </div>
+    </article>
   </section>
 </template>
 
@@ -51,6 +59,7 @@ export default {
     border: 1px solid rgba(255, 255, 255, 0.2);
     @include flex-col-center;
     padding: 1rem 1.5rem;
+    justify-content: space-between;
     h3{
       align-self: flex-start;
     }
@@ -72,19 +81,16 @@ export default {
     text-transform: capitalize;
   }
   article:first-of-type{
-    order: 1;
     img{
       width: 50px;
     }
   }
   article:last-of-type{
-    order: 3;
     img{
       width: 120px;
     }
   }
   span {
-    order: 2;
     text-align: center;
     max-width: 20rem;
     @include flex-col-center;

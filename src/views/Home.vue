@@ -17,14 +17,15 @@
 import CategorySection from "@/components/CategorySection.vue";
 import Carousel from "@/components/carousel.vue";
 import GretaSection from '@/components/GretaSection.vue'
+import Action from '@/store/Action.types'
 export default {
   components: { CategorySection, Carousel, GretaSection },
   async mounted() {
-    this.$store.dispatch('searchItems', 'greta');
+    this.$store.dispatch(Action.SEARCH_ITEMS, 'greta');
   },
   computed:{
     greta(){
-      return this.$store.getters.gretaProducts
+      return this.$store.getters.specialEdition
     }
   }
 };
