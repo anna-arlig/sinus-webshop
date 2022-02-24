@@ -42,10 +42,7 @@
             sunt voluptas.
           </p>
         </div>
-        <img
-          src="http://localhost:5000/images/sinus-logo-landscape.svg"
-          alt="Sinus logo"
-        />
+        <img :src="`${BASE_URL}/images/sinus-logo-landscape.svg`" alt="" />
       </div>
     </div>
   </div>
@@ -54,6 +51,11 @@
 <script>
 import { Icon } from "@iconify/vue2";
 export default {
+  data() {
+    return {
+      BASE_URL: process.env.VUE_APP_BASE_URL,
+    };
+  },
   components: {
     Icon,
   },

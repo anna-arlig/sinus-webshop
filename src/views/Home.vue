@@ -7,32 +7,28 @@
       </div>
     </section>
     <CategorySection />
+    <Carousel/>
+    <GretaSection :gretaProducts="greta" />
     <Carousel />
-
-    <section class="greta">
-      <article></article>
-      <span>
-        <h3>
-          GRETA <br />
-          LIMITED EDITION
-        </h3>
-        <button>CHECK IT OUT</button>
-      </span>
-      <article></article>
-    </section>
   </main>
 </template>
 
 <script>
-// import { GET_PRODUCTS } from "@/store/Action.types";
-import CategorySection from "@/components/CategorySection.vue"
-import Carousel from "@/components/carousel.vue"
+import CategorySection from "@/components/CategorySection.vue";
+import Carousel from "@/components/carousel.vue";
+import GretaSection from '@/components/GretaSection.vue'
+import Action from '@/store/Action.types'
 export default {
-  components: { CategorySection, Carousel },
-  // async mounted() {
-  //   // this.$store.dispatch(GET_PRODUCTS);
-  // },
-}
+  components: { CategorySection, Carousel, GretaSection },
+  async mounted() {
+    this.$store.dispatch(Action.SEARCH_ITEMS, 'greta');
+  },
+  computed:{
+    greta(){
+      return this.$store.getters.specialEdition
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -59,43 +55,6 @@ export default {
     color: #ffffff;
     border: none;
     font-weight: bold;
-  }
-}
-
-.greta {
-  width: 80%;
-  height: 30rem;
-  background-image: url("../assets/images/greta-hero.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  @include flex-center;
-  article {
-    width: 30%;
-    height: 80%;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
-  span {
-    text-align: center;
-    max-width: 20rem;
-    @include flex-col-center;
-    margin: 1rem;
-    h3 {
-      font-size: 2rem;
-      color: #ffffff;
-    }
-    button {
-      padding: 0.5rem 3rem;
-      background-color: $yellow;
-      border: none;
-      font-size: 1rem;
-      font-weight: bold;
-      color: white;
-    }
   }
 }
 </style>
