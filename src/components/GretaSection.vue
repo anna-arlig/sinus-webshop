@@ -1,12 +1,12 @@
 <template>
   <section class="greta">
     <article v-for="product in gretaProducts" :key="product.id">
-      <img :src="`${BASE_URL}/images/${product.imgFile}`" width="40">
+      <img :src="`${BASE_URL}/images/${product.imgFile}`">
       <h3>{{product.category}} - {{product.title}}</h3>
-      <span>
-        <h3>{{product.price}}kr</h3>
+      <div>
         <h3>{{product.shortDesc}}</h3>
-      </span>
+        <h3>{{product.price}}$</h3>
+      </div>
     </article>
     <span>
       <h3>
@@ -38,6 +38,7 @@ export default {
   background-image: url("../assets/images/greta-hero.jpg");
   background-size: cover;
   background-repeat: no-repeat;
+  display: flex;
   @include flex-center;
   article {
     width: 18rem;
@@ -48,8 +49,42 @@ export default {
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.2);
+    @include flex-col-center;
+    padding: 1rem 1.5rem;
+    h3{
+      align-self: flex-start;
+    }
+    div{
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-self: flex-start;
+      h3{
+        font-size: 18px;
+        color: #ffffff;
+      }
+    }
+    img{
+      height: 190px;
+    }
+  }
+  h3::first-letter{
+    text-transform: capitalize;
+  }
+  article:first-of-type{
+    order: 1;
+    img{
+      width: 50px;
+    }
+  }
+  article:last-of-type{
+    order: 3;
+    img{
+      width: 120px;
+    }
   }
   span {
+    order: 2;
     text-align: center;
     max-width: 20rem;
     @include flex-col-center;
@@ -57,6 +92,7 @@ export default {
     h3 {
       font-size: 2rem;
       color: #ffffff;
+      align-self: flex-start;
     }
     button {
       padding: 0.5rem 3rem;
