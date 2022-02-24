@@ -78,8 +78,24 @@ export default new Vuex.Store({
       const skateboards = state.productList.filter((prod) => {
         return prod.category === "skateboard"
       })
-      console.log(skateboards)
       return skateboards
+    },
+    apparel(state) {
+      const apparel = state.productList.filter((prod) => {
+        return prod.category === "hoodie" || prod.category === "tshirt"
+      })
+      return apparel
+    },
+    accessories(state) {
+      const accessories = state.productList.filter((prod) => {
+        return (
+          prod.category === "cap" ||
+          prod.category === "socks" ||
+          prod.category === "totebag" ||
+          prod.category === "wheel"
+        )
+      })
+      return accessories
     },
   },
   modules: {},

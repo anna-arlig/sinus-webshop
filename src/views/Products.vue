@@ -1,10 +1,14 @@
 <template>
   <div class="products">
     <div class="category-title">
-      <h1>Apparel / Hoodies</h1>
+      <h1>categoryTitle</h1>
       <div class="first-line"></div>
     </div>
-    <ProductList :skateboards="skateboards" />
+    <ProductList
+      :skateboards="skateboards"
+      :apparel="apparel"
+      :accessories="accessories"
+    />
   </div>
 </template>
 
@@ -14,9 +18,14 @@ export default {
   components: {
     ProductList,
   },
-  props: {
-    skateboards: Array,
+  data() {
+    return {
+      skateboards: this.$route.params.category,
+      apparel: this.$route.params.category,
+      accessories: this.$route.params.category,
+    }
   },
+  computed: {},
 }
 </script>
 

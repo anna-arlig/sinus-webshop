@@ -1,13 +1,16 @@
 <template>
   <section class="categories">
     <router-link
-      @click.native="getSkateboards"
-      :skateboards="skateboards"
-      to="/products"
+      :to="{ name: 'Products', params: { category: this.skateboards } }"
       ><h2>Skateboards</h2></router-link
     >
-    <router-link to="/products"><h2>Apparel</h2></router-link>
-    <router-link to="/products"><h2>Accessories</h2></router-link>
+    <router-link :to="{ name: 'Products', params: { category: this.apparel } }"
+      ><h2>Apparel</h2></router-link
+    >
+    <router-link
+      :to="{ name: 'Products', params: { category: this.accessories } }"
+      ><h2>Accessories</h2></router-link
+    >
     <router-link to="/products"><h2>Brands</h2></router-link>
   </section>
 </template>
@@ -15,20 +18,31 @@
 <script>
 import Action from "../store/Action.types"
 export default {
+  mounted() {
+    this.$store.dispatch(Action.GET_CATEGORY, this.skateboardQuery)
+    this.$store.dispatch(Action.GET_CATEGORY, this.apparelQuery)
+    this.$store.dispatch(Action.GET_CATEGORY, this.accessoriesQuery)
+    this.$store.dispatch(Action.GET_CATEGORY, this.accessoriesQueryPageTwo)
+  },
   data() {
     return {
       skateboardQuery: "/items?category=skateboard",
+      apparelQuery: "/items?category=hoodie&category=tshirt",
+      accessoriesQuery:
+        "/items?category=cap&category=totebag&category=socks&category=wheel",
+      accessoriesQueryPageTwo:
+        "/items?category=cap&category=totebag&category=socks&category=wheel&page=2",
     }
   },
   computed: {
     skateboards() {
       return this.$store.getters.skateboards
     },
-  },
-  methods: {
-    getSkateboards() {
-      this.$store.dispatch(Action.GET_CATEGORY, this.skateboardQuery)
-      console.log(this.skateboards)
+    apparel() {
+      return this.$store.getters.apparel
+    },
+    accessories() {
+      return this.$store.getters.accessories
     },
   },
 }
