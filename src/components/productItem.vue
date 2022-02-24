@@ -44,9 +44,7 @@
 
 <script>
 export default {
-  data(){return{
-    BASE_URL: process.env.VUE_APP_BASE_URL
-  }},
+  
   props: {
     product: Object,
     large: Boolean,
