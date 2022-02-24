@@ -1,6 +1,6 @@
 <template>
-  <section class="product-list">
-    <ul>
+  <section>
+    <ul class="product-list">
       <li v-for="product in skateboards" :key="product.id">
         <ProductItem small :product="product" />
       </li>
@@ -28,5 +28,6 @@ export default {
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
   align-items: center;
+  list-style: none;
 }
 </style>
