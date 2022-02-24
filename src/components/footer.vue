@@ -52,12 +52,12 @@
 </template>
 
 <script>
-import { Icon } from "@iconify/vue2"
+import { Icon } from "@iconify/vue2";
 export default {
   components: {
     Icon,
   },
-}
+};
 </script>
 
 <style scoped lang="scss">

@@ -50,6 +50,10 @@ export default {
 @import "@/assets/styles/fonts-colors.scss";
 @import "@/assets/styles/mixins.scss";
 
+.product-img {
+  margin-left: 20px;
+}
+
 p {
   font-size: 12px;
 }

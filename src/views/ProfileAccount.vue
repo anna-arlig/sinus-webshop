@@ -109,9 +109,10 @@ img {
   }
   img {
     position: relative;
-    background-color: rgba(255, 255, 255, 0.5);
-    color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.1);
     border-radius: 3px;
+    padding: 10px;
   }
 }
 
