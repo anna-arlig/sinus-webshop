@@ -1,45 +1,17 @@
 <template>
   <section class="categories">
-    <router-link
-      :to="{ name: 'Products', params: { category: this.skateboardsCat } }"
+    <router-link :to="{ name: 'Products', params: { category: 'Skateboards' } }"
       ><h2>Skateboards</h2></router-link
     >
-    <router-link
-      :to="{ name: 'Products', params: { category: this.apparelCat } }"
+    <router-link :to="{ name: 'Products', params: { category: 'Apparel' } }"
       ><h2>Apparel</h2></router-link
     >
-    <router-link
-      :to="{ name: 'Products', params: { category: this.accessoriesCat } }"
+    <router-link :to="{ name: 'Products', params: { category: 'Accessories' } }"
       ><h2>Accessories</h2></router-link
     >
     <router-link to="/products"><h2>Brands</h2></router-link>
   </section>
 </template>
-
-<script>
-import Action from "../store/Action.types"
-import {
-  skateboardQuery,
-  apparelQuery,
-  accessoriesQuery,
-  accessoriesQueryPageTwo,
-} from "@/api/API.js"
-export default {
-  mounted() {
-    this.$store.dispatch(Action.GET_CATEGORY, skateboardQuery)
-    this.$store.dispatch(Action.GET_CATEGORY, apparelQuery)
-    this.$store.dispatch(Action.GET_CATEGORY, accessoriesQuery)
-    this.$store.dispatch(Action.GET_CATEGORY, accessoriesQueryPageTwo)
-  },
-  data() {
-    return {
-      skateboardsCat: "Skateboards",
-      apparelCat: "Apparel",
-      accessoriesCat: "Accessories",
-    }
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 @import "../assets/styles/fonts-colors.scss";

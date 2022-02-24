@@ -12,7 +12,13 @@ export async function markusSearch(searchWord) {
 }
 
 export async function getCategory(query) {
-  return await axios.get(query)
+  if (query === "Skateboards") {
+    return await axios.get(skateboardQuery)
+  } else if (query === "Apparel") {
+    return await axios.get(apparelQuery)
+  } else if (query === "Accessories") {
+    return await axios.get(accessoriesQuery)
+  }
 }
 export function saveToken(token) {
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`

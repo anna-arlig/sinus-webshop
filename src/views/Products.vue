@@ -10,7 +10,11 @@
 
 <script>
 import ProductList from "../components/ProductList"
+import Action from "../store/Action.types"
 export default {
+  mounted() {
+    this.$store.dispatch(Action.GET_CATEGORY, this.$route.params.category)
+  },
   components: {
     ProductList,
   },
