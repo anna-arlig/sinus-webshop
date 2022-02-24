@@ -1,9 +1,9 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import * as API from '@/api/API.js'
-import Action from './Action.types'
-import Mutation from './Mutations.types'
-import SearchTerms from '@/assets/searchTerms.json'
+import Vue from "vue"
+import Vuex from "vuex"
+import * as API from "@/api/API.js"
+import Action from "./Action.types"
+import Mutation from "./Mutations.types"
+import SearchTerms from "@/assets/searchTerms.json"
 
 Vue.use(Vuex)
 
@@ -17,15 +17,15 @@ export default new Vuex.Store({
     searchTerms: [...SearchTerms],
   },
   mutations: {
-    
-    [Mutation.SAVE_PRODUCTS](state, fetchedProducts){
-     
-      state.productList.push(...fetchedProducts)
-      for(let product of fetchedProducts){   
-        Vue.set(state.products, product.id, product)   
+    [Mutation.SAVE_PRODUCTS](state, fetchedProducts) {
+      for (let product of fetchedProducts) {
+        if (!state.productList.find((prod) => prod.id === product.id)) {
+          state.productList.push(product)
+        }
+        Vue.set(state.products, product.id, product)
       }
-    }, 
-    [Mutation.SAVE_USER](state, newUser){
+    },
+    [Mutation.SAVE_USER](state, newUser) {
       state.user = newUser
       state.logInPopup = !state.logInPopup
     },
@@ -34,7 +34,6 @@ export default new Vuex.Store({
     },
     [Mutation.UPDATE_SEARCH_RESULTS](state, search) {
       if (search.length) {
-      
         state.searchResults = state.searchTerms.filter((product) => {
           return product.toLowerCase().includes(search)
         })
@@ -44,11 +43,11 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    async [Action.GET_PRODUCTS](context){
+    async [Action.GET_PRODUCTS](context) {
       const response = await API.getProducts()
       context.commit(Mutation.SAVE_PRODUCTS, response.data)
-    }, 
-    async [Action.GET_USER](context, user){
+    },
+    async [Action.GET_USER](context, user) {
       const response = await API.getUser(user)
       API.saveToken(response.data.token)
       context.commit(Mutation.SAVE_USER, response)
@@ -67,17 +66,22 @@ export default new Vuex.Store({
       context.commit(Mutation.UPDATE_SEARCH_RESULTS, search)
     },
 
-    async [Action.CREATE_USER](context, newUser){
-
+    async [Action.CREATE_USER](context, newUser) {
       const response = await API.createUser(newUser)
       context
       console.log(response)
     },
   },
   getters: {
-    products(state){
-      return state.productList
+    // getProductsByCategory: (state) => (category) =>
+    //   state.productList.filter((product) => product.category == category),
 
+    // getProductsByCategories: (state) => (categories) =>
+    //   state.productList.filter((product) =>
+    //     categories.includes(product.category)
+    //   ),
+    products(state) {
+      return state.productList
     },
     skateboards(state) {
       const skateboards = state.productList.filter((prod) => {
@@ -102,7 +106,6 @@ export default new Vuex.Store({
       })
       return accessories
     },
-
   },
   modules: {},
 })

@@ -1,7 +1,7 @@
 <template>
   <section>
     <ul class="product-list">
-      <li v-for="product in skateboards" :key="product.id">
+      <li v-for="product in categoryProducts" :key="product.id">
         <ProductItem small :product="product" />
       </li>
     </ul>
@@ -15,7 +15,7 @@ export default {
     ProductItem,
   },
   props: {
-    skateboards: Array,
+    categoryProducts: Array,
   },
 }
 </script>

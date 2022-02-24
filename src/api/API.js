@@ -1,13 +1,15 @@
+import axios from "axios"
+axios.defaults.baseURL = process.env.VUE_APP_BASE_URL + "/api"
+export const skateboardQuery = "/items?category=skateboard"
+export const apparelQuery = "/items?category=hoodie&category=tshirt"
+export const accessoriesQuery =
+  "/items?category=cap&category=totebag&category=socks&category=wheel"
+export const accessoriesQueryPageTwo =
+  "/items?category=cap&category=totebag&category=socks&category=wheel&page=2"
 
-import axios from 'axios'
-axios.defaults.baseURL = process.env.VUE_APP_BASE_URL+'/api'
-
-
-
-export async function markusSearch(searchWord){
+export async function markusSearch(searchWord) {
   return await axios.get(`/items?search=${searchWord}`)
 }
-
 
 export async function getCategory(query) {
   return await axios.get(query)
@@ -16,9 +18,8 @@ export function saveToken(token) {
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
 }
 
-
-export async function getProducts(){
-  return await axios.get('/items/')
+export async function getProducts() {
+  return await axios.get("/items/")
 }
 
 export async function getUser({ email, password }) {
