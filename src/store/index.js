@@ -15,6 +15,7 @@ export default new Vuex.Store({
     user: null,
     searchResults: [],
     searchTerms: [...SearchTerms],
+    cart: []
   },
   mutations: {
     [Mutation.SAVE_PRODUCTS](state, fetchedProducts) {
@@ -44,8 +45,20 @@ export default new Vuex.Store({
     [Mutation.LOG_OUT](state) {
       state.user = null
     },
+    [Mutation.SAVE_PRODUCT_IN_CART](state, product){
+      const inCart = state.cart.find(cartItem => cartItem.id == product.id)
+      if(inCart){
+        inCart.amount++
+      }else{
+        state.cart.push({id: product.id, amount: 1})
+      }
+    }
   },
   actions: {
+    [Action.ADD_TO_CART](context, product){
+      console.log(product);
+      context.commit(Mutation.SAVE_PRODUCT_IN_CART, product)
+    },
     async [Action.GET_PRODUCTS](context) {
       const response = await API.getProducts()
       context.commit(Mutation.SAVE_PRODUCTS, response.data)
@@ -72,12 +85,11 @@ export default new Vuex.Store({
     async [Action.CREATE_USER](context, newUser) {
       const response = await API.createUser(newUser)
       context
-      console.log(response)
+      response
     },
     async [Action.SEARCH_ITEMS](context, searchString) {
       const response = await API.searchItems(searchString)
       context.commit(Mutation.SAVE_PRODUCTS, response.data)
-      console.log(response.data);
     },
     [Action.LOG_OUT](context) {
       API.clearToken()

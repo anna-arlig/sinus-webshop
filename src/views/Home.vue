@@ -22,8 +22,7 @@ export default {
   components: { CategorySection, Carousel, GretaSection },
   async mounted() {
     this.$store.dispatch(Action.SEARCH_ITEMS, 'greta');
-  },
-  
+  },  
 };
 </script>
 

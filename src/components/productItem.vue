@@ -43,13 +43,14 @@
         <p v-if="large">
           Free delivery on orders over <strong>1000 kr</strong>
         </p>
-        <button v-if="large" @click="addProductToCart">Add to cart</button>
+        <button v-if="large" @click="addProductToCart(product)">Add to cart</button>
       </div>
     </div>
   </section>
 </template>
 
 <script>
+import Action from '@/store/Action.types.js'
 export default {
   props: {
     product: Object,
@@ -64,8 +65,8 @@ export default {
   },
 
   methods: {
-    addProductToCart() {
-      this.$store.dispatch("addToCart", this.id)
+    addProductToCart(product) {
+      this.$store.dispatch(Action.ADD_TO_CART, product)
     },
   },
 }
