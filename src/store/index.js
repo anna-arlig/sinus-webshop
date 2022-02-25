@@ -52,11 +52,19 @@ export default new Vuex.Store({
       }else{
         state.cart.push({id: product.id, amount: 1})
       }
+    }, 
+    [Mutation.UPDATE_CART_ITEM](state, {id, amount}){
+      const inCart = state.cart.find(cartItem => cartItem.id == id)
+      console.log(id, amount);
+      inCart.amount = amount
     }
   },
   actions: {
+    [Action.UPDATE_CART](context, id, amount){
+      console.log(id, amount);
+      context.commit(Mutation.UPDATE_CART_ITEM, {id, amount})
+    },
     [Action.ADD_TO_CART](context, product){
-      console.log(product);
       context.commit(Mutation.SAVE_PRODUCT_IN_CART, product)
     },
     async [Action.GET_PRODUCTS](context) {

@@ -1,24 +1,30 @@
 <template>
   <div class="cartProduct">
-    <img
-      class="product-img"
-      src="@/assets/images/sinus-skateboard-plastic.png"
-      alt="placeholder for product image"
-    />
+    <div class="img-container">
+      <img
+        class="product-img"
+        :src="`${BASE_URL}/images/${productObject.imgFile}`"
+    
+        alt="productObject.imgFile"
+      />
+    </div>
     <div class="info">
       <div class="info-part">
         <div>
-          <p class="category">SINUS SKATEBOARD -</p>
-          <p class="title">Northern lights</p>
+          <p class="category">{{productObject.category}} -</p>
+          <p class="title">{{productObject.title}}</p>
         </div>
         <Icon icon="ci:trash-empty" color="#bf3600" />
       </div>
       <div class="info-part">
-        <p class="price">$85</p>
+        <p class="price">{{productObject.price}} kr</p>
         <div class="quantity">
-          <Icon class="qty-btn" icon="akar-icons:minus" color="#006a72" />
-          <p class="quantity-paragraph">1</p>
-          <Icon class="qty-btn" icon="akar-icons:plus" color="#006a72" />
+          <button>
+          <Icon class="qty-btn" icon="akar-icons:minus" color="#006a72" @click="decrease(inCartProduct)" />
+
+          </button>
+          <p class="quantity-paragraph">{{inCartProduct.amount}}</p>
+          <Icon class="qty-btn" icon="akar-icons:plus" color="#006a72" @click="increase(inCartProduct)" />
         </div>
       </div>
     </div>
@@ -27,10 +33,30 @@
 
 <script>
 import { Icon } from "@iconify/vue2";
+import Action from '@/store/Action.types.js'
 export default {
+  props: ['inCartProduct'],
   components: {
     Icon,
   },
+  data(){return{
+    BASE_URL: process.env.VUE_APP_BASE_URL,
+  }},
+  methods: {
+    decrease(inCartProduct){
+      console.log(inCartProduct);
+      this.$store.dispatch(Action.UPDATE_CART, {id: inCartProduct.id, amount: inCartProduct.amount-1})
+    },
+    increase(inCartProduct){
+      this.$store.dispatch(Action.UPDATE_CART, {id: inCartProduct.id, amount: inCartProduct.amount+1})
+    },
+
+  },
+  computed: {
+    productObject(){
+      return this.$store.state.products[this.inCartProduct.id]
+    }
+  }
 };
 </script>
 
@@ -56,8 +82,15 @@ p {
   font-weight: normal;
   color: #0f201a;
 }
-.product-img {
-  margin-left: 30px;
+.img-container{
+  width: 5rem;
+  height: 5rem;
+  margin: 5px;
+  @include flex-center;
+  .product-img {
+    max-width: 100%;
+    max-height: 100%;
+}
 }
 .quantity {
   @include flex-center;
@@ -81,5 +114,8 @@ p {
   margin-right: 30px;
   @include flex-center;
   justify-content: space-between;
+  p:first-child{
+    text-transform: uppercase;
+  }
 }
 </style>
