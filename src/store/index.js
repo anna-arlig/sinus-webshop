@@ -95,7 +95,6 @@ export default new Vuex.Store({
       const skateboards = state.productList.filter((prod) => {
         return prod.category === "skateboard"
       })
-      console.log(skateboards)
       return skateboards
     },
     apparel(state) {
