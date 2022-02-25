@@ -18,9 +18,8 @@ export default {
   beforeRouteUpdate(to, from, next) {
     console.log(from)
     console.log(to)
-    // this.$store.dispatch(Action.GET_CATEGORY, this.$route.params.category)
     this.categoryTitel = to.params.category
-
+    this.$store.dispatch(Action.GET_CATEGORY, to.params.category)
     next()
   },
   components: {
