@@ -122,16 +122,18 @@ h2 {
   letter-spacing: 1px;
 }
 .checkout {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 4rem;
   margin: 3rem auto;
+  padding: 0 6rem;
 
   p {
     text-transform: uppercase;
   }
-  .checkout-info {
-    margin-right: 3rem;
-  }
+  // .checkout-info {
+  //   margin-right: 3rem;
+  // }
   .address {
     display: flex;
     flex-direction: column;
