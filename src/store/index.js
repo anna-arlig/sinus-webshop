@@ -35,8 +35,9 @@ export default new Vuex.Store({
     },
     [Mutation.UPDATE_SEARCH_RESULTS](state, search) {
       if (search.length) {
+    
         state.searchResults = state.searchTerms.filter((product) => {
-          return product.toLowerCase().includes(search)
+          return product.name.toLowerCase().includes(search)
         })
       } else {
         state.searchResults = []
@@ -94,7 +95,22 @@ export default new Vuex.Store({
       const response = await API.createUser(newUser)
       context
       response
+      console.log(response);
     },
+    async [Action.MARKUS_SEARCH](context, search){
+      if(search.type == 'category'){
+        const response = await API.categorySearch(search.searchWord)
+        
+        context.commit(Mutation.SAVE_PRODUCTS, response.data)
+      }
+      else{
+        const response = await API.markusSearch(search.searchWord)
+        context.commit(Mutation.SAVE_PRODUCTS, response.data)
+      }
+      
+     
+    }, 
+  
     async [Action.SEARCH_ITEMS](context, searchString) {
       const response = await API.searchItems(searchString)
       context.commit(Mutation.SAVE_PRODUCTS, response.data)
@@ -134,6 +150,7 @@ export default new Vuex.Store({
       })
       return accessories
     },
+    
   },
   modules: {},
 })
