@@ -34,8 +34,9 @@ export default new Vuex.Store({
     },
     [Mutation.UPDATE_SEARCH_RESULTS](state, search) {
       if (search.length) {
+    
         state.searchResults = state.searchTerms.filter((product) => {
-          return product.toLowerCase().includes(search)
+          return product.name.toLowerCase().includes(search)
         })
       } else {
         state.searchResults = []
@@ -121,6 +122,7 @@ export default new Vuex.Store({
       })
       return accessories
     },
+    
   },
   modules: {},
 })

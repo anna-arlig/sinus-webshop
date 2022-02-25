@@ -53,9 +53,9 @@
         <input
           type="text"
           placeholder="Search"
-          v-model="search"
+          v-model="search.name"
           @input="updateSearchResults"
-          @keyup.enter="searchProduct(search)"
+          @keyup.enter="searchProduct(search.name)"
         />
         <!-- Byt ut li nedan mot router-links när det går -->
         <dialog
@@ -65,10 +65,10 @@
         >
           <li
             v-for="product of searchResults"
-            :key="product"
-            @click="searchProduct(product)"
+            :key="product.name"
+            @click="searchProduct(product.name)"
           >
-            {{ product }}
+            {{ product.name }}
           </li>
         </dialog>
       </div>
@@ -84,7 +84,9 @@ export default {
   data() {
     return {
       cartHover: false,
-      search: "",
+      search: {name: "",
+              type: "search",
+      },
       BASE_URL: process.env.VUE_APP_BASE_URL,
     }
   },
@@ -102,7 +104,7 @@ export default {
     updateSearchResults() {
       this.$store.dispatch(
         Action.UPDATE_SEARCH_RESULTS,
-        this.search.toLowerCase()
+        this.search.name.toLowerCase()
       )
     },
   },
