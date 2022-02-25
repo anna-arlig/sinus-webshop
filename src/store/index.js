@@ -92,12 +92,13 @@ export default new Vuex.Store({
     },
     async [Action.UPDATE_USER_INFO](context, userInfo){
       
-      const response = await API.updateUserInfo(userInfo)
-      console.log(response)
-      context.commit(Mutation.SAVE_USER, response.data)
+      await API.updateUserInfo(userInfo)
+      context
+      
     },
     async getUserInfo(context){
       const response = await API.getUserInfo()
+      console.log(response)
       context.commit(Mutation.SAVE_USER, response.data)
     },
 

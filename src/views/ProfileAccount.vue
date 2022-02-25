@@ -18,7 +18,7 @@
             <input v-if="edit" v-model="email" placeholder="email">
             <input v-if="edit" v-model="password" placeholder="password">
           </div>
-          <button v-if="!edit" @click="edit=true">Update my info</button>
+          <button v-if="!edit" @click="edit=true">Update my info <Icon icon="clarity:edit-line" width="20" /></button>
           <button v-if="edit" @click="updateInfo">Save my info</button>
           <router-link to="/"><button @click="logOut">Log out</button></router-link>
         </div>
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-// import { Icon } from "@iconify/vue2"
+import { Icon } from "@iconify/vue2"
 import Action from "../store/Action.types"
 export default {
   mounted(){
@@ -67,10 +67,11 @@ export default {
       
     };
   },
+  components:{Icon},
   methods:{
-    updateInfo(){
+    async updateInfo(){
       this.edit=false
-      this.$store.dispatch(Action.UPDATE_USER_INFO, {
+      await this.$store.dispatch(Action.UPDATE_USER_INFO, {
         name: this.name,
         email: this.email,
         password: this.password,
@@ -80,6 +81,7 @@ export default {
           city: this.city,
           },
       })
+      this.$store.dispatch('getUserInfo')
     },
     logOut(){
       this.$store.dispatch(Action.LOG_OUT)
