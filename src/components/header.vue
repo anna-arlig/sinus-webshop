@@ -80,6 +80,7 @@
 import { Icon } from "@iconify/vue2"
 import CartPopup from "@/components/cartPopup.vue"
 import Action from "../store/Action.types"
+import Mutation from "../store/Action.types"
 export default {
   data() {
     return {
@@ -96,6 +97,8 @@ export default {
     async searchProduct(product) {
       await this.$store.dispatch(Action.MARKUS_SEARCH, product)
       this.$router.push(`/products/${product.page}`)
+      
+      this.$store.commit(Mutation.UPDATE_SEARCH_RESULTS, '')
     },
     modalToggle() {
       if (this.user == null) {
