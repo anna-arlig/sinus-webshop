@@ -43,13 +43,14 @@
         <p v-if="large">
           Free delivery on orders over <strong>1000 kr</strong>
         </p>
-        <button v-if="large" @click="addProductToCart">Add to cart</button>
+        <button v-if="large" @click="addProductToCart(product)">Add to cart</button>
       </div>
     </div>
   </section>
 </template>
 
 <script>
+import Action from '@/store/Action.types.js'
 export default {
   props: {
     product: Object,
@@ -64,8 +65,8 @@ export default {
   },
 
   methods: {
-    addProductToCart() {
-      this.$store.dispatch("addToCart", this.id)
+    addProductToCart(product) {
+      this.$store.dispatch(Action.ADD_TO_CART, product)
     },
   },
 }
@@ -210,11 +211,21 @@ section.large {
         background-color: $teal;
         color: #fff;
         border-radius: 5px;
-        border: none;
+        border: 1px solid $teal;
         box-shadow: (0px 3px 4px rgba(0, 0, 0, 0.25));
         font-size: 1.3rem;
         font-weight: 500;
         text-transform: uppercase;
+        transition: transform .5s ease;
+        &:hover{
+          cursor: pointer;
+          background-color: #FFFFFF;
+          color: $teal;
+          border: 1px solid $teal;
+        }
+        &:active{
+          transform: scale(1.1);
+        }
       }
     }
   }

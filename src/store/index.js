@@ -15,6 +15,7 @@ export default new Vuex.Store({
     user: null,
     searchResults: [],
     searchTerms: [...SearchTerms],
+    cart: []
   },
   mutations: {
     [Mutation.SAVE_PRODUCTS](state, fetchedProducts) {
@@ -45,8 +46,40 @@ export default new Vuex.Store({
     [Mutation.LOG_OUT](state) {
       state.user = null
     },
+    [Mutation.SAVE_PRODUCT_IN_CART](state, product){
+      const inCart = state.cart.find(cartItem => cartItem.id == product.id)
+      if(inCart){
+        inCart.amount++
+      }else{
+        state.cart.push({id: product.id, amount: 1})
+      }
+    }, 
+    [Mutation.UPDATE_CART_ITEM](state, {id, amount}){
+      const inCart = state.cart.find(cartItem => cartItem.id == id)
+      inCart.amount = amount
+    }, 
+    [Mutation.REMOVE_CART_ITEM](state, id){
+      const itemExist = state.cart.find(cartItem => cartItem.id == id)
+      const itemIndex = state.cart.indexOf(itemExist)
+      state.cart.splice(itemIndex, 1)
+    }, 
+    [Mutation.REMOVE_ALL_CART_ITEMS](state){
+      state.cart = []
+    }
   },
   actions: {
+    [Action.EMPTY_CART](context){
+      context.commit(Mutation.REMOVE_ALL_CART_ITEMS)
+    },
+    [Action.REMOVE_FROM_CART](context, id){
+      context.commit(Mutation.REMOVE_CART_ITEM, id)
+    },
+    [Action.UPDATE_CART](context, {id, amount}){
+      context.commit(Mutation.UPDATE_CART_ITEM, {id, amount})
+    },
+    [Action.ADD_TO_CART](context, product){
+      context.commit(Mutation.SAVE_PRODUCT_IN_CART, product)
+    },
     async [Action.GET_PRODUCTS](context) {
       const response = await API.getProducts()
       context.commit(Mutation.SAVE_PRODUCTS, response.data)
@@ -73,7 +106,7 @@ export default new Vuex.Store({
     async [Action.CREATE_USER](context, newUser) {
       const response = await API.createUser(newUser)
       context
-      console.log(response);
+      response
     },
     async [Action.MARKUS_SEARCH](context, search){
       if(search.type == 'category'){
