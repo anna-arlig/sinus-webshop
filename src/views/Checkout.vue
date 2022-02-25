@@ -1,6 +1,16 @@
 <template>
-  <div>
+  <div class="checkout-container">
     <h2>Checkout</h2>
+    <section class="buttons">
+      <div class="login">
+        <p>Log in or place an order without registration</p>
+        <button class="login-btn">Log in</button>
+      </div>
+      <div class="create-account">
+        <p>Dont't have a <strong>SINUS</strong> account yet? Create one now:</p>
+        <button class="account-btn">Create account</button>
+      </div>
+    </section>
     <form class="checkout">
       <div class="checkout-info">
         <section class="form">
@@ -28,21 +38,21 @@
         <section class="delivery">
           <p class="del-method">Delivery method</p>
           <div class="delivery-type">
-            <input type="radio" />
+            <input type="radio" id="fedex" name="delivery" value="fedex" />
             <img src="../assets/images/fedex.png" alt="" />
-            <p>Standard (3-4 days)</p>
+            <label for="fedex">Standard (3-4 days)</label>
             <p>$20</p>
           </div>
           <div class="delivery-type">
-            <input type="radio" />
+            <input type="radio" id="ups" name="delivery" value="ups" />
             <img src="../assets/images/ups.png" alt="" />
-            <p>Express (1-2 days)</p>
+            <label for="ups">Express (1-2 days)</label>
             <p>$30</p>
           </div>
           <div class="delivery-type">
-            <input type="radio" />
+            <input type="radio" id="dhl" name="delivery" value="dhl" />
             <img src="../assets/images/dhl.png" alt="" />
-            <p>Standard (5-6 days)</p>
+            <label for="dhl">Standard (5-6 days)</label>
             <p>$15</p>
           </div>
         </section>
@@ -50,19 +60,24 @@
         <section class="payment">
           <p class="pay-method">Payment method</p>
           <div class="payment-type">
-            <input type="radio" />
+            <input
+              type="radio"
+              id="creditcard"
+              name="payment"
+              value="creditcard"
+            />
             <img src="../assets/images/mastercard.png" alt="" />
-            <p>Pay with credit card</p>
+            <label for="creditcard">Pay with credit card</label>
           </div>
           <div class="payment-type">
-            <input type="radio" />
+            <input type="radio" id="paypal" name="payment" value="paypal" />
             <img src="../assets/images/paypal-logo.png" alt="" />
-            <p>Pay with Paypal</p>
+            <label for="paypal">Pay with Paypal</label>
           </div>
           <div class="payment-type">
-            <input type="radio" />
+            <input type="radio" id="invoice" name="payment" value="invoice" />
             <p><strong>Invoice</strong></p>
-            <p>Pay with invoice (30 days)</p>
+            <label for="invoice">Pay with invoice (30 days)</label>
           </div>
         </section>
       </div>
@@ -117,15 +132,40 @@ export default {
 @import "@/assets/styles/fonts-colors.scss";
 @import "@/assets/styles/mixins.scss";
 h2 {
-  max-width: 85%;
-  margin: 3rem auto;
+  margin: 3rem 6rem;
   letter-spacing: 1px;
+}
+.buttons {
+  // width: 65%;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 6rem;
+  margin-right: 6rem;
+
+  .login,
+  .create-account {
+    text-align: center;
+    width: 45%;
+  }
+  .account-btn,
+  .login-btn {
+    width: 50%;
+    padding: 0.6rem 0;
+    background-color: $teal;
+    color: #fff;
+    border-radius: 5px;
+    border: none;
+    box-shadow: (0px 3px 4px rgba(0, 0, 0, 0.25));
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
 }
 .checkout {
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 4rem;
-  margin: 3rem auto;
+  margin: 6rem auto;
   padding: 0 6rem;
 
   p {
@@ -206,6 +246,7 @@ h2 {
     margin: 0;
     margin-right: 1.5rem;
     border-color: $teal;
+    box-shadow: none;
   }
   .delivery *,
   .payment * {
@@ -259,7 +300,9 @@ h2 {
       font-size: 0.8rem;
     }
     input[type="checkbox"] {
+      margin: 0;
       margin-right: 0.5rem;
+      box-shadow: none;
     }
   }
   button {
