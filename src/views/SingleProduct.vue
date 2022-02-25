@@ -1,6 +1,6 @@
 <template>
   <div class="single-product">
-    <ProductItem large />
+    <ProductItem large :product="product" />
   </div>
 </template>
 
@@ -9,6 +9,13 @@ import ProductItem from "../components/productItem"
 export default {
   components: {
     ProductItem,
+  },
+  computed: {
+    product() {
+      return this.$store.getters.products.find(
+        (prod) => prod.id == this.$route.params.id
+      )
+    },
   },
 }
 </script>

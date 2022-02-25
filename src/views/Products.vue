@@ -1,31 +1,47 @@
 <template>
   <div class="products">
     <div class="category-title">
-      <h1>categoryTitle</h1>
+      <h1>{{ categoryTitel }}</h1>
       <div class="first-line"></div>
     </div>
-    <ProductList
-      :skateboards="skateboards"
-      :apparel="apparel"
-      :accessories="accessories"
-    />
+    <ProductList :categoryProducts="selectedCategoryProducts" />
   </div>
 </template>
 
 <script>
 import ProductList from "../components/ProductList"
+import Action from "../store/Action.types"
 export default {
+  mounted() {
+    this.$store.dispatch(Action.GET_CATEGORY, this.$route.params.category)
+  },
+  beforeRouteUpdate(to, from, next) {
+    console.log(from)
+    console.log(to)
+    // this.$store.dispatch(Action.GET_CATEGORY, this.$route.params.category)
+    this.categoryTitel = to.params.category
+
+    next()
+  },
   components: {
     ProductList,
   },
   data() {
     return {
-      skateboards: this.$route.params.category,
-      apparel: this.$route.params.category,
-      accessories: this.$route.params.category,
+      categoryTitel: this.$route.params.category,
     }
   },
-  computed: {},
+  computed: {
+    selectedCategoryProducts() {
+      if (this.categoryTitel === "Skateboards") {
+        return this.$store.getters.skateboards
+      } else if (this.categoryTitel === "Apparel") {
+        return this.$store.getters.apparel
+      } else {
+        return this.$store.getters.accessories
+      }
+    },
+  },
 }
 </script>
 

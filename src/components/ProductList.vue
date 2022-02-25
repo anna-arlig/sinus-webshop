@@ -1,10 +1,12 @@
 <template>
-  <section>
-    <ul class="product-list">
-      <li v-for="product in skateboards" :key="product.id">
-        <ProductItem small :product="product" />
-      </li>
-    </ul>
+  <section class="product-list">
+    <router-link
+      :to="`/product/${product.id}`"
+      v-for="product in categoryProducts"
+      :key="product.id"
+    >
+      <ProductItem small :product="product" />
+    </router-link>
   </section>
 </template>
 
@@ -15,7 +17,7 @@ export default {
     ProductItem,
   },
   props: {
-    skateboards: Array,
+    categoryProducts: Array,
   },
 }
 </script>
@@ -29,5 +31,9 @@ export default {
   justify-items: center;
   align-items: center;
   list-style: none;
+}
+a {
+  text-decoration: none;
+  color: #312f30;
 }
 </style>

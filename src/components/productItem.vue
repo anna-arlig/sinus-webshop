@@ -6,14 +6,18 @@
     </div>
     <div class="product-info">
       <div class="product-img">
-
         <img
+          v-if="small"
           :src="`${BASE_URL}/images/${product.imgFile}`"
           width="280"
           height="220"
-          alt=""
+          :alt="product.title"
         />
-
+        <img
+          v-if="large"
+          :src="`${BASE_URL}/images/${product.imgFile}`"
+          :alt="product.title"
+        />
       </div>
       <div class="product-details">
         <div class="product-name" v-if="large">
@@ -30,12 +34,15 @@
           <p class="reviews" v-if="large">Read 15 other reviews</p>
         </div>
         <p v-if="large">
-          {{ longDesc }}
+          {{ product.longDesc }}
         </p>
+        <p class="unisex">
+          {{ product.shortDesc }}
+        </p>
+        <h3 class="price">{{ product.price }} kr</h3>
         <p v-if="large">
-          {{ shortDesc }}
+          Free delivery on orders over <strong>1000 kr</strong>
         </p>
-        <h3 class="price">€{{ product.price }}</h3>
         <button v-if="large" @click="addProductToCart">Add to cart</button>
       </div>
     </div>
@@ -49,11 +56,13 @@ export default {
     large: Boolean,
     small: Boolean,
   },
+
   data() {
     return {
       BASE_URL: process.env.VUE_APP_BASE_URL,
     }
   },
+
   methods: {
     addProductToCart() {
       this.$store.dispatch("addToCart", this.id)
@@ -68,23 +77,24 @@ export default {
 
 // ProductList view SMALL
 section.small {
-  margin: 6rem 1rem 1rem;
-  width: 19rem;
+  margin: 3rem 1rem 5rem;
+  width: 18rem;
   cursor: pointer;
-  transition: 1s ease;
-
-  &:hover {
-    transform: scale(1.05);
-  }
 
   .product-info {
     @include flex-col-center;
-    padding: 2rem 1rem 1rem;
+    padding: 2rem 0 1rem;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
 
     .product-img {
       margin-bottom: 0.8rem;
+      transition: 1s ease;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+
       img {
         width: 100%;
       }
@@ -98,7 +108,7 @@ section.small {
         margin: 0;
       }
       .stars {
-        margin-bottom: 4rem;
+        margin-bottom: 2.5rem;
 
         img {
           margin: 0 0.2rem;
@@ -107,13 +117,16 @@ section.small {
       .price {
         font-size: 1.3rem;
       }
+      .unisex {
+        text-transform: uppercase;
+      }
     }
   }
 }
 
 // SingleProduct view LARGE
 section.large {
-  max-width: 85%;
+  max-width: 80%;
   margin: 3rem auto 10rem;
   padding: 2rem;
 
@@ -123,6 +136,7 @@ section.large {
 
     h3 {
       margin: 0;
+      text-transform: uppercase;
     }
 
     .first-line {
@@ -138,13 +152,16 @@ section.large {
 
     .product-img {
       @include flex-center;
+      width: 100%;
+      height: 35rem;
       flex: 1;
-      padding: 4rem 3rem;
+      padding: 2rem 1rem;
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
       border-radius: 5px;
 
       img {
-        width: 100%;
+        max-height: 100%;
+        max-width: 90%;
       }
     }
 
@@ -175,6 +192,9 @@ section.large {
       }
       .reviews {
         font-size: 0.5rem;
+      }
+      .unisex {
+        text-transform: uppercase;
       }
       p {
         font-size: 1rem;

@@ -1,32 +1,37 @@
 <template>
   <div class="header">
     <div id="nav">
-      <img
-        src="../assets/images/sinus-logo-landscape_1.png"
-        alt="sinus text-logo"
-        width="220"
-      />
-
+      <router-link to="/">
+        <img
+          :src="`${BASE_URL}/images/sinus-logo-landscape.svg`"
+          alt="sinus text-logo"
+          width="220"
+        />
+      </router-link>
       <div class="categories">
-        <a>Skateboards <Icon icon="dashicons:arrow-down-alt2" /></a>
-        <a>Apparel <Icon icon="dashicons:arrow-down-alt2" /></a>
-        <a>Accessories <Icon icon="dashicons:arrow-down-alt2" /></a>
-        <a>Brands <Icon icon="dashicons:arrow-down-alt2" /></a>
+        <router-link
+          :to="{ name: 'Products', params: { category: 'Skateboards' } }"
+          ><a>Skateboards</a></router-link
+        >
+        <router-link :to="{ name: 'Products', params: { category: 'Apparel' } }"
+          ><a>Apparel <Icon icon="dashicons:arrow-down-alt2" /></a
+        ></router-link>
+        <router-link
+          :to="{ name: 'Products', params: { category: 'Accessories' } }"
+          ><a>Accessories <Icon icon="dashicons:arrow-down-alt2" /></a
+        ></router-link>
+        <router-link to="/products"><a>Limited Edition</a></router-link>
       </div>
 
       <div class="links-and-search">
         <div class="links">
+          <div class="login" @click="modalToggle">
+            <Icon icon="bxs:user" width="30" />
 
-
-          <div class="login" 
-            @click="modalToggle"
-          >
-           
-        
-            <Icon icon="bxs:user" width="35" />
-
-
-            <p>Log in</p>
+            <p v-if="!user">Log in</p>
+            <router-link v-else to="/account">
+              <p>Profile</p>
+            </router-link>
           </div>
           <div class="favourites">
             <Icon icon="ant-design:heart-filled" width="30" />
@@ -44,13 +49,28 @@
             <p>Cart</p>
           </div>
         </div>
-       
-          <input type="text" placeholder="Search" v-model="search" @input="updateSearchResults" @keyup.enter="searchProduct(search)" />
-          <!-- Byt ut li nedan mot router-links när det går -->
-          <dialog open class="search-results" v-if="searchResults.length && cartHover==false">
-          <li v-for="product of searchResults" :key="product" @click="searchProduct(product)">{{product}}</li>
-          </dialog>
-        
+
+        <input
+          type="text"
+          placeholder="Search"
+          v-model="search"
+          @input="updateSearchResults"
+          @keyup.enter="searchProduct(search)"
+        />
+        <!-- Byt ut li nedan mot router-links när det går -->
+        <dialog
+          open
+          class="search-results"
+          v-if="searchResults.length && cartHover == false"
+        >
+          <li
+            v-for="product of searchResults"
+            :key="product"
+            @click="searchProduct(product)"
+          >
+            {{ product }}
+          </li>
+        </dialog>
       </div>
     </div>
   </div>
@@ -61,26 +81,37 @@ import { Icon } from "@iconify/vue2"
 import CartPopup from "@/components/cartPopup.vue"
 import Action from "../store/Action.types"
 export default {
-  data(){return{
-    cartHover: false,
-    search: '',
-  }},
-  components: {Icon, CartPopup},
-  methods:{
-  searchProduct(searchWord){
-    this.$store.dispatch(Action.MARKUS_SEARCH, searchWord)
-    this.$router.push('/products')
-  },
-  modalToggle(){
-      this.$store.dispatch(Action.TOGGLE_MODAL)
-      },
-    updateSearchResults(){
-      this.$store.dispatch(Action.UPDATE_SEARCH_RESULTS, this.search.toLowerCase())
+  data() {
+    return {
+      cartHover: false,
+      search: "",
+      BASE_URL: process.env.VUE_APP_BASE_URL,
     }
+  },
+  components: { Icon, CartPopup },
+  methods: {
+    searchProduct(searchWord) {
+      this.$store.dispatch(Action.MARKUS_SEARCH, searchWord)
+      this.$router.push("/products")
+    },
+    modalToggle() {
+      if (this.user == null) {
+        this.$store.dispatch(Action.TOGGLE_MODAL)
+      }
+    },
+    updateSearchResults() {
+      this.$store.dispatch(
+        Action.UPDATE_SEARCH_RESULTS,
+        this.search.toLowerCase()
+      )
+    },
   },
   computed: {
     searchResults() {
       return this.$store.state.searchResults
+    },
+    user() {
+      return this.$store.state.user
     },
   },
 }
@@ -112,6 +143,9 @@ export default {
 
   a {
     @include flex-center;
+    text-decoration: none;
+    color: #312f30;
+    font-size: 1.1rem;
   }
 }
 
@@ -141,6 +175,10 @@ input {
   border: 1px solid black;
   height: 1.5rem;
   margin-top: 0.5rem;
+
+  &::placeholder {
+    font-size: 0.8rem;
+  }
 }
 .fade-enter-active,
 .fade-leave-active {
