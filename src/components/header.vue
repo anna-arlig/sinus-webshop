@@ -53,7 +53,7 @@
         <input
           type="text"
           placeholder="Search"
-          v-model="search"
+          v-model="search.name"
           @input="updateSearchResults"
           @keyup.enter="searchProduct(search)"
         />
@@ -65,10 +65,10 @@
         >
           <li
             v-for="product of searchResults"
-            :key="product"
+            :key="product.name"
             @click="searchProduct(product)"
           >
-            {{ product }}
+            {{ product.name }}
           </li>
         </dialog>
       </div>
@@ -80,19 +80,25 @@
 import { Icon } from "@iconify/vue2"
 import CartPopup from "@/components/cartPopup.vue"
 import Action from "../store/Action.types"
+import Mutation from "../store/Action.types"
 export default {
   data() {
     return {
       cartHover: false,
-      search: "",
+      search: {name: "",
+              type: "search",
+              searchWord: this.compSearchWord
+      },
       BASE_URL: process.env.VUE_APP_BASE_URL,
     }
   },
   components: { Icon, CartPopup },
   methods: {
-    searchProduct(searchWord) {
-      this.$store.dispatch(Action.MARKUS_SEARCH, searchWord)
-      this.$router.push("/products")
+    async searchProduct(product) {
+      await this.$store.dispatch(Action.MARKUS_SEARCH, product)
+      this.$router.push(`/products/${product.page}`)
+      
+      this.$store.commit(Mutation.UPDATE_SEARCH_RESULTS, '')
     },
     modalToggle() {
       if (this.user == null) {
@@ -102,7 +108,7 @@ export default {
     updateSearchResults() {
       this.$store.dispatch(
         Action.UPDATE_SEARCH_RESULTS,
-        this.search.toLowerCase()
+        this.search.name.toLowerCase()
       )
     },
   },
@@ -113,6 +119,9 @@ export default {
     user() {
       return this.$store.state.user
     },
+    compSearchWord(){
+      return this.search.name
+    }
   },
 }
 </script>
