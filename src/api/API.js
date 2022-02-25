@@ -44,14 +44,19 @@ export async function getUser({ email, password }) {
   })
 }
 
-export async function createUser({ email, password, name, address }) {
+export async function createUser({ email, password }) {
   return await axios.post("/register/", {
     email,
     password,
-    name,
-    address,
   })
 }
 export async function searchItems(searchString) {
   return await axios.get(`/items?search=${searchString}`)
+}
+
+export async function getUserInfo(){
+  return await axios.get('/me')
+}
+export async function updateUserInfo(userInfo){
+  return await axios.patch('/me', userInfo)
 }

@@ -6,12 +6,20 @@
         <div class="user-info">
           <h2>About me</h2>
           <div class="address">
-            <h5>Name: Greta Thunberg</h5>
-            <p>Street: Savetheworld 123</p>
-            <p>Zip: 123 45</p>
-            <p>City: Stockholm</p>
+            <h5>Name: {{userData.name}}</h5>
+            <input v-if="edit" v-model="name" placeholder="Name">
+            <p>Street: {{userData.address.street}}</p>
+            <input v-if="edit" v-model="street" placeholder="Street">
+            <p>Zip:{{userData.address.zip}}</p>
+            <input v-if="edit" v-model="zip" placeholder="Zip code">
+            <p>City: {{userData.address.city}}</p>
+            <input v-if="edit" v-model="city" placeholder="City">
+            <p>Email: {{userData.Email}}</p>
+            <input v-if="edit" v-model="email" placeholder="email">
+            <input v-if="edit" v-model="password" placeholder="password">
           </div>
-          <button>Update my info</button>
+          <button v-if="!edit" @click="edit=true">Update my info</button>
+          <button v-if="edit" @click="updateInfo">Save my info</button>
           <router-link to="/"><button @click="logOut">Log out</button></router-link>
         </div>
       </div>
@@ -40,16 +48,46 @@
 </template>
 
 <script>
+// import { Icon } from "@iconify/vue2"
 import Action from "../store/Action.types"
 export default {
+  mounted(){
+    this.$store.dispatch('getUserInfo')
+  },
   data() {
     return {
       BASE_URL: process.env.VUE_APP_BASE_URL,
+      name: '',
+      zip: '',
+      street: '',
+      city: '',
+      email: '',
+      password: '',
+      edit: false,
+      
     };
   },
   methods:{
+    updateInfo(){
+      this.edit=false
+      this.$store.dispatch(Action.UPDATE_USER_INFO, {
+        email: this.email,
+        password: this.password,
+        address:{
+          name: this.name,
+          zip: this.zip,
+          street: this.street,
+          city: this.city,
+          },
+      })
+    },
     logOut(){
       this.$store.dispatch(Action.LOG_OUT)
+    }
+  },
+  computed:{
+    userData(){
+        return this.$store.state.user.data
     }
   }
 };

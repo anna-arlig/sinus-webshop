@@ -8,6 +8,7 @@ export const MARKUS_SEARCH = 'MARKUS_SEARCH'
 export const GET_CATEGORY = "GET_CATEGORY"
 export const SEARCH_ITEMS = 'SEARCH_ITEMS'
 export const LOG_OUT = 'LOG_OUT'
+export const UPDATE_USER_INFO = 'UPDATE_USER_INFO'
 
 
 export default {
@@ -19,7 +20,8 @@ export default {
     CREATE_USER,
     MARKUS_SEARCH, 
     SEARCH_ITEMS,
-    LOG_OUT
+    LOG_OUT,
+    UPDATE_USER_INFO
 }
 
 
