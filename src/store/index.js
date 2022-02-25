@@ -77,10 +77,16 @@ export default new Vuex.Store({
     },
     async [Action.MARKUS_SEARCH](context, search){
       if(search.type == 'category'){
-        console.log(search.type)
+        const response = await API.categorySearch(search.searchWord)
+        
+        context.commit(Mutation.SAVE_PRODUCTS, response.data)
       }
-      // const response = await API.markusSearch(search)
-      context
+      else{
+        const response = await API.markusSearch(search.searchWord)
+        context.commit(Mutation.SAVE_PRODUCTS, response.data)
+      }
+      
+     
     }, 
   
     async [Action.SEARCH_ITEMS](context, searchString) {

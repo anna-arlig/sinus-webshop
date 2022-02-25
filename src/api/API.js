@@ -10,6 +10,9 @@ const accessoriesQueryPageTwo =
 export async function markusSearch(searchWord) {
   return await axios.get(`/items?search=${searchWord}`)
 }
+export async function categorySearch(searchWord){
+  return await axios.get(`/items?category=${searchWord}`)
+}
 
 export async function getCategory(query) {
   if (query === "Skateboards") {

@@ -55,7 +55,7 @@
           placeholder="Search"
           v-model="search.name"
           @input="updateSearchResults"
-          @keyup.enter="searchProduct(search.name)"
+          @keyup.enter="searchProduct(search)"
         />
         <!-- Byt ut li nedan mot router-links när det går -->
         <dialog
@@ -66,7 +66,7 @@
           <li
             v-for="product of searchResults"
             :key="product.name"
-            @click="searchProduct(product.name)"
+            @click="searchProduct(product)"
           >
             {{ product.name }}
           </li>
@@ -86,15 +86,16 @@ export default {
       cartHover: false,
       search: {name: "",
               type: "search",
+              searchWord: this.compSearchWord
       },
       BASE_URL: process.env.VUE_APP_BASE_URL,
     }
   },
   components: { Icon, CartPopup },
   methods: {
-    searchProduct(searchWord) {
-      this.$store.dispatch(Action.MARKUS_SEARCH, searchWord)
-      this.$router.push("/products")
+    async searchProduct(product) {
+      await this.$store.dispatch(Action.MARKUS_SEARCH, product)
+      this.$router.push(`/products/${product.page}`)
     },
     modalToggle() {
       if (this.user == null) {
@@ -115,6 +116,9 @@ export default {
     user() {
       return this.$store.state.user
     },
+    compSearchWord(){
+      return this.search.name
+    }
   },
 }
 </script>
