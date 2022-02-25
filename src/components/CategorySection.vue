@@ -23,9 +23,9 @@
   justify-content: center;
   flex-wrap: wrap;
   a {
-    width: 25rem;
+    width: 30rem;
     height: 25rem;
-    margin: 0.3rem;
+    margin: 1rem;
     background-size: cover;
     background-repeat: no-repeat;
     font-family: $heading;
