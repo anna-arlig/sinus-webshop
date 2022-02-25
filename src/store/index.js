@@ -77,6 +77,7 @@ export default new Vuex.Store({
     async [Action.SEARCH_ITEMS](context, searchString) {
       const response = await API.searchItems(searchString)
       context.commit(Mutation.SAVE_PRODUCTS, response.data)
+      console.log(response.data);
     },
     [Action.LOG_OUT](context) {
       API.clearToken()

@@ -1,11 +1,11 @@
 <template>
   <section class="greta">
-    <article>
+    <article  v-if="gretaProducts">
       <img :src="`${BASE_URL}/images/${gretaProducts[0].imgFile}`">
       <h3>{{gretaProducts[0].category}} - {{gretaProducts[0].title}}</h3>
       <div>
         <h3>{{gretaProducts[0].shortDesc}}</h3>
-        <h3>{{gretaProducts[0].price}}$</h3>
+        <h3>{{gretaProducts[0].price}}€</h3>
       </div>
     </article>
     <span>
@@ -15,12 +15,12 @@
       </h3>
       <button>CHECK IT OUT</button>
     </span>
-    <article>
+    <article v-if="gretaProducts">
       <img :src="`${BASE_URL}/images/${gretaProducts[1].imgFile}`">
       <h3>{{gretaProducts[1].category}} - {{gretaProducts[1].title}}</h3>
       <div>
         <h3>{{gretaProducts[1].shortDesc}}</h3>
-        <h3>{{gretaProducts[1].price}}$</h3>
+        <h3>{{gretaProducts[1].price}}€</h3>
       </div>
     </article>
   </section>
@@ -28,9 +28,16 @@
 
 <script>
 export default {
-    props: {
-      gretaProducts: Array
-    }, 
+  mounted(){
+    console.log(this.gretaProducts);
+  },
+    computed:{
+    gretaProducts(){
+      if(this.$store.getters.specialEdition){
+        return this.$store.getters.specialEdition
+      }else{ return null}
+    }
+  },
     data(){return{
       BASE_URL: process.env.VUE_APP_BASE_URL
     }}
