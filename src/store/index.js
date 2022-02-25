@@ -58,13 +58,14 @@ export default new Vuex.Store({
       context.commit(Mutation.MODAL_TOGGLE)
     },
     async [Action.UPDATE_USER_INFO](context, userInfo){
-      console.log(userInfo)
+      
       const response = await API.updateUserInfo(userInfo)
-      context.commit(Mutation.SAVE_USER, response)
+      console.log(response)
+      context.commit(Mutation.SAVE_USER, response.data)
     },
     async getUserInfo(context){
       const response = await API.getUserInfo()
-      context.commit(Mutation.SAVE_USER, response)
+      context.commit(Mutation.SAVE_USER, response.data)
     },
 
     async [Action.GET_CATEGORY](context, query) {

@@ -58,5 +58,6 @@ export async function getUserInfo(){
   return await axios.get('/me')
 }
 export async function updateUserInfo(userInfo){
+  console.log(userInfo)
   return await axios.patch('/me', userInfo)
 }

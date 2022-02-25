@@ -1,7 +1,7 @@
 <template>
   <div class="profile">
     <div class="user">
-      <h1>Welcome Greta!</h1>
+      <h1>Welcome {{userData.name}}!</h1>
       <div class="user-container">
         <div class="user-info">
           <h2>About me</h2>
@@ -14,7 +14,7 @@
             <input v-if="edit" v-model="zip" placeholder="Zip code">
             <p>City: {{userData.address.city}}</p>
             <input v-if="edit" v-model="city" placeholder="City">
-            <p>Email: {{userData.Email}}</p>
+            <p>Email: {{userData.email}}</p>
             <input v-if="edit" v-model="email" placeholder="email">
             <input v-if="edit" v-model="password" placeholder="password">
           </div>
@@ -71,10 +71,10 @@ export default {
     updateInfo(){
       this.edit=false
       this.$store.dispatch(Action.UPDATE_USER_INFO, {
+        name: this.name,
         email: this.email,
         password: this.password,
         address:{
-          name: this.name,
           zip: this.zip,
           street: this.street,
           city: this.city,
@@ -87,7 +87,7 @@ export default {
   },
   computed:{
     userData(){
-        return this.$store.state.user.data
+        return this.$store.state.user
     }
   }
 };
