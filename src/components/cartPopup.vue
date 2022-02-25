@@ -1,24 +1,30 @@
 <template>
   <dialog open class="cartPopup">
     <h2>Your Cart</h2>
+    <h3 v-if="!cart.length">Your cart is empty! 😞</h3>
     <CartProduct v-for="product in cart" :key="product.id" :inCartProduct="product"/>
     <span class="buttons">
-      <button class="continue-btn">Continue Shopping</button>
-      <button class="cart-btn">Shopping cart</button>
+      <button @click="emptyCart" class="empty-cart-btn">empty cart</button>
+      <router-link to="/cart">
+        <button class="cart-btn">Shopping cart</button>
+      </router-link>
     </span>
   </dialog>
 </template>
 
 <script>
 import CartProduct from "@/components/cartProduct.vue";
+import Action from '@/store/Action.types.js'
 export default {
   components: { CartProduct },
-  data() {
-    return {   };
-  },
   computed:  {
     cart(){
       return this.$store.state.cart
+    }
+  }, 
+  methods: {
+    emptyCart(){
+      this.$store.dispatch(Action.EMPTY_CART)
     }
   }
 };
@@ -39,13 +45,28 @@ h2 {
   margin-right: 15rem;
   margin-top: 2rem;
 }
-.continue-btn {
-  background-color: white;
+button:active{  
+  transform: scale(1.1);
+}
+.empty-cart-btn {
+  background-color: #FFFFFF;
   color: $teal;
+  &:hover{
+    cursor: pointer;
+    background-color: red;
+    color: #000000;
+    border: 1px solid $teal;
+  }
 }
 .cart-btn {
   background-color: $teal;
   color: white;
+  &:hover{
+    cursor: pointer;
+    background-color: #FFFFFF;
+    color: $teal;
+    border: 1px solid $teal;
+  }
 }
 
 button {

@@ -1,7 +1,9 @@
 <template>
   <section class="greta">
-    <article  v-if="gretaProducts">
-      <img :src="`${BASE_URL}/images/${gretaProducts[0].imgFile}`">
+    <article  v-if="gretaProducts.length">
+      <figure class="img-container">
+        <img :src="`${BASE_URL}/images/${gretaProducts[0].imgFile}`">
+      </figure>
       <h3>{{gretaProducts[0].category}} - {{gretaProducts[0].title}}</h3>
       <div>
         <h3>{{gretaProducts[0].shortDesc}}</h3>
@@ -15,8 +17,10 @@
       </h3>
       <button>CHECK IT OUT</button>
     </span>
-    <article v-if="gretaProducts">
-      <img :src="`${BASE_URL}/images/${gretaProducts[1].imgFile}`">
+    <article v-if="gretaProducts.length">
+      <figure class="img-container">
+        <img :src="`${BASE_URL}/images/${gretaProducts[1].imgFile}`">
+      </figure>
       <h3>{{gretaProducts[1].category}} - {{gretaProducts[1].title}}</h3>
       <div>
         <h3>{{gretaProducts[1].shortDesc}}</h3>
@@ -28,9 +32,6 @@
 
 <script>
 export default {
-  mounted(){
-    console.log(this.gretaProducts);
-  },
     computed:{
     gretaProducts(){
       if(this.$store.getters.specialEdition){
@@ -87,14 +88,14 @@ export default {
   h3::first-letter{
     text-transform: capitalize;
   }
-  article:first-of-type{
+  .img-container{
+    width: 10rem;
+    height: 15rem;
+    display: flex;
+    justify-content: center;
     img{
-      width: 50px;
-    }
-  }
-  article:last-of-type{
-    img{
-      width: 120px;
+      max-width: 100%;
+      max-height: 100%;
     }
   }
   span {

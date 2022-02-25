@@ -6,6 +6,8 @@ export const MODAL_TOGGLE = 'LOG_IN_TOGGLE'
 export const LOG_OUT = 'LOG_OUT'
 export const SAVE_PRODUCT_IN_CART = 'SAVE_PRODUCT_IN_CART'
 export const UPDATE_CART_ITEM = 'UPDATE_CART_ITEM'
+export const REMOVE_CART_ITEM = 'REMOVE_CART_ITEM'
+export const REMOVE_ALL_CART_ITEMS = 'REMOVE_ALL_CART_ITEMS'
 
 
 export default {
@@ -15,7 +17,9 @@ export default {
     UPDATE_SEARCH_RESULTS, 
     LOG_OUT,
     SAVE_PRODUCT_IN_CART,
-    UPDATE_CART_ITEM
+    UPDATE_CART_ITEM,
+    REMOVE_CART_ITEM,
+    REMOVE_ALL_CART_ITEMS
   
 }
 

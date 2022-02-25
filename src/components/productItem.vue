@@ -211,11 +211,21 @@ section.large {
         background-color: $teal;
         color: #fff;
         border-radius: 5px;
-        border: none;
+        border: 1px solid $teal;
         box-shadow: (0px 3px 4px rgba(0, 0, 0, 0.25));
         font-size: 1.3rem;
         font-weight: 500;
         text-transform: uppercase;
+        transition: transform .5s ease;
+        &:hover{
+          cursor: pointer;
+          background-color: #FFFFFF;
+          color: $teal;
+          border: 1px solid $teal;
+        }
+        &:active{
+          transform: scale(1.1);
+        }
       }
     }
   }

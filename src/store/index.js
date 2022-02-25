@@ -56,13 +56,25 @@ export default new Vuex.Store({
     }, 
     [Mutation.UPDATE_CART_ITEM](state, {id, amount}){
       const inCart = state.cart.find(cartItem => cartItem.id == id)
-      console.log(id, amount);
       inCart.amount = amount
+    }, 
+    [Mutation.REMOVE_CART_ITEM](state, id){
+      const itemExist = state.cart.find(cartItem => cartItem.id == id)
+      const itemIndex = state.cart.indexOf(itemExist)
+      state.cart.splice(itemIndex, 1)
+    }, 
+    [Mutation.REMOVE_ALL_CART_ITEMS](state){
+      state.cart = []
     }
   },
   actions: {
-    [Action.UPDATE_CART](context, id, amount){
-      console.log(id, amount);
+    [Action.EMPTY_CART](context){
+      context.commit(Mutation.REMOVE_ALL_CART_ITEMS)
+    },
+    [Action.REMOVE_FROM_CART](context, id){
+      context.commit(Mutation.REMOVE_CART_ITEM, id)
+    },
+    [Action.UPDATE_CART](context, {id, amount}){
       context.commit(Mutation.UPDATE_CART_ITEM, {id, amount})
     },
     [Action.ADD_TO_CART](context, product){
@@ -95,7 +107,6 @@ export default new Vuex.Store({
       const response = await API.createUser(newUser)
       context
       response
-      console.log(response);
     },
     async [Action.MARKUS_SEARCH](context, search){
       if(search.type == 'category'){
