@@ -8,7 +8,7 @@
     </section>
     <CategorySection />
     <Carousel/>
-    <GretaSection :gretaProducts="greta" />
+    <GretaSection />
     <Carousel />
   </main>
 </template>
@@ -22,12 +22,7 @@ export default {
   components: { CategorySection, Carousel, GretaSection },
   async mounted() {
     this.$store.dispatch(Action.SEARCH_ITEMS, 'greta');
-  },
-  computed:{
-    greta(){
-      return this.$store.getters.specialEdition
-    }
-  }
+  },  
 };
 </script>
 
