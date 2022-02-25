@@ -2,15 +2,15 @@
   <div class="checkout-container">
     <h2>Checkout</h2>
     <section class="buttons">
-      <div class="login">
-        <p>Log in or place an order without registration</p>
+      <div class="login" @click="modalToggle">
+        <p>
+          Log in or place an order without registration by filling out the form
+          below.
+        </p>
         <button class="login-btn">Log in</button>
       </div>
-      <div class="create-account">
-        <p>Dont't have a <strong>SINUS</strong> account yet? Create one now:</p>
-        <button class="account-btn">Create account</button>
-      </div>
     </section>
+    <LogInPopup />
     <form class="checkout">
       <div class="checkout-info">
         <section class="form">
@@ -115,7 +115,12 @@
 </template>
 
 <script>
+import Action from "../store/Action.types"
+import LogInPopup from "../components/loginPopup.vue"
 export default {
+  components: {
+    LogInPopup,
+  },
   data() {
     return {
       name: "",
@@ -124,6 +129,13 @@ export default {
       zip: "",
       city: "",
     }
+  },
+  methods: {
+    modalToggle() {
+      if (this.user == null) {
+        this.$store.dispatch(Action.TOGGLE_MODAL)
+      }
+    },
   },
 }
 </script>
@@ -136,18 +148,13 @@ h2 {
   letter-spacing: 1px;
 }
 .buttons {
-  // width: 65%;
-  display: flex;
-  justify-content: space-between;
-  margin-left: 6rem;
-  margin-right: 6rem;
+  width: 55%;
 
-  .login,
-  .create-account {
-    text-align: center;
-    width: 45%;
+  .login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-  .account-btn,
   .login-btn {
     width: 50%;
     padding: 0.6rem 0;
