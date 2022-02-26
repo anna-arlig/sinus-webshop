@@ -14,12 +14,12 @@
           ><a>Skateboards</a></router-link
         >
         <router-link :to="{ name: 'Products', params: { category: 'Apparel' } }"
-          ><a>Apparel <Icon icon="dashicons:arrow-down-alt2" /></a
-        ></router-link>
+          ><a>Apparel</a></router-link
+        >
         <router-link
           :to="{ name: 'Products', params: { category: 'Accessories' } }"
-          ><a>Accessories <Icon icon="dashicons:arrow-down-alt2" /></a
-        ></router-link>
+          ><a>Accessories</a></router-link
+        >
         <router-link to="/products"><a>Limited Edition</a></router-link>
       </div>
 
@@ -102,10 +102,12 @@ export default {
   components: { Icon, CartPopup },
   methods: {
     async searchProduct(product) {
+
       await this.$store.dispatch(Action.MARKUS_SEARCH, product);
       this.$router.push(`/products/${product.page}`);
 
       this.$store.commit(Mutation.UPDATE_SEARCH_RESULTS, "");
+
     },
     modalToggle() {
       if (this.role == "") {
@@ -129,6 +131,7 @@ export default {
     compSearchWord() {
       return this.search.name;
     },
+
   },
 };
 </script>
