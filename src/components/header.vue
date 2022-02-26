@@ -14,12 +14,12 @@
           ><a>Skateboards</a></router-link
         >
         <router-link :to="{ name: 'Products', params: { category: 'Apparel' } }"
-          ><a>Apparel <Icon icon="dashicons:arrow-down-alt2" /></a
-        ></router-link>
+          ><a>Apparel</a></router-link
+        >
         <router-link
           :to="{ name: 'Products', params: { category: 'Accessories' } }"
-          ><a>Accessories <Icon icon="dashicons:arrow-down-alt2" /></a
-        ></router-link>
+          ><a>Accessories</a></router-link
+        >
         <router-link to="/products"><a>Limited Edition</a></router-link>
       </div>
 
@@ -85,10 +85,7 @@ export default {
   data() {
     return {
       cartHover: false,
-      search: {name: "",
-              type: "search",
-              searchWord: this.compSearchWord
-      },
+      search: { name: "", type: "search", searchWord: this.compSearchWord },
       BASE_URL: process.env.VUE_APP_BASE_URL,
     }
   },
@@ -97,8 +94,8 @@ export default {
     async searchProduct(product) {
       await this.$store.dispatch(Action.MARKUS_SEARCH, product)
       this.$router.push(`/products/${product.page}`)
-      
-      this.$store.commit(Mutation.UPDATE_SEARCH_RESULTS, '')
+
+      this.$store.commit(Mutation.UPDATE_SEARCH_RESULTS, "")
     },
     modalToggle() {
       if (this.user == null) {
@@ -119,9 +116,9 @@ export default {
     user() {
       return this.$store.state.user
     },
-    compSearchWord(){
+    compSearchWord() {
       return this.search.name
-    }
+    },
   },
 }
 </script>

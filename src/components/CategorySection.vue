@@ -18,13 +18,14 @@
 @import "../assets/styles/mixins.scss";
 .categories {
   margin: 4rem;
+  margin-bottom: 0;
   width: 80%;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   a {
-    width: 30rem;
-    height: 25rem;
+    width: 27rem;
+    height: 23rem;
     margin: 1rem;
     background-size: cover;
     background-repeat: no-repeat;
