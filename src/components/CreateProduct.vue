@@ -1,0 +1,93 @@
+<template>
+  <dialog open class="create">
+    <h2>Create a new product</h2>
+
+    <form @submit.prevent="newProduct">
+      <ul>
+        <li>
+          <label for="title">Title</label>
+          <input type="text" name="title" v-model="title" />
+        </li>
+        <li>
+          <label for="price">Price</label>
+          <input type="number" name="price" v-model="price" />
+        </li>
+        <li>
+          <label for="specialEdition">Special edition?</label>
+          <select name="specialEdition" v-model="specialEdition">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </select>
+        </li>
+        <li>
+          <label for="shortDesc">Short description</label>
+          <input type="text" name="shortDesc" v-model="shortDesc" />
+        </li>
+        <li>
+          <label for="longDesc">Long description</label>
+          <textarea
+            name="longDesc"
+            cols="30"
+            rows="10"
+            v-model="longDesc"
+          ></textarea>
+        </li>
+        <li>
+          <label for="imgFile">Image file</label>
+          <input type="file" name="imgFile" />
+        </li>
+        <input type="submit" value="Add new product" />
+      </ul>
+    </form>
+  </dialog>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      title: "",
+      price: null,
+      specialEdition: null,
+      shortDesc: "",
+      longDesc: "",
+      imgFile: "",
+    };
+  },
+  methods: {
+    newProduct() {},
+  },
+};
+</script>
+
+<style scoped lang="scss">
+@import "@/assets/styles/fonts-colors.scss";
+@import "@/assets/styles/mixins.scss";
+
+.create {
+  @include flex-col-center;
+}
+li {
+  @include flex-left;
+}
+label {
+  font-family: $paragraph;
+  margin-top: 10px;
+}
+
+input[type="submit"] {
+  border: 1px solid $teal;
+  border-radius: 3px;
+  text-transform: uppercase;
+  min-width: 182px;
+  min-height: 35px;
+  margin: 15px;
+  margin-top: 40px;
+  background-color: $teal;
+  color: white;
+  box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.25);
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+</style>

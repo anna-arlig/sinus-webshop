@@ -74,10 +74,7 @@ export default new Vuex.Store({
   actions: {
 
     async [Action.CHANGE_STATUS](_,status){
-      console.log(status)
       await API.updateOrder(status)
-    
-
     },
 
     async [Action.GET_ALL_ORDERS](context){
