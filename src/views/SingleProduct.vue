@@ -7,6 +7,10 @@
 <script>
 import ProductItem from "../components/productItem"
 export default {
+  // beforRouteUpdate() {
+  //   this.$router.push({ path: `/product/${this.$route.params.id}` })
+  // },
+
   components: {
     ProductItem,
   },

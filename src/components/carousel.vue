@@ -1,6 +1,6 @@
 <template>
   <div class="carousel">
-    <h2>{{ mockTag }}</h2>
+    <h3>{{ mockTag }}</h3>
 
     <ul>
       <li v-for="product of carouselProducts" :key="product.id">
@@ -84,10 +84,10 @@ export default {
 @import "../assets/styles/mixins.scss";
 .carousel {
   @include flex-col-center;
-  background-color: rgb(212, 212, 212);
   align-items: center;
   width: 80%;
   height: fit-content;
+  margin: 8rem 0 10rem;
 }
 .productItem {
   height: 100px;
@@ -99,7 +99,8 @@ ul {
   padding: 0;
   height: fit-content;
 }
-h2 {
+h3 {
+  font-size: 2rem;
   text-align: center;
   margin: 0;
 }
@@ -113,6 +114,7 @@ h2 {
   height: 20px;
   border-radius: 50%;
   background-color: $grey;
+  box-shadow: (0px 2px 2px rgba(0, 0, 0, 0.25));
 }
 .active {
   background-color: rgb(59, 59, 59);
@@ -126,6 +128,7 @@ button {
   border: none;
   background-color: rgba(0, 255, 255, 0);
   transition: 0.2s ease;
+  cursor: pointer;
 
   &:hover {
     transform: scale(1.1);
