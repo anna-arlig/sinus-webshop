@@ -12,7 +12,7 @@ export default new Vuex.Store({
     productList: [],
     products: {},
     showLogIn: false,
-    userLoggedIn: null,
+    role: "",
     searchResults: [],
     searchTerms: [...SearchTerms],
     cart: []
@@ -26,8 +26,8 @@ export default new Vuex.Store({
         Vue.set(state.products, product.id, product)
       }
     },
-    [Mutation.LOG_IN](state) {
-      state.userLoggedIn = true
+    [Mutation.SET_ROLE](state, role) {
+      state.role = role
       state.logInPopup = !state.logInPopup
     },
     [Mutation.MODAL_TOGGLE](state) {
@@ -44,7 +44,7 @@ export default new Vuex.Store({
       }
     },
     [Mutation.LOG_OUT](state) {
-      state.userLoggedIn = false
+      state.role = ""
     },
     [Mutation.SAVE_PRODUCT_IN_CART](state, product){
       const inCart = state.cart.find(cartItem => cartItem.id == product.id)
@@ -68,6 +68,12 @@ export default new Vuex.Store({
     }
   },
   actions: {
+
+    async [Action.GET_ALL_ORDERS](){
+      const response = await API.getAllOrders()
+      console.log(response)
+    },
+
     [Action.EMPTY_CART](context){
       context.commit(Mutation.REMOVE_ALL_CART_ITEMS)
     },
@@ -87,8 +93,13 @@ export default new Vuex.Store({
     async [Action.LOG_IN](context, user) {
       const response = await API.getUser(user)
       API.saveToken(response.data.token)
-      context.commit(Mutation.LOG_IN)
+      context.dispatch(Action.GET_ME)
       context.commit(Mutation.MODAL_TOGGLE)
+    },
+
+    async [Action.GET_ME](context){
+      const response = await API.getMe()
+      context.commit(Mutation.SET_ROLE, response.data.role)
     },
 
     async [Action.GET_CATEGORY](context, query) {
@@ -103,11 +114,10 @@ export default new Vuex.Store({
       context.commit(Mutation.UPDATE_SEARCH_RESULTS, search)
     },
 
-    async [Action.CREATE_USER](context, newUser) {
-      const response = await API.createUser(newUser)
-      context
-      response
+    async [Action.CREATE_USER](_, newUser) {
+     await API.createUser(newUser)
     },
+
     async [Action.MARKUS_SEARCH](context, search){
       if(search.type == 'category'){
         const response = await API.categorySearch(search.searchWord)
@@ -119,7 +129,6 @@ export default new Vuex.Store({
         context.commit(Mutation.SAVE_PRODUCTS, response.data)
       }
       
-     
     }, 
   
     async [Action.SEARCH_ITEMS](context, searchString) {
@@ -131,6 +140,8 @@ export default new Vuex.Store({
       context.commit(Mutation.LOG_OUT)
     },
   },
+
+
   getters: {
     specialEdition(state) {
       return state.productList.filter((product) => product.specialEdition)

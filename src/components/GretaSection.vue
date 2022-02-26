@@ -1,5 +1,5 @@
 <template>
-  <section class="greta">
+  <section class="greta" @click="$router.push('/')">
     <article  v-if="gretaProducts.length">
       <figure class="img-container">
         <img :src="`${BASE_URL}/images/${gretaProducts[0].imgFile}`">
