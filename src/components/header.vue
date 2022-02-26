@@ -30,21 +30,23 @@
             <p>Log in</p>
           </div>
           <div v-else-if="role == 'customer'" class="login">
-            <router-link to="/account">
+            <router-link to="/account" class="login">
               <Icon icon="bxs:user" width="30" />
               <p>Profile</p>
             </router-link>
           </div>
           <div v-else class="login">
-            <router-link to="/admin">
+            <router-link to="/admin" class="login">
               <Icon icon="bxs:user" width="30" />
               <p>Admin</p>
             </router-link>
           </div>
+
           <div class="favourites">
             <Icon icon="ant-design:heart-filled" width="30" />
             <p>Favourites</p>
           </div>
+
           <div
             class="cart"
             @mouseover="cartHover = true"
@@ -182,6 +184,12 @@ export default {
   height: 100%;
   @include flex-col-center;
   justify-content: space-between;
+  text-decoration: none;
+  a {
+    text-decoration: none;
+    color: #312f30;
+    font-size: 1.1rem;
+  }
 }
 
 input {

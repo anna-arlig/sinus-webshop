@@ -44,7 +44,7 @@ export default new Vuex.Store({
       }
     },
     [Mutation.LOG_OUT](state) {
-      state.user = ""
+      state.role = ""
     },
     [Mutation.SAVE_PRODUCT_IN_CART](state, product){
       const inCart = state.cart.find(cartItem => cartItem.id == product.id)
@@ -68,6 +68,12 @@ export default new Vuex.Store({
     }
   },
   actions: {
+
+    async [Action.GET_ALL_ORDERS](){
+      const response = await API.getAllOrders()
+      console.log(response)
+    },
+
     [Action.EMPTY_CART](context){
       context.commit(Mutation.REMOVE_ALL_CART_ITEMS)
     },
@@ -134,6 +140,8 @@ export default new Vuex.Store({
       context.commit(Mutation.LOG_OUT)
     },
   },
+
+
   getters: {
     products(state) {
       return state.productList
