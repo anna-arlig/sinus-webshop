@@ -1,6 +1,6 @@
 
 export const SAVE_PRODUCTS = 'SAVE_PRODUCTS'
-export const SAVE_USER = 'SAVE_USER'
+export const SET_ROLE = 'SET_ROLE'
 export const UPDATE_SEARCH_RESULTS = 'UPDATE_SEARCH_RESULTS'
 export const MODAL_TOGGLE = 'LOG_IN_TOGGLE'
 export const LOG_OUT = 'LOG_OUT'
@@ -12,7 +12,7 @@ export const REMOVE_ALL_CART_ITEMS = 'REMOVE_ALL_CART_ITEMS'
 
 export default {
     SAVE_PRODUCTS, 
-    SAVE_USER, 
+    SET_ROLE, 
     MODAL_TOGGLE, 
     UPDATE_SEARCH_RESULTS, 
     LOG_OUT,

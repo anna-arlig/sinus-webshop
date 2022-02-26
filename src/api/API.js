@@ -1,4 +1,5 @@
 import axios from "axios"
+
 axios.defaults.baseURL = process.env.VUE_APP_BASE_URL + "/api"
 const skateboardQuery = "/items?category=skateboard"
 const apparelQuery = "/items?category=hoodie&category=tshirt"
@@ -44,6 +45,10 @@ export async function getUser({ email, password }) {
   })
 }
 
+export async function getMe(){
+return await axios.get("/me/")
+}
+
 export async function createUser({ email, password, name, address }) {
   return await axios.post("/register/", {
     email,
@@ -52,6 +57,11 @@ export async function createUser({ email, password, name, address }) {
     address,
   })
 }
+
+export async function getAllOrders(){
+  return await axios.get("/orders/")
+  }
+
 export async function searchItems(searchString) {
   return await axios.get(`/items?search=${searchString}`)
 }
