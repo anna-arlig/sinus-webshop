@@ -15,9 +15,13 @@ export default new Vuex.Store({
     role: "",
     searchResults: [],
     searchTerms: [...SearchTerms],
-    cart: []
+    cart: [],
+    orders: []
   },
   mutations: {
+    [Mutation.SAVE_ALL_ORDERS](state, orders){
+      state.orders = orders
+    },
     [Mutation.SAVE_PRODUCTS](state, fetchedProducts) {
       for (let product of fetchedProducts) {
         if (!state.productList.find((prod) => prod.id === product.id)) {
@@ -69,9 +73,16 @@ export default new Vuex.Store({
   },
   actions: {
 
-    async [Action.GET_ALL_ORDERS](){
+    async [Action.CHANGE_STATUS](_,status){
+      console.log(status)
+      await API.updateOrder(status)
+    
+
+    },
+
+    async [Action.GET_ALL_ORDERS](context){
       const response = await API.getAllOrders()
-      console.log(response)
+      context.commit(Mutation.SAVE_ALL_ORDERS, response.data)
     },
 
     [Action.EMPTY_CART](context){

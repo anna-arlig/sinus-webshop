@@ -14,6 +14,7 @@ export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 export const EMPTY_CART = 'EMPTY_CART'
 export const GET_ME = 'GET_ME'
 export const GET_ALL_ORDERS = 'GET_ALL_ORDERS'
+export const CHANGE_STATUS = 'CHANGE_STATUS'
 
 
 export default {
@@ -31,7 +32,8 @@ export default {
     REMOVE_FROM_CART,
     EMPTY_CART,
     GET_ME,
-    GET_ALL_ORDERS
+    GET_ALL_ORDERS,
+    CHANGE_STATUS
 }
 
 

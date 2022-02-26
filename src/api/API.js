@@ -8,6 +8,11 @@ const accessoriesQuery =
 const accessoriesQueryPageTwo =
   "/items?category=cap&category=totebag&category=socks&category=wheel&page=2"
 
+  export async function updateOrder({id, status}){
+   
+    return await axios.patch(`/orders/${id}`, { "status": status})
+  }
+
 export async function markusSearch(searchWord) {
   return await axios.get(`/items?search=${searchWord}`)
 }
