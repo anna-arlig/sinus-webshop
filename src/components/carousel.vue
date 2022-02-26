@@ -73,7 +73,7 @@ export default {
   },
   computed: {
     carouselProducts() {
-      return this.$store.getters.products.slice(this.start, this.end)
+      return this.$store.state.productList.slice(this.start, this.end)
     },
   },
 }

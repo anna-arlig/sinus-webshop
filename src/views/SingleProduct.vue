@@ -11,10 +11,13 @@ export default {
     ProductItem,
   },
   computed: {
+    // product() {
+    //   return this.$store.getters.products.find(
+    //     (prod) => prod.id == this.$route.params.id
+    //   )
+    // },
     product() {
-      return this.$store.getters.products.find(
-        (prod) => prod.id == this.$route.params.id
-      )
+      return this.$store.state.products[this.$route.params.id]
     },
   },
 }

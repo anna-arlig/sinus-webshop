@@ -25,11 +25,13 @@
 
       <div class="links-and-search">
         <div class="links">
-          <div class="login" @click="modalToggle">
+          <div class="login" @click="showLoggInModal"  v-if="!loggedIn">
             <Icon icon="bxs:user" width="30" />
-
-            <p v-if="!user">Log in</p>
-            <router-link v-else to="/account">
+            <p>Log in</p>
+          </div>
+          <div class="login"  v-else>
+             <Icon icon="bxs:user" width="30" />
+            <router-link to="/account">
               <p>Profile</p>
             </router-link>
           </div>
@@ -100,10 +102,8 @@ export default {
       
       this.$store.commit(Mutation.UPDATE_SEARCH_RESULTS, '')
     },
-    modalToggle() {
-      if (this.user == null) {
-        this.$store.dispatch(Action.TOGGLE_MODAL)
-      }
+    showLoggInModal() {
+      this.$store.dispatch(Action.TOGGLE_MODAL)      
     },
     updateSearchResults() {
       this.$store.dispatch(
@@ -116,8 +116,8 @@ export default {
     searchResults() {
       return this.$store.state.searchResults
     },
-    user() {
-      return this.$store.state.user
+    loggedIn() {
+      return this.$store.state.userLoggedIn
     },
     compSearchWord(){
       return this.search.name

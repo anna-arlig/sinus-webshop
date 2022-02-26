@@ -1,6 +1,6 @@
 
 export const GET_PRODUCTS = 'GET_PRODUCTS'
-export const GET_USER = 'GET_USER'
+export const LOG_IN = 'LOG_IN'
 export const TOGGLE_MODAL = 'TOGGLE_MODAL'
 export const UPDATE_SEARCH_RESULTS = 'UPDATE_SEARCH_RESULTS'
 export const CREATE_USER = 'CREATE_USER'
@@ -17,7 +17,7 @@ export const EMPTY_CART = 'EMPTY_CART'
 export default {
     GET_CATEGORY,
     GET_PRODUCTS, 
-    GET_USER, 
+    LOG_IN, 
     TOGGLE_MODAL, 
     UPDATE_SEARCH_RESULTS,
     CREATE_USER,
