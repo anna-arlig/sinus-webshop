@@ -1,5 +1,5 @@
 <template>
-  <section class="greta">
+  <section class="greta" @click="$router.push('/')">
     <article  v-if="gretaProducts.length">
       <figure class="img-container">
         <img :src="`${BASE_URL}/images/${gretaProducts[0].imgFile}`">
@@ -49,12 +49,16 @@ export default {
 @import "../assets/styles/mixins.scss";
 @import "../assets/styles/fonts-colors.scss";
 .greta {
+  margin: 5rem 0;
   width: 80%;
   height: 30rem;
   background-image: url("../assets/images/greta-hero.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
+  &:hover{
+    cursor: pointer;
+  }
   @include flex-center;
   article {
     width: 18rem;

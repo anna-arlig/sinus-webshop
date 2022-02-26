@@ -25,7 +25,7 @@
 
       <div class="links-and-search">
         <div class="links">
-          <div v-if="!role" class="login" @click="modalToggle">
+          <div v-if="!role" class="login" @click="showLoggInModal">
             <Icon icon="bxs:user" width="30" />
             <p>Log in</p>
           </div>
@@ -109,11 +109,9 @@ export default {
       this.$store.commit(Mutation.UPDATE_SEARCH_RESULTS, "");
 
     },
-    modalToggle() {
-      if (this.role == "") {
-        this.$store.dispatch(Action.TOGGLE_MODAL);
-      }
-    },
+    showLoggInModal() {
+      this.$store.dispatch(Action.TOGGLE_MODAL)  
+    },    
     updateSearchResults() {
       this.$store.dispatch(
         Action.UPDATE_SEARCH_RESULTS,

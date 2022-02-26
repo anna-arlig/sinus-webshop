@@ -10,20 +10,20 @@
         </router-link>
       </div>
     </section>
-    <CategorySection />
-    <Carousel />
+    <NavSection />
+    <Carousel/>
     <GretaSection />
     <Carousel />
   </main>
 </template>
 
 <script>
-import CategorySection from "@/components/CategorySection.vue"
-import Carousel from "@/components/carousel.vue"
-import GretaSection from "@/components/GretaSection.vue"
-import Action from "@/store/Action.types"
+import NavSection from "@/components/NavSection.vue";
+import Carousel from "@/components/carousel.vue";
+import GretaSection from '@/components/GretaSection.vue'
+import Action from '@/store/Action.types'
 export default {
-  components: { CategorySection, Carousel, GretaSection },
+  components: { NavSection, Carousel, GretaSection },
   async mounted() {
     this.$store.dispatch(Action.SEARCH_ITEMS, "greta")
   },
@@ -36,8 +36,9 @@ export default {
 
 .home {
   width: 100%;
-  display: grid;
-  justify-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   .hero {
     background-image: url("../assets/images/home-hero.jpg");
     background-size: cover;
@@ -53,29 +54,31 @@ export default {
     background-color: $teal;
     color: #ffffff;
     border: none;
-
-    h1 {
-      font-size: 3.2rem;
-      margin-top: 5rem;
-      margin-bottom: 0;
-
-      span {
-        color: $yellow;
+    font-weight: bold;
+    .container{
+      width: 25rem;
+      h1{
+        font-size: 3rem;
+        margin-bottom: .5rem;
+        span{
+          color: $yellow;
+        }
       }
-    }
-    button {
-      margin-top: 1rem;
-      padding: 0.6rem 7rem;
-      background-color: $teal;
-      color: #fff;
-      border-radius: 5px;
-      border: 1px solid $teal;
-      box-shadow: (0px 3px 4px rgba(0, 0, 0, 0.25));
-      font-size: 1.3rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      transition: transform 0.5s ease;
-      cursor: pointer;
+      button{
+        padding: .5rem 4rem;
+        border: 1px solid $teal;
+        border-radius: 4px;
+        background-color: $teal;
+        font-weight: 600;
+        font-size: 1.1rem;
+        color: #FFFFFF;
+        transition: background-color .5s;
+        &:hover{
+          background-color: #FFFFFF;
+          color: $teal;
+          cursor: pointer;
+        }
+      }
     }
   }
 }

@@ -1,15 +1,17 @@
 <template>
   <section class="categories">
     <router-link :to="{ name: 'Products', params: { category: 'Skateboards' } }"
-      ><h2>Skateboards</h2></router-link
-    >
+      ><h2>Skateboards</h2>
+    </router-link>
     <router-link :to="{ name: 'Products', params: { category: 'Apparel' } }"
-      ><h2>Apparel</h2></router-link
-    >
+      ><h2>Apparel</h2>
+    </router-link>
     <router-link :to="{ name: 'Products', params: { category: 'Accessories' } }"
-      ><h2>Accessories</h2></router-link
-    >
-    <router-link to="/products"><h2>Limited Edition</h2></router-link>
+      ><h2>Accessories</h2>
+    </router-link>
+    <router-link to="/products">
+      <h2>Limited Edition</h2>
+    </router-link>
   </section>
 </template>
 
@@ -17,16 +19,15 @@
 @import "../assets/styles/fonts-colors.scss";
 @import "../assets/styles/mixins.scss";
 .categories {
-  margin: 4rem;
-  margin-bottom: 0;
-  width: 80%;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  margin: 5rem 0;
+  width: 70%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: center;
   a {
-    width: 27rem;
-    height: 23rem;
-    margin: 1rem;
+    width: 30rem;
+    height: 25rem;
+    margin: .5rem 0;
     background-size: cover;
     background-repeat: no-repeat;
     font-family: $heading;

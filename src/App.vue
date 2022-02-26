@@ -36,7 +36,6 @@ html {
   line-height: 1.6;
   list-style: none;
   text-decoration: none;
-  // @include flex-col-center;
   #app {
     position: relative;
     max-width: 1440px;

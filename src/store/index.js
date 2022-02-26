@@ -59,8 +59,8 @@ export default new Vuex.Store({
       inCart.amount = amount
     }, 
     [Mutation.REMOVE_CART_ITEM](state, id){
-      const itemExist = state.cart.find(cartItem => cartItem.id == id)
-      const itemIndex = state.cart.indexOf(itemExist)
+      const item = state.cart.find(cartItem => cartItem.id == id)
+      const itemIndex = state.cart.indexOf(item)
       state.cart.splice(itemIndex, 1)
     }, 
     [Mutation.REMOVE_ALL_CART_ITEMS](state){
@@ -90,7 +90,7 @@ export default new Vuex.Store({
       const response = await API.getProducts()
       context.commit(Mutation.SAVE_PRODUCTS, response.data)
     },
-    async [Action.GET_USER](context, user) {
+    async [Action.LOG_IN](context, user) {
       const response = await API.getUser(user)
       API.saveToken(response.data.token)
       context.dispatch(Action.GET_ME)
@@ -143,9 +143,6 @@ export default new Vuex.Store({
 
 
   getters: {
-    products(state) {
-      return state.productList
-    },
     specialEdition(state) {
       return state.productList.filter((product) => product.specialEdition)
     },
