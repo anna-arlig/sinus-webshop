@@ -6,6 +6,7 @@ import SingleProduct from "../views/SingleProduct.vue"
 import Cart from "../views/Cart.vue"
 import ProfileAccount from "../views/ProfileAccount.vue"
 import Checkout from "../views/Checkout.vue"
+import AdminView from "../views/AdminView.vue"
 
 Vue.use(VueRouter)
 
@@ -40,6 +41,12 @@ const routes = [
     name: "ProfileAccount",
     component: ProfileAccount,
   },
+  {
+    path: "/admin",
+    name: "AdminView",
+    component: AdminView,
+  },
+
 ]
 
 const router = new VueRouter({
