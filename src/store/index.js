@@ -12,7 +12,7 @@ export default new Vuex.Store({
     productList: [],
     products: {},
     showLogIn: false,
-    user: null,
+    role: "",
     searchResults: [],
     searchTerms: [...SearchTerms],
     cart: []
@@ -26,8 +26,8 @@ export default new Vuex.Store({
         Vue.set(state.products, product.id, product)
       }
     },
-    [Mutation.SAVE_USER](state, newUser) {
-      state.user = newUser
+    [Mutation.SET_ROLE](state, role) {
+      state.role = role
       state.logInPopup = !state.logInPopup
     },
     [Mutation.MODAL_TOGGLE](state) {
@@ -44,7 +44,7 @@ export default new Vuex.Store({
       }
     },
     [Mutation.LOG_OUT](state) {
-      state.user = null
+      state.user = ""
     },
     [Mutation.SAVE_PRODUCT_IN_CART](state, product){
       const inCart = state.cart.find(cartItem => cartItem.id == product.id)
@@ -87,8 +87,13 @@ export default new Vuex.Store({
     async [Action.GET_USER](context, user) {
       const response = await API.getUser(user)
       API.saveToken(response.data.token)
-      context.commit(Mutation.SAVE_USER, response)
+      context.dispatch(Action.GET_ME)
       context.commit(Mutation.MODAL_TOGGLE)
+    },
+
+    async [Action.GET_ME](context){
+      const response = await API.getMe()
+      context.commit(Mutation.SET_ROLE, response.data.role)
     },
 
     async [Action.GET_CATEGORY](context, query) {
@@ -103,11 +108,10 @@ export default new Vuex.Store({
       context.commit(Mutation.UPDATE_SEARCH_RESULTS, search)
     },
 
-    async [Action.CREATE_USER](context, newUser) {
-      const response = await API.createUser(newUser)
-      context
-      response
+    async [Action.CREATE_USER](_, newUser) {
+     await API.createUser(newUser)
     },
+
     async [Action.MARKUS_SEARCH](context, search){
       if(search.type == 'category'){
         const response = await API.categorySearch(search.searchWord)
@@ -119,7 +123,6 @@ export default new Vuex.Store({
         context.commit(Mutation.SAVE_PRODUCTS, response.data)
       }
       
-     
     }, 
   
     async [Action.SEARCH_ITEMS](context, searchString) {
