@@ -14,29 +14,39 @@
           ><a>Skateboards</a></router-link
         >
         <router-link :to="{ name: 'Products', params: { category: 'Apparel' } }"
-          ><a>Apparel <Icon icon="dashicons:arrow-down-alt2" /></a
-        ></router-link>
+          ><a>Apparel</a></router-link
+        >
         <router-link
           :to="{ name: 'Products', params: { category: 'Accessories' } }"
-          ><a>Accessories <Icon icon="dashicons:arrow-down-alt2" /></a
-        ></router-link>
+          ><a>Accessories</a></router-link
+        >
         <router-link to="/products"><a>Limited Edition</a></router-link>
       </div>
 
       <div class="links-and-search">
         <div class="links">
-          <div class="login" @click="modalToggle">
+          <div v-if="!role" class="login" @click="showLoggInModal">
             <Icon icon="bxs:user" width="30" />
-
-            <p v-if="!user">Log in</p>
-            <router-link v-else to="/account">
+            <p>Log in</p>
+          </div>
+          <div v-else-if="role == 'customer'" class="login">
+            <router-link to="/account" class="login">
+              <Icon icon="bxs:user" width="30" />
               <p>Profile</p>
             </router-link>
           </div>
+          <div v-else class="login">
+            <router-link to="/admin" class="login">
+              <Icon icon="bxs:user" width="30" />
+              <p>Admin</p>
+            </router-link>
+          </div>
+
           <div class="favourites">
             <Icon icon="ant-design:heart-filled" width="30" />
             <p>Favourites</p>
           </div>
+
           <div
             class="cart"
             @mouseover="cartHover = true"
@@ -77,53 +87,51 @@
 </template>
 
 <script>
-import { Icon } from "@iconify/vue2"
-import CartPopup from "@/components/cartPopup.vue"
-import Action from "../store/Action.types"
-import Mutation from "../store/Action.types"
+import { Icon } from "@iconify/vue2";
+import CartPopup from "@/components/cartPopup.vue";
+import Action from "../store/Action.types";
+import Mutation from "../store/Action.types";
 export default {
   data() {
     return {
       cartHover: false,
-      search: {name: "",
-              type: "search",
-              searchWord: this.compSearchWord
-      },
+      search: { name: "", type: "search", searchWord: this.compSearchWord },
       BASE_URL: process.env.VUE_APP_BASE_URL,
-    }
+    };
   },
   components: { Icon, CartPopup },
   methods: {
     async searchProduct(product) {
-      await this.$store.dispatch(Action.MARKUS_SEARCH, product)
-      this.$router.push(`/products/${product.page}`)
-      
-      this.$store.commit(Mutation.UPDATE_SEARCH_RESULTS, '')
+
+      await this.$store.dispatch(Action.MARKUS_SEARCH, product);
+      this.$router.push(`/products/${product.page}`);
+
+      this.$store.commit(Mutation.UPDATE_SEARCH_RESULTS, "");
+
     },
-    modalToggle() {
-      if (this.user == null) {
-        this.$store.dispatch(Action.TOGGLE_MODAL)
-      }
-    },
+    showLoggInModal() {
+      this.$store.dispatch(Action.TOGGLE_MODAL)  
+    },    
     updateSearchResults() {
       this.$store.dispatch(
         Action.UPDATE_SEARCH_RESULTS,
         this.search.name.toLowerCase()
-      )
+      );
     },
   },
   computed: {
     searchResults() {
-      return this.$store.state.searchResults
+      return this.$store.state.searchResults;
     },
-    user() {
-      return this.$store.state.user
+    role() {
+      return this.$store.state.role;
     },
-    compSearchWord(){
-      return this.search.name
-    }
+    compSearchWord() {
+      return this.search.name;
+    },
+
   },
-}
+};
 </script>
 
 <style scoped lang="scss">
@@ -177,6 +185,12 @@ export default {
   height: 100%;
   @include flex-col-center;
   justify-content: space-between;
+  text-decoration: none;
+  a {
+    text-decoration: none;
+    color: #312f30;
+    font-size: 1.1rem;
+  }
 }
 
 input {

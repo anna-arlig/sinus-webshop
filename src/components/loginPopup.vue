@@ -68,7 +68,7 @@ export default {
         email: this.email,
         password: this.password,
       }
-      this.$store.dispatch(Action.GET_USER, user)
+      this.$store.dispatch(Action.LOG_IN, user)
       this.email = ""
       this.password = ""
     },
