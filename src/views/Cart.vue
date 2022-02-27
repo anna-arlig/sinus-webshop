@@ -18,20 +18,21 @@
       <div class="checkout">
         <div class="subtotal">
           <p><strong>SUBTOTAL</strong></p>
-          <p><strong>$150</strong></p>
+          <p><strong>150 kr</strong></p>
         </div>
         <div class="shipping-fee">
           <p>SHIPPING FEE</p>
-          <p>$20</p>
+          <p>20 kr</p>
         </div>
         <p class="tax">TAX INCLUDED</p>
 
         <div class="total">
           <p><strong>TOTAL</strong></p>
-          <p><strong>$170</strong></p>
+          <p><strong>170 kr</strong></p>
         </div>
-
-        <button>CHECKOUT</button>
+        <router-link to="/checkout">
+          <button>CHECKOUT</button>
+        </router-link>
       </div>
     </main>
     <Carousel v-if="carousel" />
@@ -39,8 +40,8 @@
 </template>
 
 <script>
-import CartViewProduct from "@/components/cartViewProduct.vue";
-import Carousel from "@/components/carousel.vue";
+import CartViewProduct from "@/components/cartViewProduct.vue"
+import Carousel from "@/components/carousel.vue"
 export default {
   components: { CartViewProduct, Carousel },
   data() {
@@ -72,9 +73,9 @@ export default {
           amount: 0,
         },
       ],
-    };
+    }
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>

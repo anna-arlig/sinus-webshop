@@ -1,7 +1,7 @@
 <template>
   <div class="checkout-container">
-    <h2>Checkout</h2>
-    <section class="buttons">
+    <h2 v-if="!orderPlaced">Checkout</h2>
+    <section class="buttons" v-if="!orderPlaced && userRole == ''">
       <div class="login" @click="modalToggle">
         <p>
           Log in or place an order without registration by filling out the form
@@ -10,8 +10,9 @@
         <button class="login-btn">Log in</button>
       </div>
     </section>
+    <ThankYou v-if="orderPlaced" />
     <LogInPopup />
-    <form class="checkout">
+    <form class="checkout" v-if="!orderPlaced" @submit.prevent="placeOrder">
       <div class="checkout-info">
         <section class="form">
           <div action="" class="address">
@@ -38,22 +39,28 @@
         <section class="delivery">
           <p class="del-method">Delivery method</p>
           <div class="delivery-type">
-            <input type="radio" id="fedex" name="delivery" value="fedex" />
+            <input
+              type="radio"
+              id="fedex"
+              name="delivery"
+              value="fedex"
+              required
+            />
             <img src="../assets/images/fedex.png" alt="" />
             <label for="fedex">Standard (3-4 days)</label>
-            <p>$20</p>
+            <p class="price">39 kr</p>
           </div>
           <div class="delivery-type">
-            <input type="radio" id="ups" name="delivery" value="ups" />
+            <input type="radio" id="ups" name="delivery" value="ups" required />
             <img src="../assets/images/ups.png" alt="" />
             <label for="ups">Express (1-2 days)</label>
-            <p>$30</p>
+            <p class="price">59 kr</p>
           </div>
           <div class="delivery-type">
-            <input type="radio" id="dhl" name="delivery" value="dhl" />
+            <input type="radio" id="dhl" name="delivery" value="dhl" required />
             <img src="../assets/images/dhl.png" alt="" />
             <label for="dhl">Standard (5-6 days)</label>
-            <p>$15</p>
+            <p>No fee</p>
           </div>
         </section>
         <!-- Payment -->
@@ -65,17 +72,30 @@
               id="creditcard"
               name="payment"
               value="creditcard"
+              required
             />
             <img src="../assets/images/mastercard.png" alt="" />
             <label for="creditcard">Pay with credit card</label>
           </div>
           <div class="payment-type">
-            <input type="radio" id="paypal" name="payment" value="paypal" />
+            <input
+              type="radio"
+              id="paypal"
+              name="payment"
+              value="paypal"
+              required
+            />
             <img src="../assets/images/paypal-logo.png" alt="" />
             <label for="paypal">Pay with Paypal</label>
           </div>
           <div class="payment-type">
-            <input type="radio" id="invoice" name="payment" value="invoice" />
+            <input
+              type="radio"
+              id="invoice"
+              name="payment"
+              value="invoice"
+              required
+            />
             <p><strong>Invoice</strong></p>
             <label for="invoice">Pay with invoice (30 days)</label>
           </div>
@@ -84,14 +104,19 @@
       <!-- Order review -->
       <section class="order-review">
         <p class="order">Order review</p>
-        <!-- <cartProduct /> -->
+        <h4 v-if="!cart.length">Your cart is empty! 😞</h4>
+        <CartProduct
+          v-for="product in cart"
+          :key="product.id"
+          :inCartProduct="product"
+        />
         <div class="subtotal">
           <p>Subtotal</p>
-          <p>$150</p>
+          <p class="price">150 kr</p>
         </div>
         <div class="shipping-fee">
           <p>Shipping fee</p>
-          <p>$20</p>
+          <p class="price">20 kr</p>
         </div>
         <div class="voucher">
           <p>Voucher</p>
@@ -100,12 +125,12 @@
         <div class="line"></div>
         <div class="total">
           <p>Total</p>
-          <p>$170</p>
+          <p class="price">170kr</p>
         </div>
         <label for="message">Message</label>
         <textarea name="message" id="message" cols="60" rows="7"></textarea>
         <div class="terms">
-          <input type="checkbox" />
+          <input type="checkbox" required />
           <p>I accept the <strong>terms and conditions</strong></p>
         </div>
         <button>Place order</button>
@@ -117,9 +142,13 @@
 <script>
 import Action from "../store/Action.types"
 import LogInPopup from "../components/loginPopup.vue"
+import CartProduct from "@/components/cartProduct.vue"
+import ThankYou from "@/components/ThankYou.vue"
 export default {
   components: {
     LogInPopup,
+    CartProduct,
+    ThankYou,
   },
   data() {
     return {
@@ -128,13 +157,25 @@ export default {
       street: "",
       zip: "",
       city: "",
+      orderPlaced: false,
     }
+  },
+  computed: {
+    cart() {
+      return this.$store.state.cart
+    },
+    userRole() {
+      return this.$store.state.role
+    },
   },
   methods: {
     modalToggle() {
       if (this.user == null) {
         this.$store.dispatch(Action.TOGGLE_MODAL)
       }
+    },
+    placeOrder() {
+      this.orderPlaced = true
     },
   },
 }
@@ -178,9 +219,9 @@ h2 {
   p {
     text-transform: uppercase;
   }
-  // .checkout-info {
-  //   margin-right: 3rem;
-  // }
+  p.price {
+    text-transform: lowercase;
+  }
   .address {
     display: flex;
     flex-direction: column;
