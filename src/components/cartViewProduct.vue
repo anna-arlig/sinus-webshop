@@ -1,47 +1,87 @@
 <template>
   <div class="cart-product">
-    <img
-      class="product-img"
-      src="@/assets/images/sinus-skateboard-plastic.png"
-      alt="placeholder for product image"
-    />
+    <figure>
+      <img
+        class="product-img"
+        :src="`${BASE_URL}/images/${inCartItem.imgFile}`"
+        alt="placeholder for product image"
+      />
+    </figure>
     <div class="product-name">
       <div>
-        <p class="category">SINUS SKATEBOARD -</p>
-        <p class="title">Northern lights</p>
+        <p class="category">{{inCartItem.category.toUpperCase()}} -</p>
+        <p class="title">{{inCartItem.title}}</p>
       </div>
     </div>
-    <p class="price">$85</p>
+    <p class="price">{{inCartItem.price}} kr</p>
     <div class="qty-container">
       <div class="quantity">
-        <Icon
+        <button
           class="qty-btn"
-          icon="akar-icons:minus"
-          color="#006a72"
-          width="6"
-        />
-        <p class="quantity-paragraph">1</p>
-        <Icon
+          @click="decrease(productInCart)"
+        >
+          <Icon
+            
+            icon="akar-icons:minus"
+            color="#006a72"
+            width="6"
+          />
+        </button>
+        <p class="quantity-paragraph">{{productInCart.amount}}</p>
+        <button
           class="qty-btn"
-          icon="akar-icons:plus"
-          color="#006a72"
-          width="6"
-        />
+          @click="increase(productInCart)"
+        >
+          <Icon
+            icon="akar-icons:plus"
+            color="#006a72"
+            width="6"
+          />
+        </button>
       </div>
     </div>
 
     <div class="total">
-      <p>$85</p>
-      <Icon icon="ci:trash-empty" color="#bf3600" />
+      <p>{{totalPriceForSingleItems}} kr</p>
+      <button @click="removeFromCart(productInCart.id)">
+        <Icon icon="ci:trash-empty" color="#bf3600" />
+      </button>
     </div>
   </div>
 </template>
 
 <script>
 import { Icon } from "@iconify/vue2";
+import Action from '@/store/Action.types.js'
 export default {
+  props: ['productInCart'],
+  data(){return{
+    BASE_URL: process.env.VUE_APP_BASE_URL
+  }},
   components: {
     Icon,
+  },
+  computed: {
+    inCartItem(){
+      return this.$store.state.products[this.productInCart.id]
+    },
+    totalPriceForSingleItems(){
+    return this.productInCart.amount * this.inCartItem.price
+    }, 
+    
+  }, 
+  methods: {
+    removeFromCart(id){
+      this.$store.dispatch(Action.REMOVE_FROM_CART, id)
+    },
+    decrease(productInCart){
+      if(productInCart.amount > 1){
+        this.$store.dispatch(Action.UPDATE_CART, {id: productInCart.id, amount: productInCart.amount-1})
+      }
+    },
+    increase(productInCart){
+      this.$store.dispatch(Action.UPDATE_CART, {id: productInCart.id, amount: productInCart.amount+1})
+    }
   },
 };
 </script>
@@ -49,11 +89,13 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/styles/fonts-colors.scss";
 @import "@/assets/styles/mixins.scss";
-
-.product-img {
-  margin-left: 20px;
+figure{
+  width: 2rem;
+  img{
+    max-width: 100%;
+    max-height: 100%;
+  }
 }
-
 p {
   font-size: 12px;
 }
@@ -93,5 +135,13 @@ p {
   p {
     margin: 10px;
   }
+}
+button{
+  background: none;
+	color: inherit;
+	border: none;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
 }
 </style>
