@@ -152,6 +152,9 @@ export default new Vuex.Store({
     async [Action.CREATE_USER](_, newUser) {
       await API.createUser(newUser)
     },
+    async [Action.CREATE_ORDER](_, items) {
+      await API.saveOrder(items)
+    },
 
     async [Action.MARKUS_SEARCH](context, search) {
       if (search.type == "category") {
@@ -178,6 +181,9 @@ export default new Vuex.Store({
   },
 
   getters: {
+    idsOfCartItems(state) {
+      return state.cart.map((item) => item.id)
+    },
     subTotalForCheckout(state) {
       return state.cart.reduce((sum, cartItem) => {
         return sum + cartItem.amount * state.products[cartItem.id].price

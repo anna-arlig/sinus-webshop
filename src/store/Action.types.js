@@ -15,6 +15,7 @@ export const EMPTY_CART = "EMPTY_CART"
 export const GET_ME = "GET_ME"
 export const GET_ALL_ORDERS = "GET_ALL_ORDERS"
 export const UPDATE_DELIVERY = "UPDATE_DELIVERY"
+export const CREATE_ORDER = "CREATE_ORDER"
 
 export default {
   GET_CATEGORY,
@@ -34,4 +35,5 @@ export default {
   GET_ME,
   GET_ALL_ORDERS,
   UPDATE_DELIVERY,
+  CREATE_ORDER,
 }

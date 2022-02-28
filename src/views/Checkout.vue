@@ -170,6 +170,28 @@ import LogInPopup from "../components/loginPopup.vue"
 import CartProduct from "@/components/cartProduct.vue"
 import ThankYou from "@/components/ThankYou.vue"
 export default {
+  mounted() {
+    if (this.$store.state.user.role === "customer") {
+      this.$store.dispatch("getUserInfo")
+      console.log()
+      this.name = this.userInfo.name
+      this.email = this.userInfo.email
+      this.street = this.userInfo.address.street
+      this.zip = this.userInfo.address.zip
+      this.city = this.userInfo.address.city
+    }
+  },
+  beforeUpdate() {
+    if (this.$store.state.user.role === "customer") {
+      this.$store.dispatch("getUserInfo")
+      console.log()
+      this.name = this.userInfo.name
+      this.email = this.userInfo.email
+      this.street = this.userInfo.address.street
+      this.zip = this.userInfo.address.zip
+      this.city = this.userInfo.address.city
+    }
+  },
   components: {
     LogInPopup,
     CartProduct,
@@ -191,8 +213,14 @@ export default {
     cart() {
       return this.$store.state.cart
     },
+    cartIds() {
+      return this.$store.getters.idsOfCartItems
+    },
+    userInfo() {
+      return this.$store.state.user
+    },
     userRole() {
-      return this.$store.state.role
+      return this.$store.state.user.role
     },
     subTotalForCheckout() {
       return this.$store.getters.subTotalForCheckout
@@ -211,6 +239,7 @@ export default {
       this.$store.dispatch(Action.UPDATE_DELIVERY, this.shippingFee)
     },
     placeOrder() {
+      this.$store.dispatch(Action.CREATE_ORDER, this.cartIds)
       this.orderPlaced = true
       this.$store.state.cart = []
     },
