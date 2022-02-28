@@ -73,7 +73,16 @@ export default new Vuex.Store({
       }
     },
     [Mutation.LOG_OUT](state) {
-      state.role = ""
+      state.user = {
+        name: '',
+        email: '',
+        role: '',
+        address: {
+          street: '',
+          zip: '',
+          city: ''
+        }
+      }
     },
     [Mutation.SAVE_PRODUCT_IN_CART](state, product) {
       const inCart = state.cart.find((cartItem) => cartItem.id == product.id)
@@ -176,7 +185,7 @@ export default new Vuex.Store({
       context.commit(Mutation.SAVE_PRODUCTS, response.data)
     },
     [Action.LOG_OUT](context) {
-      API.clearToken()
+      API.clearToken('')
       context.commit(Mutation.LOG_OUT)
     },
   },
