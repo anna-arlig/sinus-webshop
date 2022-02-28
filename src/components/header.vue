@@ -87,51 +87,48 @@
 </template>
 
 <script>
-import { Icon } from "@iconify/vue2";
-import CartPopup from "@/components/cartPopup.vue";
-import Action from "../store/Action.types";
-import Mutation from "../store/Action.types";
+import { Icon } from "@iconify/vue2"
+import CartPopup from "@/components/cartPopup.vue"
+import Action from "../store/Action.types"
+import Mutation from "../store/Action.types"
 export default {
   data() {
     return {
       cartHover: false,
       search: { name: "", type: "search", searchWord: this.compSearchWord },
       BASE_URL: process.env.VUE_APP_BASE_URL,
-    };
+    }
   },
   components: { Icon, CartPopup },
   methods: {
     async searchProduct(product) {
+      await this.$store.dispatch(Action.MARKUS_SEARCH, product)
+      this.$router.push(`/products/${product.page}`)
 
-      await this.$store.dispatch(Action.MARKUS_SEARCH, product);
-      this.$router.push(`/products/${product.page}`);
-
-      this.$store.commit(Mutation.UPDATE_SEARCH_RESULTS, "");
-
+      this.$store.commit(Mutation.UPDATE_SEARCH_RESULTS, "")
     },
     showLoggInModal() {
-      this.$store.dispatch(Action.TOGGLE_MODAL)  
-    },    
+      this.$store.dispatch(Action.TOGGLE_MODAL)
+    },
     updateSearchResults() {
       this.$store.dispatch(
         Action.UPDATE_SEARCH_RESULTS,
         this.search.name.toLowerCase()
-      );
+      )
     },
   },
   computed: {
     searchResults() {
-      return this.$store.state.searchResults;
+      return this.$store.state.searchResults
     },
     role() {
-      return this.$store.state.role;
+      return this.$store.state.role
     },
     compSearchWord() {
-      return this.search.name;
+      return this.search.name
     },
-
   },
-};
+}
 </script>
 
 <style scoped lang="scss">
@@ -186,6 +183,7 @@ export default {
   @include flex-col-center;
   justify-content: space-between;
   text-decoration: none;
+  cursor: pointer;
   a {
     text-decoration: none;
     color: #312f30;
