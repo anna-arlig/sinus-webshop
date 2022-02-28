@@ -20,23 +20,25 @@
         <div class="subtotal">
           <p><strong>SUBTOTAL</strong></p>
 
-          <p><strong>{{subTotalForCheckout}} kr</strong></p>
-
+          <p>
+            <strong>{{ subTotalForCheckout }} kr</strong>
+          </p>
         </div>
         <div class="shipping-fee">
           <p>SHIPPING FEE</p>
-          <p>20 kr</p>
+          <p>{{ this.$store.state.deliveryFee }} kr</p>
         </div>
         <p class="tax">TAX INCLUDED</p>
 
         <div class="total">
           <p><strong>TOTAL</strong></p>
 
-          <p><strong>{{costIncludingShipping}} kr</strong></p>
+          <p>
+            <strong>{{ costIncludingShipping }} kr</strong>
+          </p>
         </div>
 
         <button @click="$router.push('/checkout')">CHECKOUT</button>
-
       </div>
     </main>
     <Carousel v-if="carousel" />
@@ -51,22 +53,20 @@ export default {
   data() {
     return {
       carousel: false,
-
     }
   },
   computed: {
-    inCartItems(){
+    inCartItems() {
       return this.$store.state.cart
-    }, 
-    subTotalForCheckout(){
+    },
+    subTotalForCheckout() {
       return this.$store.getters.subTotalForCheckout
-    }, 
-    costIncludingShipping(){
+    },
+    costIncludingShipping() {
       return this.$store.getters.costIncludingShipping
-    }
-  }
-};
-
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>
@@ -147,10 +147,10 @@ button {
   margin: 5px;
   margin-top: 40px;
   box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.25);
-  &:hover{
+  &:hover {
     cursor: pointer;
-    background-color: #FFFFFF;
-    color: $teal
+    background-color: #ffffff;
+    color: $teal;
   }
 }
 </style>
