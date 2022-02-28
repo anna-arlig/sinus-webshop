@@ -52,7 +52,7 @@ export default {
         this.currentPage--
       } else if (
         direction === "forward" &&
-        this.end < this.$store.getters.products.length - 3
+        this.end < this.$store.state.productList.length - 3
       ) {
         this.start += 3
         this.end += 3

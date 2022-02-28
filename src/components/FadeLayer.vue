@@ -6,7 +6,7 @@
 export default {
   computed:{
     fading(){
-      return this.$store.state.modal
+      return this.$store.state.showLogIn
     }
   }
 }

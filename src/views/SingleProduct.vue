@@ -7,19 +7,10 @@
 <script>
 import ProductItem from "../components/productItem"
 export default {
-  // beforRouteUpdate() {
-  //   this.$router.push({ path: `/product/${this.$route.params.id}` })
-  // },
-
   components: {
     ProductItem,
   },
   computed: {
-    // product() {
-    //   return this.$store.getters.products.find(
-    //     (prod) => prod.id == this.$route.params.id
-    //   )
-    // },
     product() {
       return this.$store.state.products[this.$route.params.id]
     },

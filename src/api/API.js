@@ -38,7 +38,7 @@ export async function getProducts() {
   return await axios.get("/items/")
 }
 
-export async function getUser({ email, password }) {
+export async function logIn({ email, password }) {
   return await axios.post("/auth/", {
     email,
     password,
