@@ -7,6 +7,7 @@ export const MARKUS_SEARCH = "MARKUS_SEARCH"
 export const GET_CATEGORY = "GET_CATEGORY"
 export const SEARCH_ITEMS = "SEARCH_ITEMS"
 export const LOG_OUT = "LOG_OUT"
+export const UPDATE_USER_INFO = "UPDATE_USER_INFO"
 export const ADD_TO_CART = "ADD_TO_CART"
 export const UPDATE_CART = "UPDATE_CART"
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART"
@@ -25,6 +26,7 @@ export default {
   MARKUS_SEARCH,
   SEARCH_ITEMS,
   LOG_OUT,
+  UPDATE_USER_INFO,
   ADD_TO_CART,
   UPDATE_CART,
   REMOVE_FROM_CART,
