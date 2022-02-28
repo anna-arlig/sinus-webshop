@@ -67,5 +67,6 @@ export async function searchItems(searchString) {
 }
 
 export async function updateUserInfo(userInfo){
+  console.log(userInfo)
   return await axios.patch('/me', userInfo)
 }

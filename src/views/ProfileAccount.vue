@@ -7,7 +7,6 @@
           <h2>About me</h2>
           <div class="address">
             <h5>Name: {{userData.name}}</h5>
-            <input v-if="edit" v-model="name" placeholder="Name">
             <p>Street: {{userData.address.street}}</p>
             <input v-if="edit" v-model="street" placeholder="Street">
             <p>Zip:{{userData.address.zip}}</p>
@@ -52,12 +51,13 @@ import { Icon } from "@iconify/vue2"
 import Action from "../store/Action.types"
 export default {
   mounted(){
-    this.$store.dispatch('getUserInfo')
+    if(this.$store.state.user.name === ''){
+      this.$store.dispatch('getUserInfo')
+    }
   },
   data() {
     return {
       BASE_URL: process.env.VUE_APP_BASE_URL,
-      name: '',
       zip: '',
       street: '',
       city: '',
@@ -72,7 +72,6 @@ export default {
     async updateInfo(){
       this.edit=false
       await this.$store.dispatch(Action.UPDATE_USER_INFO, {
-        name: this.name,
         email: this.email,
         password: this.password,
         address:{
@@ -81,7 +80,7 @@ export default {
           city: this.city,
           },
       })
-      this.$store.dispatch('getUserInfo')
+      
     },
     logOut(){
       this.$store.dispatch(Action.LOG_OUT)

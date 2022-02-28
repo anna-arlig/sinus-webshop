@@ -125,14 +125,17 @@ export default new Vuex.Store({
       context.commit(Mutation.MODAL_TOGGLE)
     },
     async [Action.UPDATE_USER_INFO](context, userInfo){
-      
+     
       await API.updateUserInfo(userInfo)
-      context
+    
+     userInfo.role = context.state.user.role
+     userInfo.name = context.state.user.name
+      context.commit(Mutation.SAVE_USER, userInfo)
       
     },
     async getUserInfo(context){
       const response = await API.getMe()
-      console.log(response)
+      
       context.commit(Mutation.SAVE_USER, response.data)
     },
 
