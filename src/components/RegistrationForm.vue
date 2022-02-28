@@ -50,6 +50,7 @@
       >
       <small>{{error.city}}</small>
       <span>
+        
         <button>
           sign up
         </button>
@@ -69,7 +70,7 @@ export default {
 		Icon,
 	},
   data(){return{
-    minPasswordLength: 8,
+    minPasswordLength: Number(8),
     email: '', 
     name: '',
     password: '', 
@@ -84,6 +85,7 @@ export default {
     validCity: false, 
     validEmail: false, 
     validStreet: false,
+    registerSuccess: false,
     error: {
       name: '', 
       password: '', 
@@ -109,7 +111,7 @@ export default {
       this.$emit('goBack')
       this.$store.dispatch(Action.TOGGLE_MODAL)
     }, 
-    signUp(){
+   async signUp(){
       if(!/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(this.email)){
         this.error.email = 'ENTER A VALID EMAIL'
       }else{
@@ -127,7 +129,7 @@ export default {
       if(this.password != this.repeatPassword){
         this.error.password = 'PASSWORD DOES NOT MATCH'
       }
-      if(this.password.length && this.password == this.repeatPassword){
+      if(this.password.length >= this.minPasswordLength && this.password == this.repeatPassword){
         this.validPassword = true
         this.error.password = ''
       }
@@ -163,7 +165,8 @@ export default {
                 zip: this.zip
               }
             }
-            this.$store.dispatch(Action.CREATE_USER, newUser)
+           await this.$store.dispatch(Action.CREATE_USER, newUser)
+            this.$emit('success')
             this.$emit('goBack')
           }
     }

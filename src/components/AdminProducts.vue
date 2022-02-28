@@ -5,7 +5,7 @@
       Click the button if you want to add a new product. If you want to view,
       edit och delete a product, select a category.
     </p>
-    <CreateProduct v-if="create" @close="create = !create" />
+    <CreateProduct v-if="create" @close="create = false" />
     <button @click="createProduct" class="create-btn">
       Create a new product
     </button>

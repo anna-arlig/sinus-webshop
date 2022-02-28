@@ -24,6 +24,7 @@ export default new Vuex.Store({
         city: ''
       }
     },
+    loginError: '',
     cart: [], 
     deliveryMethod: [
       {
@@ -51,7 +52,9 @@ export default new Vuex.Store({
     },
 
     [Mutation.SAVE_ALL_ORDERS](state, orders){
-      state.orders = orders
+      state.orders = orders},
+    [Mutation.SAVE_ERROR](state, error){
+      state.loginError = error
     },
     [Mutation.SAVE_PRODUCTS](state, fetchedProducts) {
       for (let product of fetchedProducts) {
@@ -69,6 +72,7 @@ export default new Vuex.Store({
       state.user = user
     },
     [Mutation.MODAL_TOGGLE](state) {
+      state.loginError = ''
       state.showLogIn = !state.showLogIn
     },
     [Mutation.UPDATE_SEARCH_RESULTS](state, search) {
@@ -147,9 +151,17 @@ export default new Vuex.Store({
     },
     async [Action.LOG_IN](context, user) {
       const response = await API.logIn(user)
-      API.saveToken(response.data.token)
-      context.dispatch(Action.GET_ME)
-      context.commit(Mutation.MODAL_TOGGLE)
+        if(response.data.error){
+          console.log(response.data.error)
+          context.commit(Mutation.SAVE_ERROR, response.data.error)
+        }
+        else{
+          API.saveToken(response.data.token)
+          context.dispatch(Action.GET_ME)
+          context.commit(Mutation.MODAL_TOGGLE)
+          context.commit(Mutation.SAVE_ERROR, '')
+        }
+      
     },
     async [Action.UPDATE_USER_INFO](context, userInfo){
      

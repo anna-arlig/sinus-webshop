@@ -52,6 +52,11 @@ export async function logIn({ email, password }) {
     email,
     password,
   })
+  .catch(function (error){
+    if(error.response){
+     return error.response
+    }
+  })
 }
 
 export async function getMe() {
