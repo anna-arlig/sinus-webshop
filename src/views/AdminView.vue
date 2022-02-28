@@ -42,7 +42,6 @@ export default {
     },
     getProducts() {
       this.toggleView = false;
-      // this.$store.dispatch(Action.GET_ALL_PRODUCTS);
     },
   },
 };
