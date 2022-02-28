@@ -52,6 +52,10 @@ html {
     button {
       font-family: $paragraph;
     }
+    a,
+    button {
+      cursor: pointer;
+    }
   }
 }
 </style>

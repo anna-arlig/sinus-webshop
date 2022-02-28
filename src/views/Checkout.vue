@@ -1,7 +1,7 @@
 <template>
   <div class="checkout-container">
     <h2 v-if="!orderPlaced">Checkout</h2>
-    <section class="buttons" v-if="!orderPlaced && userRole == ''">
+    <section class="buttons" v-if="!orderPlaced && !userRole">
       <div class="login" @click="modalToggle">
         <p>
           Log in or place an order without registration by filling out the form
@@ -43,22 +43,37 @@
               type="radio"
               id="fedex"
               name="delivery"
-              value="fedex"
+              value="39"
+              v-model="shippingFee"
               required
             />
-            <img src="../assets/images/fedex.png" alt="" />
+            <img src="../assets/images/fedex.png" alt="Fedex logo" />
             <label for="fedex">Standard (3-4 days)</label>
             <p class="price">39 kr</p>
           </div>
           <div class="delivery-type">
-            <input type="radio" id="ups" name="delivery" value="ups" required />
-            <img src="../assets/images/ups.png" alt="" />
+            <input
+              type="radio"
+              id="ups"
+              name="delivery"
+              value="59"
+              v-model="shippingFee"
+              required
+            />
+            <img src="../assets/images/ups.png" alt="UPS logo" />
             <label for="ups">Express (1-2 days)</label>
             <p class="price">59 kr</p>
           </div>
           <div class="delivery-type">
-            <input type="radio" id="dhl" name="delivery" value="dhl" required />
-            <img src="../assets/images/dhl.png" alt="" />
+            <input
+              type="radio"
+              id="dhl"
+              name="delivery"
+              value="0"
+              v-model="shippingFee"
+              required
+            />
+            <img src="../assets/images/dhl.png" alt="DHL logo" />
             <label for="dhl">Standard (5-6 days)</label>
             <p>No fee</p>
           </div>
@@ -72,9 +87,10 @@
               id="creditcard"
               name="payment"
               value="creditcard"
+              v-model="paymentMethod"
               required
             />
-            <img src="../assets/images/mastercard.png" alt="" />
+            <img src="../assets/images/mastercard.png" alt="MasterCard logo" />
             <label for="creditcard">Pay with credit card</label>
           </div>
           <div class="payment-type">
@@ -83,9 +99,14 @@
               id="paypal"
               name="payment"
               value="paypal"
+              v-model="paymentMethod"
               required
             />
-            <img src="../assets/images/paypal-logo.png" alt="" />
+            <img
+              src="../assets/images/paypal-logo.png"
+              alt="PayPal logo"
+              width="60"
+            />
             <label for="paypal">Pay with Paypal</label>
           </div>
           <div class="payment-type">
@@ -94,9 +115,10 @@
               id="invoice"
               name="payment"
               value="invoice"
+              v-model="paymentMethod"
               required
             />
-            <p><strong>Invoice</strong></p>
+            <p class="invoice-text"><strong>Invoice</strong></p>
             <label for="invoice">Pay with invoice (30 days)</label>
           </div>
         </section>
@@ -104,7 +126,7 @@
       <!-- Order review -->
       <section class="order-review">
         <p class="order">Order review</p>
-        <h4 v-if="!cart.length">Your cart is empty! 😞</h4>
+        <h3 v-if="!cart.length">Your cart is empty! 😞</h3>
         <CartProduct
           v-for="product in cart"
           :key="product.id"
@@ -112,11 +134,11 @@
         />
         <div class="subtotal">
           <p>Subtotal</p>
-          <p class="price">150 kr</p>
+          <p class="price">{{ subtotal }} kr</p>
         </div>
         <div class="shipping-fee">
           <p>Shipping fee</p>
-          <p class="price">20 kr</p>
+          <p class="price">{{ shippingFee }} kr</p>
         </div>
         <div class="voucher">
           <p>Voucher</p>
@@ -125,7 +147,7 @@
         <div class="line"></div>
         <div class="total">
           <p>Total</p>
-          <p class="price">170kr</p>
+          <p class="price">{{ totalCartPrice }}kr</p>
         </div>
         <label for="message">Message</label>
         <textarea name="message" id="message" cols="60" rows="7"></textarea>
@@ -150,14 +172,18 @@ export default {
     CartProduct,
     ThankYou,
   },
+
   data() {
     return {
+      inCartProduct: this.product,
       name: "",
       email: "",
       street: "",
       zip: "",
       city: "",
       orderPlaced: false,
+      shippingFee: "",
+      paymentMethod: "",
     }
   },
   computed: {
@@ -176,6 +202,7 @@ export default {
     },
     placeOrder() {
       this.orderPlaced = true
+      this.$store.state.cart = []
     },
   },
 }
@@ -218,6 +245,7 @@ h2 {
 
   p {
     text-transform: uppercase;
+    margin: 0;
   }
   p.price {
     text-transform: lowercase;
@@ -270,6 +298,11 @@ h2 {
     align-items: center;
     justify-content: space-between;
   }
+  .delivery-type,
+  .payment-type {
+    margin: 1rem 0;
+  }
+
   .payment-type {
     justify-content: flex-start;
   }
@@ -299,6 +332,9 @@ h2 {
   .delivery *,
   .payment * {
     margin-right: 2rem;
+  }
+  .invoice-text {
+    margin: 0;
   }
   .line {
     width: 100%;
