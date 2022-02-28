@@ -12,10 +12,37 @@ export default new Vuex.Store({
     productList: [],
     products: {},
     showLogIn: false,
-    user: null,
     searchResults: [],
     searchTerms: [...SearchTerms],
-    cart: []
+    user: {
+      name: '',
+      email: '',
+      role: '',
+      address: {
+        street: '',
+        zip: '',
+        city: ''
+      }
+    },
+    cart: [], 
+    deliveryMethod: [
+      {
+        name: 'fedex', 
+        price: 20, 
+        active: true
+      }, 
+      {
+        name: 'ups', 
+        price: 30, 
+        active: false
+      }, 
+      {
+        name: 'dhl', 
+        price: 15,
+        active: false
+      }
+    ]
+
   },
   mutations: {
     [Mutation.SAVE_PRODUCTS](state, fetchedProducts) {
@@ -26,16 +53,18 @@ export default new Vuex.Store({
         Vue.set(state.products, product.id, product)
       }
     },
-    [Mutation.SAVE_USER](state, newUser) {
-      state.user = newUser
+    [Mutation.SET_ROLE](state, role) {
+      state.user.role = role
       state.logInPopup = !state.logInPopup
+    },
+    [Mutation.SAVE_USER](state, user){
+      state.user = user
     },
     [Mutation.MODAL_TOGGLE](state) {
       state.showLogIn = !state.showLogIn
     },
     [Mutation.UPDATE_SEARCH_RESULTS](state, search) {
       if (search.length) {
-    
         state.searchResults = state.searchTerms.filter((product) => {
           return product.name.toLowerCase().includes(search)
         })
@@ -44,51 +73,55 @@ export default new Vuex.Store({
       }
     },
     [Mutation.LOG_OUT](state) {
-      state.user = null
+      state.role = ""
     },
-    [Mutation.SAVE_PRODUCT_IN_CART](state, product){
-      const inCart = state.cart.find(cartItem => cartItem.id == product.id)
-      if(inCart){
+    [Mutation.SAVE_PRODUCT_IN_CART](state, product) {
+      const inCart = state.cart.find((cartItem) => cartItem.id == product.id)
+      if (inCart) {
         inCart.amount++
-      }else{
-        state.cart.push({id: product.id, amount: 1})
+      } else {
+        state.cart.push({ id: product.id, amount: 1 })
       }
-    }, 
-    [Mutation.UPDATE_CART_ITEM](state, {id, amount}){
-      const inCart = state.cart.find(cartItem => cartItem.id == id)
+    },
+    [Mutation.UPDATE_CART_ITEM](state, { id, amount }) {
+      const inCart = state.cart.find((cartItem) => cartItem.id == id)
       inCart.amount = amount
-    }, 
-    [Mutation.REMOVE_CART_ITEM](state, id){
-      const itemExist = state.cart.find(cartItem => cartItem.id == id)
-      const itemIndex = state.cart.indexOf(itemExist)
+    },
+    [Mutation.REMOVE_CART_ITEM](state, id) {
+      const item = state.cart.find((cartItem) => cartItem.id == id)
+      const itemIndex = state.cart.indexOf(item)
       state.cart.splice(itemIndex, 1)
-    }, 
-    [Mutation.REMOVE_ALL_CART_ITEMS](state){
+    },
+    [Mutation.REMOVE_ALL_CART_ITEMS](state) {
       state.cart = []
-    }
+    },
   },
   actions: {
-    [Action.EMPTY_CART](context){
+    async [Action.GET_ALL_ORDERS]() {
+      const response = await API.getAllOrders()
+      console.log(response)
+    },
+
+    [Action.EMPTY_CART](context) {
       context.commit(Mutation.REMOVE_ALL_CART_ITEMS)
     },
-    [Action.REMOVE_FROM_CART](context, id){
+    [Action.REMOVE_FROM_CART](context, id) {
       context.commit(Mutation.REMOVE_CART_ITEM, id)
     },
-    [Action.UPDATE_CART](context, {id, amount}){
-      context.commit(Mutation.UPDATE_CART_ITEM, {id, amount})
+    [Action.UPDATE_CART](context, { id, amount }) {
+      context.commit(Mutation.UPDATE_CART_ITEM, { id, amount })
     },
-    [Action.ADD_TO_CART](context, product){
+    [Action.ADD_TO_CART](context, product) {
       context.commit(Mutation.SAVE_PRODUCT_IN_CART, product)
     },
     async [Action.GET_PRODUCTS](context) {
       const response = await API.getProducts()
       context.commit(Mutation.SAVE_PRODUCTS, response.data)
     },
-    async [Action.GET_USER](context, user) {
-      const response = await API.getUser(user)
+    async [Action.LOG_IN](context, user) {
+      const response = await API.logIn(user)
       API.saveToken(response.data.token)
-      const responseTwo = await API.getUserInfo()
-      context.commit(Mutation.SAVE_USER, responseTwo)
+      context.dispatch(Action.GET_ME)
       context.commit(Mutation.MODAL_TOGGLE)
     },
     async [Action.UPDATE_USER_INFO](context, userInfo){
@@ -98,9 +131,14 @@ export default new Vuex.Store({
       
     },
     async getUserInfo(context){
-      const response = await API.getUserInfo()
+      const response = await API.getMe()
       console.log(response)
       context.commit(Mutation.SAVE_USER, response.data)
+    },
+
+    async [Action.GET_ME](context) {
+      const response = await API.getMe()
+      context.commit(Mutation.SET_ROLE, response.data.role)
     },
 
     async [Action.GET_CATEGORY](context, query) {
@@ -115,25 +153,21 @@ export default new Vuex.Store({
       context.commit(Mutation.UPDATE_SEARCH_RESULTS, search)
     },
 
-    async [Action.CREATE_USER](context, newUser) {
-      const response = await API.createUser(newUser)
-      context
-      response
+    async [Action.CREATE_USER](_, newUser) {
+      await API.createUser(newUser)
     },
-    async [Action.MARKUS_SEARCH](context, search){
-      if(search.type == 'category'){
+
+    async [Action.MARKUS_SEARCH](context, search) {
+      if (search.type == "category") {
         const response = await API.categorySearch(search.searchWord)
-        
+
         context.commit(Mutation.SAVE_PRODUCTS, response.data)
-      }
-      else{
+      } else {
         const response = await API.markusSearch(search.searchWord)
         context.commit(Mutation.SAVE_PRODUCTS, response.data)
       }
-      
-     
-    }, 
-  
+    },
+
     async [Action.SEARCH_ITEMS](context, searchString) {
       const response = await API.searchItems(searchString)
       context.commit(Mutation.SAVE_PRODUCTS, response.data)
@@ -143,9 +177,15 @@ export default new Vuex.Store({
       context.commit(Mutation.LOG_OUT)
     },
   },
+
   getters: {
-    products(state) {
-      return state.productList
+    subTotalForCheckout(state){
+      return state.cart.reduce((sum, cartItem) => {
+        return sum + cartItem.amount * state.products[cartItem.id].price
+      }, 0)
+    },
+    costIncludingShipping(state, getters){
+      return getters.subTotalForCheckout + state.deliveryMethod.find(method => method.active).price
     },
     specialEdition(state) {
       return state.productList.filter((product) => product.specialEdition)
@@ -173,7 +213,6 @@ export default new Vuex.Store({
       })
       return accessories
     },
-    
   },
   modules: {},
 })

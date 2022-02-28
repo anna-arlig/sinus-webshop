@@ -152,6 +152,7 @@ export default {
       }
       if( this.validName && this.noNumberInName && this.validPassword && this.validZip
           && this.validCity && this.validEmail && this.validStreet){
+            
             const newUser = {
               email: this.email, 
               password: this.password, 

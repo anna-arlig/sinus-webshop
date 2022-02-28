@@ -12,9 +12,7 @@ export default {
   },
   computed: {
     product() {
-      return this.$store.getters.products.find(
-        (prod) => prod.id == this.$route.params.id
-      )
+      return this.$store.state.products[this.$route.params.id]
     },
   },
 }

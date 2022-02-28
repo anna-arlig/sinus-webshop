@@ -1,4 +1,5 @@
 import axios from "axios"
+
 axios.defaults.baseURL = process.env.VUE_APP_BASE_URL + "/api"
 const skateboardQuery = "/items?category=skateboard"
 const apparelQuery = "/items?category=hoodie&category=tshirt"
@@ -10,7 +11,7 @@ const accessoriesQueryPageTwo =
 export async function markusSearch(searchWord) {
   return await axios.get(`/items?search=${searchWord}`)
 }
-export async function categorySearch(searchWord){
+export async function categorySearch(searchWord) {
   return await axios.get(`/items?category=${searchWord}`)
 }
 
@@ -37,26 +38,34 @@ export async function getProducts() {
   return await axios.get("/items/")
 }
 
-export async function getUser({ email, password }) {
+export async function logIn({ email, password }) {
   return await axios.post("/auth/", {
     email,
     password,
   })
 }
 
-export async function createUser({ email, password }) {
+export async function getMe() {
+  return await axios.get("/me/")
+}
+
+export async function createUser({ email, password, name, address }) {
   return await axios.post("/register/", {
     email,
     password,
+    name, 
+    address
   })
 }
+
+export async function getAllOrders() {
+  return await axios.get("/orders/")
+}
+
 export async function searchItems(searchString) {
   return await axios.get(`/items?search=${searchString}`)
 }
 
-export async function getUserInfo(){
-  return await axios.get('/me')
-}
 export async function updateUserInfo(userInfo){
   return await axios.patch('/me', userInfo)
 }

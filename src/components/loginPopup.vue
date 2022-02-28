@@ -68,7 +68,7 @@ export default {
         email: this.email,
         password: this.password,
       }
-      this.$store.dispatch(Action.GET_USER, user)
+      this.$store.dispatch(Action.LOG_IN, user)
       this.email = ""
       this.password = ""
     },
@@ -136,6 +136,7 @@ form {
       background-color: $teal;
       text-transform: uppercase;
       font-weight: 500;
+      box-shadow: (0px 3px 4px rgba(0, 0, 0, 0.25));
     }
     button:last-of-type {
       background-color: #ffffff;
@@ -147,6 +148,8 @@ form {
     margin: 4rem 0 0;
   }
   a {
+    font-family: $paragraph;
+    font-weight: 500;
     border-radius: 4px;
     margin: 1rem 0 0.5rem 1rem;
     padding: 0.2rem 2rem;
@@ -157,11 +160,7 @@ form {
     text-transform: uppercase;
     align-self: center;
     border: none;
-    &:hover {
-      cursor: pointer;
-    }
-  }
-  button:hover {
+    box-shadow: (0px 3px 4px rgba(0, 0, 0, 0.25));
     cursor: pointer;
   }
 }
