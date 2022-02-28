@@ -90,6 +90,10 @@ export default new Vuex.Store({
   },
   actions: {
 
+    async [Action.REMOVE_PRODUCT](_, id){
+    await API.removeProduct(id)
+    },
+
     async [Action.CHANGE_STATUS](_,status){
       await API.updateOrder(status)
     },

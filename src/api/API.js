@@ -8,6 +8,10 @@ const accessoriesQuery =
 const accessoriesQueryPageTwo =
   "/items?category=cap&category=totebag&category=socks&category=wheel&page=2"
 
+  export async function removeProduct(id){
+    return await axios.delete(`/items/${id}`)
+  }
+
   export async function updateOrder({id, status}){
    
     return await axios.patch(`/orders/${id}`, { "status": status})

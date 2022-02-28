@@ -1,5 +1,6 @@
 <template>
   <dialog open class="create">
+    <i @click="$emit('close')"><Icon icon="mdi:close" width="25" /></i>
     <h2>Create a new product</h2>
 
     <form @submit.prevent="newProduct">
@@ -34,7 +35,7 @@
         </li>
         <li>
           <label for="imgFile">Image file</label>
-          <input type="file" name="imgFile" />
+          <input type="text" name="imgFile" v-model="imgFile" />
         </li>
         <input type="submit" value="Add new product" />
       </ul>
@@ -43,7 +44,9 @@
 </template>
 
 <script>
+import { Icon } from "@iconify/vue2";
 export default {
+  components: { Icon },
   data() {
     return {
       title: "",
@@ -65,6 +68,7 @@ export default {
 @import "@/assets/styles/mixins.scss";
 
 .create {
+  transform: translateY(-50%);
   @include flex-col-center;
 }
 li {
