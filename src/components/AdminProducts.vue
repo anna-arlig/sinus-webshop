@@ -5,7 +5,7 @@
       Click the button if you want to add a new product. If you want to view,
       edit och delete a product, select a category.
     </p>
-    <CreateProduct v-if="create" @close="createProduct" />
+    <CreateProduct v-if="create" @close="create = !create" />
     <button @click="createProduct" class="create-btn">
       Create a new product
     </button>
@@ -19,6 +19,7 @@
     </div>
     <div class="product-list">
       <h2>{{ categoryTitel }}</h2>
+
       <div
         class="product-item"
         v-for="product in selectedCategoryProducts"
@@ -38,16 +39,22 @@
           </p>
         </div>
         <ConfirmDelete
-          v-if="showRemove"
-          @closeDelete="showRemove = false"
+          v-if="showRemove == product.id"
+          @closeDelete="showRemove = null"
           @removeProduct="removeProduct(product.id)"
+          class="delete"
+        />
+        <EditProduct
+          v-if="edit == product.id"
+          @close="edit = !edit"
+          :product="product"
         />
         <p>Product id: {{ product.id }}</p>
         <div class="buttons">
-          <button class="icon-btn" @click="showRemove = true">
+          <button class="icon-btn" @click="showRemove = product.id">
             <Icon icon="ci:trash-empty" color="#bf3600" />
           </button>
-          <button class="icon-btn" @click="editProduct(product.id)">
+          <button class="icon-btn" @click="edit = product.id">
             <Icon icon="clarity:edit-solid" />
           </button>
         </div>
@@ -61,13 +68,15 @@ import { Icon } from "@iconify/vue2";
 import Action from "../store/Action.types";
 import CreateProduct from "@/components/CreateProduct.vue";
 import ConfirmDelete from "@/components/ConfirmDelete.vue";
+import EditProduct from "@/components/EditProduct.vue";
 export default {
-  components: { CreateProduct, Icon, ConfirmDelete },
+  components: { CreateProduct, Icon, ConfirmDelete, EditProduct },
   data() {
     return {
       BASE_URL: process.env.VUE_APP_BASE_URL,
       create: false,
-      showRemove: false,
+      edit: null,
+      showRemove: null,
       categoryTitel: "",
     };
   },
@@ -83,15 +92,15 @@ export default {
     },
   },
   methods: {
-    createProduct() {
-      this.create = !this.create;
-    },
+    createProduct() {},
     getCategory() {
       this.$store.dispatch(Action.GET_CATEGORY, this.categoryTitel);
     },
     removeProduct(id) {
       this.$store.dispatch(Action.REMOVE_PRODUCT, id);
+      this.showRemove = false;
     },
+    editProduct() {},
   },
 };
 </script>
