@@ -65,6 +65,7 @@ export default new Vuex.Store({
       state.user = user
     },
     [Mutation.MODAL_TOGGLE](state) {
+      state.loginError = ''
       state.showLogIn = !state.showLogIn
     },
     [Mutation.UPDATE_SEARCH_RESULTS](state, search) {
