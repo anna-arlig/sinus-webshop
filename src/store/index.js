@@ -37,6 +37,11 @@ export default new Vuex.Store({
 
   },
   mutations: {
+
+    [Mutation.REMOVE_PRODUCT_FROM_STATE](state, id){
+     state.productList = state.productList.filter(product => product.id != id)
+    },
+
     [Mutation.SAVE_ALL_ORDERS](state, orders){
       state.orders = orders
     },
@@ -90,8 +95,9 @@ export default new Vuex.Store({
   },
   actions: {
 
-    async [Action.REMOVE_PRODUCT](_, id){
+    async [Action.REMOVE_PRODUCT](context, id){
     await API.removeProduct(id)
+    context.commit(Mutation.REMOVE_PRODUCT_FROM_STATE, id)
     },
 
     async [Action.CHANGE_STATUS](_,status){
