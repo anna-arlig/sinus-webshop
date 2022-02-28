@@ -1,7 +1,7 @@
 <template>
   <div class="products">
     <h1>Products</h1>
-    <p>
+    <p class="intro-text">
       Click the button if you want to add a new product. If you want to view,
       edit och delete a product, select a category.
     </p>
@@ -37,9 +37,14 @@
             <strong>- {{ product.title }}</strong>
           </p>
         </div>
+        <ConfirmDelete
+          v-if="showRemove"
+          @closeDelete="showRemove = false"
+          @removeProduct="removeProduct(product.id)"
+        />
         <p>Product id: {{ product.id }}</p>
         <div class="buttons">
-          <button class="icon-btn" @click="removeProduct(product.id)">
+          <button class="icon-btn" @click="showRemove = true">
             <Icon icon="ci:trash-empty" color="#bf3600" />
           </button>
           <button class="icon-btn" @click="editProduct(product.id)">
@@ -55,12 +60,14 @@
 import { Icon } from "@iconify/vue2";
 import Action from "../store/Action.types";
 import CreateProduct from "@/components/CreateProduct.vue";
+import ConfirmDelete from "@/components/ConfirmDelete.vue";
 export default {
-  components: { CreateProduct, Icon },
+  components: { CreateProduct, Icon, ConfirmDelete },
   data() {
     return {
       BASE_URL: process.env.VUE_APP_BASE_URL,
       create: false,
+      showRemove: false,
       categoryTitel: "",
     };
   },
@@ -98,7 +105,7 @@ h2 {
   margin-left: 20px;
 }
 
-p:first-of-type {
+.intro-text {
   margin: 20px;
 }
 
