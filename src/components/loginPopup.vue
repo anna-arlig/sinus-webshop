@@ -24,14 +24,18 @@
       <button @click="signIn">Log in</button>
       <button @click="closeModal">Cancel</button>
     </span>
+    <p v-if="registerSuccess">User registered! Please enter email and password to log in</p>
     <p class="signup-text">
       Dont't have a <strong>SINUS</strong> account yet? Create one now:
     </p>
     <a @click="currentModal = 'registration'"> Sign up </a>
+    
   </dialog>
+  
   <RegistrationForm
     v-else-if="modal && currentModal == 'registration'"
     @goBack="setCurrentModal"
+    @success="registerSuccess = true"
   />
 </template>
 
@@ -43,6 +47,7 @@ export default {
   components: { RegistrationForm, Icon },
   data() {
     return {
+      registerSuccess: false,
       currentModal: "login",
       email: "",
       password: "",
@@ -64,6 +69,7 @@ export default {
       this.$store.dispatch(Action.TOGGLE_MODAL)
     },
     signIn() {
+      this.registerSuccess = false
       const user = {
         email: this.email,
         password: this.password,
