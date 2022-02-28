@@ -1,10 +1,9 @@
-
-export const GET_PRODUCTS = 'GET_PRODUCTS'
-export const LOG_IN = 'LOG_IN'
-export const TOGGLE_MODAL = 'TOGGLE_MODAL'
-export const UPDATE_SEARCH_RESULTS = 'UPDATE_SEARCH_RESULTS'
-export const CREATE_USER = 'CREATE_USER'
-export const MARKUS_SEARCH = 'MARKUS_SEARCH'
+export const GET_PRODUCTS = "GET_PRODUCTS"
+export const LOG_IN = "LOG_IN"
+export const TOGGLE_MODAL = "TOGGLE_MODAL"
+export const UPDATE_SEARCH_RESULTS = "UPDATE_SEARCH_RESULTS"
+export const CREATE_USER = "CREATE_USER"
+export const MARKUS_SEARCH = "MARKUS_SEARCH"
 export const GET_CATEGORY = "GET_CATEGORY"
 export const SEARCH_ITEMS = 'SEARCH_ITEMS'
 export const LOG_OUT = 'LOG_OUT'
@@ -17,6 +16,9 @@ export const GET_ME = 'GET_ME'
 export const GET_ALL_ORDERS = 'GET_ALL_ORDERS'
 export const CHANGE_STATUS = 'CHANGE_STATUS'
 export const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
+export const UPDATE_DELIVERY = "UPDATE_DELIVERY"
+export const CREATE_ORDER = "CREATE_ORDER"
+
 
 
 export default {
@@ -37,10 +39,7 @@ export default {
     GET_ME,
     GET_ALL_ORDERS,
     CHANGE_STATUS,
-    REMOVE_PRODUCT
+    REMOVE_PRODUCT,
+    UPDATE_DELIVERY,
+    CREATE_ORDER,
 }
-
-
-
-
-

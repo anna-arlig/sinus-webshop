@@ -4,27 +4,26 @@
       <img
         class="product-img"
         :src="`${BASE_URL}/images/${productObject.imgFile}`"
-    
         alt="productObject.imgFile"
       />
     </div>
     <div class="info">
       <div class="info-part">
         <div>
-          <p class="category">{{productObject.category}} -</p>
-          <p class="title">{{productObject.title}}</p>
+          <p class="category">{{ productObject.category }} -</p>
+          <p class="title">{{ productObject.title }}</p>
         </div>
         <button @click="removeFromCart(inCartProduct.id)">
           <Icon icon="ci:trash-empty" color="#bf3600" />
         </button>
       </div>
       <div class="info-part">
-        <p class="price">{{productObject.price}} kr</p>
+        <p class="price">{{ productObject.price }} kr</p>
         <div class="quantity">
           <button @click="decrease(inCartProduct)">
-            <Icon class="qty-btn" icon="akar-icons:minus" color="#006a72"  />
+            <Icon class="qty-btn" icon="akar-icons:minus" color="#006a72" />
           </button>
-          <p class="quantity-paragraph">{{inCartProduct.amount}}</p>
+          <p class="quantity-paragraph">{{ inCartProduct.amount }}</p>
           <button @click="increase(inCartProduct)" class="qty-btn">
             <Icon icon="akar-icons:plus" color="#006a72" />
           </button>
@@ -35,48 +34,55 @@
 </template>
 
 <script>
-import { Icon } from "@iconify/vue2";
-import Action from '@/store/Action.types.js'
+import { Icon } from "@iconify/vue2"
+import Action from "@/store/Action.types.js"
 export default {
-  props: ['inCartProduct'],
+  props: ["inCartProduct"],
   components: {
     Icon,
   },
-  data(){return{
-    BASE_URL: process.env.VUE_APP_BASE_URL,
-  }},
+  data() {
+    return {
+      BASE_URL: process.env.VUE_APP_BASE_URL,
+    }
+  },
   methods: {
-    removeFromCart(id){
+    removeFromCart(id) {
       this.$store.dispatch(Action.REMOVE_FROM_CART, id)
     },
-    decrease(inCartProduct){
-      if(inCartProduct.amount > 1){
-        this.$store.dispatch(Action.UPDATE_CART, {id: inCartProduct.id, amount: inCartProduct.amount-1})
+    decrease(inCartProduct) {
+      if (inCartProduct.amount > 1) {
+        this.$store.dispatch(Action.UPDATE_CART, {
+          id: inCartProduct.id,
+          amount: inCartProduct.amount - 1,
+        })
       }
     },
-    increase(inCartProduct){
-      this.$store.dispatch(Action.UPDATE_CART, {id: inCartProduct.id, amount: inCartProduct.amount+1})
+    increase(inCartProduct) {
+      this.$store.dispatch(Action.UPDATE_CART, {
+        id: inCartProduct.id,
+        amount: inCartProduct.amount + 1,
+      })
     },
-
   },
   computed: {
-    productObject(){
+    productObject() {
       return this.$store.state.products[this.inCartProduct.id]
-    }
-  }
-};
+    },
+  },
+}
 </script>
 
 <style scoped lang="scss">
 @import "@/assets/styles/fonts-colors.scss";
 @import "@/assets/styles/mixins.scss";
-button{
+button {
   background: none;
-    color: inherit;
-    border: none;
-    font: inherit;
-    cursor: pointer;
-    outline: inherit;
+  color: inherit;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
 }
 .cartProduct {
   border: 1px solid $teal;
@@ -96,7 +102,7 @@ p {
   font-weight: normal;
   color: #0f201a;
 }
-.img-container{
+.img-container {
   width: 5rem;
   height: 5rem;
   margin: 5px;
@@ -104,7 +110,7 @@ p {
   .product-img {
     max-width: 100%;
     max-height: 100%;
-}
+  }
 }
 .quantity {
   @include flex-center;
@@ -128,7 +134,7 @@ p {
   margin-right: 30px;
   @include flex-center;
   justify-content: space-between;
-  p:first-child{
+  p:first-child {
     text-transform: uppercase;
   }
 }

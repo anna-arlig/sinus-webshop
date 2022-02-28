@@ -15,35 +15,18 @@ export default new Vuex.Store({
     searchResults: [],
     searchTerms: [...SearchTerms],
     user: {
-      name: '',
-      email: '',
-      role: '',
+      name: "",
+      email: "",
+      role: "",
       address: {
-        street: '',
-        zip: '',
-        city: ''
-      }
+        street: "",
+        zip: "",
+        city: "",
+      },
     },
     loginError: '',
     cart: [], 
-    deliveryMethod: [
-      {
-        name: 'fedex', 
-        price: 20, 
-        active: true
-      }, 
-      {
-        name: 'ups', 
-        price: 30, 
-        active: false
-      }, 
-      {
-        name: 'dhl', 
-        price: 15,
-        active: false
-      }
-    ]
-
+    deliveryFee: 0,
   },
   mutations: {
 
@@ -68,7 +51,7 @@ export default new Vuex.Store({
       state.user.role = role
       state.logInPopup = !state.logInPopup
     },
-    [Mutation.SAVE_USER](state, user){
+    [Mutation.SAVE_USER](state, user) {
       state.user = user
     },
     [Mutation.MODAL_TOGGLE](state) {
@@ -86,14 +69,14 @@ export default new Vuex.Store({
     },
     [Mutation.LOG_OUT](state) {
       state.user = {
-        name: '',
-        email: '',
-        role: '',
+        name: "",
+        email: "",
+        role: "",
         address: {
-          street: '',
-          zip: '',
-          city: ''
-        }
+          street: "",
+          zip: "",
+          city: "",
+        },
       }
     },
     [Mutation.SAVE_PRODUCT_IN_CART](state, product) {
@@ -115,6 +98,9 @@ export default new Vuex.Store({
     },
     [Mutation.REMOVE_ALL_CART_ITEMS](state) {
       state.cart = []
+    },
+    [Mutation.UPDATE_DELIVERY](state, shippingFee) {
+      state.deliveryFee = Number(shippingFee)
     },
   },
   actions: {
@@ -163,18 +149,16 @@ export default new Vuex.Store({
         }
       
     },
-    async [Action.UPDATE_USER_INFO](context, userInfo){
-     
+    async [Action.UPDATE_USER_INFO](context, userInfo) {
       await API.updateUserInfo(userInfo)
-    
-     userInfo.role = context.state.user.role
-     userInfo.name = context.state.user.name
+
+      userInfo.role = context.state.user.role
+      userInfo.name = context.state.user.name
       context.commit(Mutation.SAVE_USER, userInfo)
-      
     },
-    async getUserInfo(context){
+    async getUserInfo(context) {
       const response = await API.getMe()
-      
+
       context.commit(Mutation.SAVE_USER, response.data)
     },
 
@@ -198,6 +182,9 @@ export default new Vuex.Store({
     async [Action.CREATE_USER](_, newUser) {
       await API.createUser(newUser)
     },
+    async [Action.CREATE_ORDER](_, items) {
+      await API.saveOrder(items)
+    },
 
     async [Action.MARKUS_SEARCH](context, search) {
       if (search.type == "category") {
@@ -215,19 +202,25 @@ export default new Vuex.Store({
       context.commit(Mutation.SAVE_PRODUCTS, response.data)
     },
     [Action.LOG_OUT](context) {
-      API.clearToken('')
+      API.clearToken("")
       context.commit(Mutation.LOG_OUT)
+    },
+    [Action.UPDATE_DELIVERY](context, shippingFee) {
+      context.commit(Mutation.UPDATE_DELIVERY, shippingFee)
     },
   },
 
   getters: {
-    subTotalForCheckout(state){
+    idsOfCartItems(state) {
+      return state.cart.map((item) => item.id)
+    },
+    subTotalForCheckout(state) {
       return state.cart.reduce((sum, cartItem) => {
         return sum + cartItem.amount * state.products[cartItem.id].price
       }, 0)
     },
-    costIncludingShipping(state, getters){
-      return getters.subTotalForCheckout + state.deliveryMethod.find(method => method.active).price
+    costIncludingShipping(state, getters) {
+      return getters.subTotalForCheckout + state.deliveryFee
     },
     specialEdition(state) {
       return state.productList.filter((product) => product.specialEdition)

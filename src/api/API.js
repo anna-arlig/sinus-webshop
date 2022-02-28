@@ -67,8 +67,14 @@ export async function createUser({ email, password, name, address }) {
   return await axios.post("/register/", {
     email,
     password,
-    name, 
-    address
+    name,
+    address,
+  })
+}
+
+export async function saveOrder(items) {
+  return await axios.post("/orders/", {
+    items,
   })
 }
 
@@ -80,7 +86,7 @@ export async function searchItems(searchString) {
   return await axios.get(`/items?search=${searchString}`)
 }
 
-export async function updateUserInfo(userInfo){
+export async function updateUserInfo(userInfo) {
   console.log(userInfo)
-  return await axios.patch('/me', userInfo)
+  return await axios.patch("/me", userInfo)
 }
