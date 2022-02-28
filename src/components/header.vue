@@ -122,7 +122,7 @@ export default {
       return this.$store.state.searchResults
     },
     role() {
-      return this.$store.state.role
+      return this.$store.state.user.role
     },
     compSearchWord() {
       return this.search.name
