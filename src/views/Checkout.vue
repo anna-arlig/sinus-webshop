@@ -45,6 +45,7 @@
               name="delivery"
               value="39"
               v-model="shippingFee"
+              @change="updateDelivery"
               required
             />
             <img src="../assets/images/fedex.png" alt="Fedex logo" />
@@ -58,6 +59,7 @@
               name="delivery"
               value="59"
               v-model="shippingFee"
+              @change="updateDelivery"
               required
             />
             <img src="../assets/images/ups.png" alt="UPS logo" />
@@ -71,6 +73,7 @@
               name="delivery"
               value="0"
               v-model="shippingFee"
+              @change="updateDelivery"
               required
             />
             <img src="../assets/images/dhl.png" alt="DHL logo" />
@@ -134,11 +137,11 @@
         />
         <div class="subtotal">
           <p>Subtotal</p>
-          <p class="price">subtotal kr</p>
+          <p class="price">{{ subTotalForCheckout }} kr</p>
         </div>
         <div class="shipping-fee">
           <p>Shipping fee</p>
-          <p class="price">shippingFee kr</p>
+          <p class="price">{{ shippingFee }} kr</p>
         </div>
         <div class="voucher">
           <p>Voucher</p>
@@ -147,7 +150,7 @@
         <div class="line"></div>
         <div class="total">
           <p>Total</p>
-          <p class="price">totalCartPrice kr</p>
+          <p class="price">{{ costIncludingShipping }} kr</p>
         </div>
         <label for="message">Message</label>
         <textarea name="message" id="message" cols="60" rows="7"></textarea>
@@ -191,12 +194,21 @@ export default {
     userRole() {
       return this.$store.state.role
     },
+    subTotalForCheckout() {
+      return this.$store.getters.subTotalForCheckout
+    },
+    costIncludingShipping() {
+      return this.$store.getters.costIncludingShipping
+    },
   },
   methods: {
     modalToggle() {
       if (this.user == null) {
         this.$store.dispatch(Action.TOGGLE_MODAL)
       }
+    },
+    updateDelivery() {
+      this.$store.dispatch(Action.UPDATE_DELIVERY, this.shippingFee)
     },
     placeOrder() {
       this.orderPlaced = true

@@ -15,26 +15,8 @@ export default new Vuex.Store({
     role: "",
     searchResults: [],
     searchTerms: [...SearchTerms],
-
-    cart: [], 
-    deliveryMethod: [
-      {
-        name: 'fedex', 
-        price: 20, 
-        active: true
-      }, 
-      {
-        name: 'ups', 
-        price: 30, 
-        active: false
-      }, 
-      {
-        name: 'dhl', 
-        price: 15,
-        active: false
-      }
-    ]
-
+    cart: [],
+    deliveryFee: 0,
   },
   mutations: {
     [Mutation.SAVE_PRODUCTS](state, fetchedProducts) {
@@ -83,6 +65,9 @@ export default new Vuex.Store({
     },
     [Mutation.REMOVE_ALL_CART_ITEMS](state) {
       state.cart = []
+    },
+    [Mutation.UPDATE_DELIVERY](state, shippingFee) {
+      state.deliveryFee = Number(shippingFee)
     },
   },
   actions: {
@@ -154,16 +139,19 @@ export default new Vuex.Store({
       API.clearToken()
       context.commit(Mutation.LOG_OUT)
     },
+    [Action.UPDATE_DELIVERY](context, shippingFee) {
+      context.commit(Mutation.UPDATE_DELIVERY, shippingFee)
+    },
   },
 
   getters: {
-    subTotalForCheckout(state){
+    subTotalForCheckout(state) {
       return state.cart.reduce((sum, cartItem) => {
         return sum + cartItem.amount * state.products[cartItem.id].price
       }, 0)
     },
-    costIncludingShipping(state, getters){
-      return getters.subTotalForCheckout + state.deliveryMethod.find(method => method.active).price
+    costIncludingShipping(state, getters) {
+      return getters.subTotalForCheckout + state.deliveryFee
     },
     specialEdition(state) {
       return state.productList.filter((product) => product.specialEdition)
