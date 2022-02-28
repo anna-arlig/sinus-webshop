@@ -10,15 +10,18 @@
           <p>TOTAL PRICE</p>
         </div>
         <CartViewProduct
-          v-for="product in cart"
+          v-for="product in inCartItems"
           :key="product.id"
           class="cart-product"
+          :productInCart="product"
         />
       </div>
       <div class="checkout">
         <div class="subtotal">
           <p><strong>SUBTOTAL</strong></p>
-          <p><strong>150 kr</strong></p>
+
+          <p><strong>{{subTotalForCheckout}} kr</strong></p>
+
         </div>
         <div class="shipping-fee">
           <p>SHIPPING FEE</p>
@@ -28,11 +31,12 @@
 
         <div class="total">
           <p><strong>TOTAL</strong></p>
-          <p><strong>170 kr</strong></p>
+
+          <p><strong>{{costIncludingShipping}} kr</strong></p>
         </div>
-        <router-link to="/checkout">
-          <button>CHECKOUT</button>
-        </router-link>
+
+        <button @click="$router.push('/checkout')">CHECKOUT</button>
+
       </div>
     </main>
     <Carousel v-if="carousel" />
@@ -47,35 +51,22 @@ export default {
   data() {
     return {
       carousel: false,
-      cart: [
-        {
-          id: 1337,
-          title: "Gretas Fury",
-          price: 999,
-          specialEdition: true,
-          imgFile: "skateboard-greta.png",
-          amount: 0,
-        },
-        {
-          id: 1338,
-          title: "Eagle",
-          price: 999,
-          specialEdition: false,
-          imgFile: "skateboard-greta.png",
-          amount: 0,
-        },
-        {
-          id: 1339,
-          title: "Hat - purple",
-          price: 59,
-          specialEdition: false,
-          imgFile: "skateboard-greta.png",
-          amount: 0,
-        },
-      ],
+
     }
   },
-}
+  computed: {
+    inCartItems(){
+      return this.$store.state.cart
+    }, 
+    subTotalForCheckout(){
+      return this.$store.getters.subTotalForCheckout
+    }, 
+    costIncludingShipping(){
+      return this.$store.getters.costIncludingShipping
+    }
+  }
+};
+
 </script>
 
 <style lang="scss" scoped>
@@ -156,5 +147,10 @@ button {
   margin: 5px;
   margin-top: 40px;
   box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.25);
+  &:hover{
+    cursor: pointer;
+    background-color: #FFFFFF;
+    color: $teal
+  }
 }
 </style>

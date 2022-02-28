@@ -15,7 +15,26 @@ export default new Vuex.Store({
     role: "",
     searchResults: [],
     searchTerms: [...SearchTerms],
-    cart: [],
+
+    cart: [], 
+    deliveryMethod: [
+      {
+        name: 'fedex', 
+        price: 20, 
+        active: true
+      }, 
+      {
+        name: 'ups', 
+        price: 30, 
+        active: false
+      }, 
+      {
+        name: 'dhl', 
+        price: 15,
+        active: false
+      }
+    ]
+
   },
   mutations: {
     [Mutation.SAVE_PRODUCTS](state, fetchedProducts) {
@@ -89,7 +108,7 @@ export default new Vuex.Store({
       context.commit(Mutation.SAVE_PRODUCTS, response.data)
     },
     async [Action.LOG_IN](context, user) {
-      const response = await API.getUser(user)
+      const response = await API.logIn(user)
       API.saveToken(response.data.token)
       context.dispatch(Action.GET_ME)
       context.commit(Mutation.MODAL_TOGGLE)
@@ -138,6 +157,14 @@ export default new Vuex.Store({
   },
 
   getters: {
+    subTotalForCheckout(state){
+      return state.cart.reduce((sum, cartItem) => {
+        return sum + cartItem.amount * state.products[cartItem.id].price
+      }, 0)
+    },
+    costIncludingShipping(state, getters){
+      return getters.subTotalForCheckout + state.deliveryMethod.find(method => method.active).price
+    },
     specialEdition(state) {
       return state.productList.filter((product) => product.specialEdition)
     },
