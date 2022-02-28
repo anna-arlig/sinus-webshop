@@ -70,7 +70,7 @@ export default {
 		Icon,
 	},
   data(){return{
-    minPasswordLength: 8,
+    minPasswordLength: Number(8),
     email: '', 
     name: '',
     password: '', 
@@ -129,7 +129,7 @@ export default {
       if(this.password != this.repeatPassword){
         this.error.password = 'PASSWORD DOES NOT MATCH'
       }
-      if(this.password.length && this.password == this.repeatPassword){
+      if(this.password.length >= this.minPasswordLength && this.password == this.repeatPassword){
         this.validPassword = true
         this.error.password = ''
       }
