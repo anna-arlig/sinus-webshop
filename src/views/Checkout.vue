@@ -134,11 +134,11 @@
         />
         <div class="subtotal">
           <p>Subtotal</p>
-          <p class="price">{{ subtotal }} kr</p>
+          <p class="price">subtotal kr</p>
         </div>
         <div class="shipping-fee">
           <p>Shipping fee</p>
-          <p class="price">{{ shippingFee }} kr</p>
+          <p class="price">shippingFee kr</p>
         </div>
         <div class="voucher">
           <p>Voucher</p>
@@ -147,7 +147,7 @@
         <div class="line"></div>
         <div class="total">
           <p>Total</p>
-          <p class="price">{{ totalCartPrice }}kr</p>
+          <p class="price">totalCartPrice kr</p>
         </div>
         <label for="message">Message</label>
         <textarea name="message" id="message" cols="60" rows="7"></textarea>
@@ -172,18 +172,16 @@ export default {
     CartProduct,
     ThankYou,
   },
-
   data() {
     return {
-      inCartProduct: this.product,
       name: "",
       email: "",
       street: "",
       zip: "",
       city: "",
-      orderPlaced: false,
       shippingFee: "",
       paymentMethod: "",
+      orderPlaced: false,
     }
   },
   computed: {
