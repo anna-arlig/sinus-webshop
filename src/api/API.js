@@ -30,8 +30,8 @@ export async function getCategory(query) {
 export function saveToken(token) {
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
 }
-export function clearToken() {
-  delete axios.defaults.headers.common["Authorization"]
+export function clearToken(emptyString) {
+  axios.defaults.headers.common["Authorization"] = `Bearer ${emptyString}`
 }
 
 export async function getProducts() {
@@ -53,8 +53,8 @@ export async function createUser({ email, password, name, address }) {
   return await axios.post("/register/", {
     email,
     password,
-    name,
-    address,
+    name, 
+    address
   })
 }
 
@@ -64,4 +64,9 @@ export async function getAllOrders() {
 
 export async function searchItems(searchString) {
   return await axios.get(`/items?search=${searchString}`)
+}
+
+export async function updateUserInfo(userInfo){
+  console.log(userInfo)
+  return await axios.patch('/me', userInfo)
 }

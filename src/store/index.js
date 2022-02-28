@@ -12,10 +12,18 @@ export default new Vuex.Store({
     productList: [],
     products: {},
     showLogIn: false,
-    role: "",
     searchResults: [],
     searchTerms: [...SearchTerms],
-
+    user: {
+      name: '',
+      email: '',
+      role: '',
+      address: {
+        street: '',
+        zip: '',
+        city: ''
+      }
+    },
     cart: [], 
     deliveryMethod: [
       {
@@ -46,8 +54,11 @@ export default new Vuex.Store({
       }
     },
     [Mutation.SET_ROLE](state, role) {
-      state.role = role
+      state.user.role = role
       state.logInPopup = !state.logInPopup
+    },
+    [Mutation.SAVE_USER](state, user){
+      state.user = user
     },
     [Mutation.MODAL_TOGGLE](state) {
       state.showLogIn = !state.showLogIn
@@ -62,7 +73,16 @@ export default new Vuex.Store({
       }
     },
     [Mutation.LOG_OUT](state) {
-      state.role = ""
+      state.user = {
+        name: '',
+        email: '',
+        role: '',
+        address: {
+          street: '',
+          zip: '',
+          city: ''
+        }
+      }
     },
     [Mutation.SAVE_PRODUCT_IN_CART](state, product) {
       const inCart = state.cart.find((cartItem) => cartItem.id == product.id)
@@ -113,6 +133,20 @@ export default new Vuex.Store({
       context.dispatch(Action.GET_ME)
       context.commit(Mutation.MODAL_TOGGLE)
     },
+    async [Action.UPDATE_USER_INFO](context, userInfo){
+     
+      await API.updateUserInfo(userInfo)
+    
+     userInfo.role = context.state.user.role
+     userInfo.name = context.state.user.name
+      context.commit(Mutation.SAVE_USER, userInfo)
+      
+    },
+    async getUserInfo(context){
+      const response = await API.getMe()
+      
+      context.commit(Mutation.SAVE_USER, response.data)
+    },
 
     async [Action.GET_ME](context) {
       const response = await API.getMe()
@@ -151,7 +185,7 @@ export default new Vuex.Store({
       context.commit(Mutation.SAVE_PRODUCTS, response.data)
     },
     [Action.LOG_OUT](context) {
-      API.clearToken()
+      API.clearToken('')
       context.commit(Mutation.LOG_OUT)
     },
   },
