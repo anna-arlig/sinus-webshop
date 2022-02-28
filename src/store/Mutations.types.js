@@ -9,6 +9,7 @@ export const UPDATE_CART_ITEM = 'UPDATE_CART_ITEM'
 export const REMOVE_CART_ITEM = 'REMOVE_CART_ITEM'
 export const REMOVE_ALL_CART_ITEMS = 'REMOVE_ALL_CART_ITEMS'
 export const SAVE_USER = 'SAVE_USER'
+export const SAVE_ERROR = 'SAVE_ERROR'
 
 
 export default {
@@ -21,7 +22,8 @@ export default {
     UPDATE_CART_ITEM,
     REMOVE_CART_ITEM,
     REMOVE_ALL_CART_ITEMS,
-    SAVE_USER
+    SAVE_USER,
+    SAVE_ERROR
   
 }
 

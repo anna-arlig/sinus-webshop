@@ -20,6 +20,7 @@
       placeholder="********"
       v-model="password"
     />
+    <p v-if="error != ''" class="error">{{error}}</p>
     <span class="btn-controller">
       <button @click="signIn">Log in</button>
       <button @click="closeModal">Cancel</button>
@@ -53,10 +54,18 @@ export default {
       password: "",
     }
   },
+  // errorCaptured: function(err) {
+  //     console.log('Caught error', err.message);
+  //     this.error = err.message
+  // },
   computed: {
     modal() {
       return this.$store.state.showLogIn
     },
+    error(){
+    
+     return this.$store.state.loginError
+    }
   },
   methods: {
     logInToggle() {
@@ -168,6 +177,9 @@ form {
     border: none;
     box-shadow: (0px 3px 4px rgba(0, 0, 0, 0.25));
     cursor: pointer;
+  }
+  .error{
+    color: red;
   }
 }
 </style>
