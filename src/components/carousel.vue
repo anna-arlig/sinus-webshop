@@ -22,12 +22,12 @@
 </template>
 
 <script>
-import ProductItem from "@/components/productItem.vue"
-import Action from "../store/Action.types"
-import { Icon } from "@iconify/vue2"
+import ProductItem from "@/components/productItem.vue";
+import Action from "../store/Action.types";
+import { Icon } from "@iconify/vue2";
 export default {
   async mounted() {
-    this.$store.dispatch(Action.GET_PRODUCTS)
+    this.$store.dispatch(Action.GET_PRODUCTS);
   },
   components: { ProductItem, Icon },
   data() {
@@ -42,41 +42,41 @@ export default {
         second: false,
         third: false,
       },
-    }
+    };
   },
   methods: {
     updatePageCounter(direction) {
       if (direction === "back" && this.currentPage > 1) {
-        this.start -= 3
-        this.end -= 3
-        this.currentPage--
+        this.start -= 3;
+        this.end -= 3;
+        this.currentPage--;
       } else if (
         direction === "forward" &&
         this.end < this.$store.state.productList.length - 3
       ) {
-        this.start += 3
-        this.end += 3
-        this.currentPage++
+        this.start += 3;
+        this.end += 3;
+        this.currentPage++;
       }
-      this.isActive.first = false
-      this.isActive.second = false
-      this.isActive.third = false
+      this.isActive.first = false;
+      this.isActive.second = false;
+      this.isActive.third = false;
 
       if (this.currentPage == 1) {
-        this.isActive.first = true
+        this.isActive.first = true;
       } else if (this.currentPage == 2) {
-        this.isActive.second = true
+        this.isActive.second = true;
       } else {
-        this.isActive.third = true
+        this.isActive.third = true;
       }
     },
   },
   computed: {
     carouselProducts() {
-      return this.$store.state.productList.slice(this.start, this.end)
+      return this.$store.state.productList.slice(this.start, this.end);
     },
   },
-}
+};
 </script>
 
 <style scoped lang="scss">

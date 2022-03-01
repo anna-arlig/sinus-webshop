@@ -20,60 +20,75 @@
       placeholder="********"
       v-model="password"
     />
+    <p v-if="error != ''" class="error">{{error}}</p>
     <span class="btn-controller">
       <button @click="signIn">Log in</button>
       <button @click="closeModal">Cancel</button>
     </span>
+    <p v-if="registerSuccess">User registered! Please enter email and password to log in</p>
     <p class="signup-text">
       Dont't have a <strong>SINUS</strong> account yet? Create one now:
     </p>
     <a @click="currentModal = 'registration'"> Sign up </a>
+    
   </dialog>
+  
   <RegistrationForm
     v-else-if="modal && currentModal == 'registration'"
     @goBack="setCurrentModal"
+    @success="registerSuccess = true"
   />
 </template>
 
 <script>
-import { Icon } from "@iconify/vue2"
-import RegistrationForm from "./RegistrationForm.vue"
-import Action from "@/store/Action.types"
+import { Icon } from "@iconify/vue2";
+import RegistrationForm from "./RegistrationForm.vue";
+import Action from "@/store/Action.types";
 export default {
   components: { RegistrationForm, Icon },
   data() {
     return {
+      registerSuccess: false,
       currentModal: "login",
-      email: "",
-      password: "",
-    }
+      email: "admin@example.com",
+      password: "password",
+    };
   },
+  // errorCaptured: function(err) {
+  //     console.log('Caught error', err.message);
+  //     this.error = err.message
+  // },
   computed: {
     modal() {
-      return this.$store.state.showLogIn
+      return this.$store.state.showLogIn;
     },
+    error(){
+    
+     return this.$store.state.loginError
+    }
   },
   methods: {
     logInToggle() {
-      this.$store.dispatch(Action.TOGGLE_MODAL)
+      this.$store.dispatch(Action.TOGGLE_MODAL);
     },
     setCurrentModal() {
-      this.currentModal = "login"
+      this.currentModal = "login";
     },
     closeModal() {
-      this.$store.dispatch(Action.TOGGLE_MODAL)
+      this.$store.dispatch(Action.TOGGLE_MODAL);
     },
     signIn() {
+      this.registerSuccess = false
       const user = {
         email: this.email,
         password: this.password,
-      }
-      this.$store.dispatch(Action.LOG_IN, user)
-      this.email = ""
-      this.password = ""
+      };
+      this.$store.dispatch(Action.LOG_IN, user);
+      this.email = "";
+      this.password = "";
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -162,6 +177,9 @@ form {
     border: none;
     box-shadow: (0px 3px 4px rgba(0, 0, 0, 0.25));
     cursor: pointer;
+  }
+  .error{
+    color: red;
   }
 }
 </style>

@@ -4,14 +4,12 @@
 
 <script>
 export default {
-
-  computed:{
-    fading(){
-      return this.$store.state.showLogIn
-    }
-  }
-
-}
+  computed: {
+    fading() {
+      return this.$store.state.showLogIn;
+    },
+  },
+};
 </script>
 
 <style>

@@ -24,7 +24,7 @@
             
             icon="akar-icons:minus"
             color="#006a72"
-            width="6"
+            width="9"
           />
         </button>
         <p class="quantity-paragraph">{{productInCart.amount}}</p>
@@ -35,7 +35,7 @@
           <Icon
             icon="akar-icons:plus"
             color="#006a72"
-            width="6"
+            width="9"
           />
         </button>
       </div>
@@ -90,7 +90,10 @@ export default {
 @import "@/assets/styles/fonts-colors.scss";
 @import "@/assets/styles/mixins.scss";
 figure{
-  width: 2rem;
+  width: 5rem;
+  height: 5rem;
+  display: flex;
+  justify-content: center;
   img{
     max-width: 100%;
     max-height: 100%;
@@ -143,5 +146,7 @@ button{
 	font: inherit;
 	cursor: pointer;
 	outline: inherit;
+  display: flex;
+  justify-content: center;
 }
 </style>
