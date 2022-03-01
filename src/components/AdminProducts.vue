@@ -99,7 +99,6 @@ export default {
       this.$store.dispatch(Action.REMOVE_PRODUCT, id);
       this.showRemove = false;
     },
-    editProduct() {},
   },
 };
 </script>
