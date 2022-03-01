@@ -41,18 +41,18 @@
 </template>
 
 <script>
-import { Icon } from "@iconify/vue2"
-import RegistrationForm from "./RegistrationForm.vue"
-import Action from "@/store/Action.types"
+import { Icon } from "@iconify/vue2";
+import RegistrationForm from "./RegistrationForm.vue";
+import Action from "@/store/Action.types";
 export default {
   components: { RegistrationForm, Icon },
   data() {
     return {
       registerSuccess: false,
       currentModal: "login",
-      email: "",
-      password: "",
-    }
+      email: "admin@example.com",
+      password: "password",
+    };
   },
   // errorCaptured: function(err) {
   //     console.log('Caught error', err.message);
@@ -60,7 +60,7 @@ export default {
   // },
   computed: {
     modal() {
-      return this.$store.state.showLogIn
+      return this.$store.state.showLogIn;
     },
     error(){
     
@@ -69,26 +69,26 @@ export default {
   },
   methods: {
     logInToggle() {
-      this.$store.dispatch(Action.TOGGLE_MODAL)
+      this.$store.dispatch(Action.TOGGLE_MODAL);
     },
     setCurrentModal() {
-      this.currentModal = "login"
+      this.currentModal = "login";
     },
     closeModal() {
-      this.$store.dispatch(Action.TOGGLE_MODAL)
+      this.$store.dispatch(Action.TOGGLE_MODAL);
     },
     signIn() {
       this.registerSuccess = false
       const user = {
         email: this.email,
         password: this.password,
-      }
-      this.$store.dispatch(Action.LOG_IN, user)
-      this.email = ""
-      this.password = ""
+      };
+      this.$store.dispatch(Action.LOG_IN, user);
+      this.email = "";
+      this.password = "";
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
