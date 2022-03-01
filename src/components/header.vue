@@ -185,6 +185,7 @@ export default {
 .login,
 .favourites,
 .cart {
+  position:relative;
   height: 100%;
   @include flex-col-center;
   justify-content: space-between;
@@ -231,9 +232,9 @@ input {
 }
 .cartAmount{
   position:absolute;
-  z-index: 2;
-  top: .7%;
-  right: 3%;
+  // z-index: 2;
+  top: -8px;
+  right: -8px;
   background-color: red;
   color: white;
   border-radius: 50%;
