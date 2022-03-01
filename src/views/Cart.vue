@@ -19,7 +19,6 @@
       <div class="checkout">
         <div class="subtotal">
           <p><strong>SUBTOTAL</strong></p>
-
           <p>
             <strong>{{ subTotalForCheckout }} kr</strong>
           </p>
@@ -29,19 +28,18 @@
           <p>{{ this.$store.state.deliveryFee }} kr</p>
         </div>
         <p class="tax">TAX INCLUDED</p>
-
         <div class="total">
           <p><strong>TOTAL</strong></p>
-
           <p>
             <strong>{{ costIncludingShipping }} kr</strong>
           </p>
         </div>
-
         <button @click="$router.push('/checkout')">CHECKOUT</button>
       </div>
     </main>
-    <Carousel v-if="carousel" />
+    <section class="carousel">
+      <Carousel />
+    </section>
   </div>
 </template>
 
@@ -50,11 +48,6 @@ import CartViewProduct from "@/components/cartViewProduct.vue"
 import Carousel from "@/components/carousel.vue"
 export default {
   components: { CartViewProduct, Carousel },
-  data() {
-    return {
-      carousel: false,
-    }
-  },
   computed: {
     inCartItems() {
       return this.$store.state.cart
@@ -152,5 +145,10 @@ button {
     background-color: #ffffff;
     color: $teal;
   }
+}
+.carousel {
+  display: flex;
+  justify-content: center;
+  margin: 6rem 0 6rem;
 }
 </style>

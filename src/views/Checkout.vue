@@ -242,6 +242,7 @@ export default {
       this.$store.dispatch(Action.CREATE_ORDER, this.cartIds)
       this.orderPlaced = true
       this.$store.state.cart = []
+      this.shippingFee = ""
     },
   },
 }
