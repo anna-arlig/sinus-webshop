@@ -8,6 +8,23 @@ const accessoriesQuery =
 const accessoriesQueryPageTwo =
   "/items?category=cap&category=totebag&category=socks&category=wheel&page=2"
 
+  export async function addProduct({title, category, price, specialEdition, shortDesc, longDesc, imgFile}){
+    return await axios.post(`/items/`, {title, category, price, specialEdition, shortDesc, longDesc, imgFile})
+  }
+
+  export async function updateProduct({id, title, category, price, specialEdition, shortDesc, longDesc, imgFile})
+{
+  return await axios.patch(`/items/${id}`, {title, category, price, specialEdition, shortDesc, longDesc, imgFile})
+}
+
+  export async function removeProduct(id){
+    return await axios.delete(`/items/${id}`)
+  }
+
+  export async function updateOrder({id, status}){
+    return await axios.patch(`/orders/${id}`, { "status": status})
+  }
+
 export async function markusSearch(searchWord) {
   return await axios.get(`/items?search=${searchWord}`)
 }
@@ -81,3 +98,5 @@ export async function updateUserInfo(userInfo) {
   console.log(userInfo)
   return await axios.patch("/me", userInfo)
 }
+
+
