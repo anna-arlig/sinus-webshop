@@ -14,6 +14,7 @@ export const SAVE_USER = 'SAVE_USER'
 export const SAVE_ERROR = 'SAVE_ERROR'
 export const UPDATE_DELIVERY = "UPDATE_DELIVERY"
 export const SET_ERROR = 'SET_ERROR'
+export const UPDATE_ORDER = 'UPDATE_ORDER' 
 
 
 
@@ -33,5 +34,7 @@ export default {
     SAVE_USER,
     SAVE_ERROR,
     UPDATE_DELIVERY,
-    SET_ERROR
+    SET_ERROR,
+    UPDATE_ORDER
+  
 }
