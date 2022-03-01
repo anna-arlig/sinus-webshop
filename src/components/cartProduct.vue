@@ -119,6 +119,10 @@ p {
   border: 1px solid $neutral;
   border-radius: 3px;
   max-height: 24px;
+  button{
+    display: flex;
+    justify-content: center;
+  }
 }
 .quantity-paragraph {
   text-align: center;
