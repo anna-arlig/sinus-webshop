@@ -42,6 +42,7 @@
 
     <div class="orders">
       <h3>My orders</h3>
+      <li v-for="order of orderData" :key="order.id">{{order.id}}</li>
     </div>
   </div>
 </template>
@@ -54,6 +55,7 @@ export default {
     if(this.$store.state.user.name === ''){
       this.$store.dispatch('getUserInfo')
     }
+    this.$store.dispatch(Action.GET_ALL_ORDERS)
   },
   data() {
     return {
@@ -89,6 +91,9 @@ export default {
   computed:{
     userData(){
         return this.$store.state.user
+    },
+    orderData(){
+      return this.$store.state.orders
     }
   }
 };
