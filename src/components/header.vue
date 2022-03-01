@@ -52,7 +52,9 @@
             @mouseover="cartHover = true"
             @mouseleave="cartHover = false"
           >
-            <div class="cartAmount" v-if="cartAmount > 0">{{cartAmount}}</div>
+            <div class="cartAmount" v-if="cartAmount > 0">
+              <p>{{cartAmount}}</p>
+            </div>
             <Icon icon="clarity:shopping-cart-solid" width="30" />
             <Transition name="fade">
               <CartPopup v-if="cartHover" />
@@ -228,14 +230,15 @@ input {
   }
 }
 .cartAmount{
-  position: absolute;
+  position:absolute;
   z-index: 2;
-  top: 5%;
-  right: 5%;
+  top: .7%;
+  right: 3%;
   background-color: red;
   color: white;
   border-radius: 50%;
-  height: 10px;
-  width: 10px;
+  height: 20px;
+  width: 20px;
+  @include flex-center;
 }
 </style>

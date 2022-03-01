@@ -181,17 +181,17 @@ export default {
       this.city = this.userInfo.address.city
     }
   },
-  beforeUpdate() {
-    if (this.$store.state.user.role === "customer") {
-      this.$store.dispatch("getUserInfo")
-      console.log()
-      this.name = this.userInfo.name
-      this.email = this.userInfo.email
-      this.street = this.userInfo.address.street
-      this.zip = this.userInfo.address.zip
-      this.city = this.userInfo.address.city
-    }
-  },
+  // beforeUpdate() {
+  //   if (this.$store.state.user.role === "customer") {
+  //     this.$store.dispatch("getUserInfo")
+  //     console.log()
+  //     this.name = this.userInfo.name
+  //     this.email = this.userInfo.email
+  //     this.street = this.userInfo.address.street
+  //     this.zip = this.userInfo.address.zip
+  //     this.city = this.userInfo.address.city
+  //   }
+  // },
   components: {
     LogInPopup,
     CartProduct,
@@ -231,9 +231,9 @@ export default {
   },
   methods: {
     modalToggle() {
-      if (this.user == null) {
+      
         this.$store.dispatch(Action.TOGGLE_MODAL)
-      }
+      
     },
     updateDelivery() {
       this.$store.dispatch(Action.UPDATE_DELIVERY, this.shippingFee)
