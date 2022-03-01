@@ -45,6 +45,7 @@
 
 <script>
 import { Icon } from "@iconify/vue2";
+import Action from "@/store/Action.types";
 export default {
   components: { Icon },
   data() {
@@ -58,7 +59,18 @@ export default {
     };
   },
   methods: {
-    newProduct() {},
+    newProduct() {
+      const newProduct = {
+        title: this.title,
+        price: this.price,
+        specialEdition: this.specialEdition,
+        shortDesc: this.shortDesc,
+        longDesc: this.longDesc,
+        imgFile: this.imgFile,
+      };
+      this.$store.dispatch(Action.CREATE_PRODUCT, newProduct);
+      this.$emit("close");
+    },
   },
 };
 </script>

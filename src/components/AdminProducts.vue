@@ -6,7 +6,7 @@
       edit och delete a product, select a category.
     </p>
     <CreateProduct v-if="create" @close="create = false" />
-    <button @click="createProduct" class="create-btn">
+    <button @click="create = true" class="create-btn">
       Create a new product
     </button>
     <div class="select">
@@ -92,7 +92,6 @@ export default {
     },
   },
   methods: {
-    createProduct() {},
     getCategory() {
       this.$store.dispatch(Action.GET_CATEGORY, this.categoryTitel);
     },

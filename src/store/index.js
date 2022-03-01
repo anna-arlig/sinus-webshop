@@ -27,6 +27,7 @@ export default new Vuex.Store({
     loginError: '',
     cart: [], 
     deliveryFee: 0,
+    orders: []
   },
   mutations: {
 
@@ -104,6 +105,14 @@ export default new Vuex.Store({
     },
   },
   actions: {
+
+    async [Action.CREATE_PRODUCT](_, newProduct){
+      await API.addProduct(newProduct)
+    },
+
+    async [Action.UPDATE_PRODUCT](_, editedProduct){
+      await API.updateProduct(editedProduct)
+    },
 
     async [Action.REMOVE_PRODUCT](context, id){
     await API.removeProduct(id)

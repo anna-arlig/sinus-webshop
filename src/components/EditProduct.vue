@@ -52,6 +52,7 @@
 
 <script>
 import { Icon } from "@iconify/vue2";
+import Action from "@/store/Action.types";
 export default {
   components: { Icon },
   props: ["product"],
@@ -66,7 +67,19 @@ export default {
     };
   },
   methods: {
-    editProduct() {},
+    editProduct(id) {
+      const editedProduct = {
+        id: id,
+        title: this.title,
+        price: this.price,
+        specialEdition: this.specialEdition,
+        shortDesc: this.shortDesc,
+        longDesc: this.longDesc,
+        imgFile: this.imgFile,
+      };
+      this.$store.dispatch(Action.UPDATE_PRODUCT, editedProduct);
+      this.$emit("close");
+    },
   },
 };
 </script>
