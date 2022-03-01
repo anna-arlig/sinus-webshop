@@ -10,6 +10,18 @@
           <input type="text" name="title" v-model="title" />
         </li>
         <li>
+          <label for="category">Category</label>
+          <select name="category" v-model="category">
+            <option value="cap">cap</option>
+            <option value="hoodie">hoodie</option>
+            <option value="wheel">wheel</option>
+            <option value="tshirt">tshirt</option>
+            <option value="totebag">totebag</option>
+            <option value="skateboard">skateboard</option>
+            <option value="socks">socks</option>
+          </select>
+        </li>
+        <li>
           <label for="price">Price</label>
           <input type="number" name="price" v-model="price" />
         </li>
@@ -51,6 +63,7 @@ export default {
   data() {
     return {
       title: "",
+      category: "",
       price: null,
       specialEdition: null,
       shortDesc: "",
@@ -59,16 +72,17 @@ export default {
     };
   },
   methods: {
-    newProduct() {
+    async newProduct() {
       const newProduct = {
         title: this.title,
+        category: this.category,
         price: this.price,
         specialEdition: this.specialEdition,
         shortDesc: this.shortDesc,
         longDesc: this.longDesc,
         imgFile: this.imgFile,
       };
-      this.$store.dispatch(Action.CREATE_PRODUCT, newProduct);
+      await this.$store.dispatch(Action.CREATE_PRODUCT, newProduct);
       this.$emit("close");
     },
   },

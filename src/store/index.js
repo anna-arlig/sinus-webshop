@@ -104,9 +104,10 @@ export default new Vuex.Store({
       state.deliveryFee = Number(shippingFee)
     },
   },
+  
   actions: {
 
-    async [Action.CREATE_PRODUCT](_, newProduct){
+    async [Action.CREATE_PRODUCT](context, newProduct){
       await API.addProduct(newProduct)
     },
 

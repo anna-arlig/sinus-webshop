@@ -8,13 +8,13 @@ const accessoriesQuery =
 const accessoriesQueryPageTwo =
   "/items?category=cap&category=totebag&category=socks&category=wheel&page=2"
 
-  export async function addProduct({title, price, specialEdition, shortDesc, longDesc, imgFile}){
-    return await axios.post(`/items/`, {'title': title, 'price': price, 'specialEdition': specialEdition, 'shortDesc': shortDesc, 'longDesc': longDesc, 'imgFile': imgFile})
+  export async function addProduct({title, category, price, specialEdition, shortDesc, longDesc, imgFile}){
+    return await axios.post(`/items/`, {title, category, price, specialEdition, shortDesc, longDesc, imgFile})
   }
 
-  export async function updateProduct({id, title, price, specialEdition, shortDesc, longDesc, imgFile})
+  export async function updateProduct({id, title, category, price, specialEdition, shortDesc, longDesc, imgFile})
 {
-  return await axios.patch(`/items/${id}`, {'title': title, 'price': price, 'specialEdition': specialEdition, 'shortDesc': shortDesc, 'longDesc': longDesc, 'imgFile': imgFile})
+  return await axios.patch(`/items/${id}`, {title, category, price, specialEdition, shortDesc, longDesc, imgFile})
 }
 
   export async function removeProduct(id){
