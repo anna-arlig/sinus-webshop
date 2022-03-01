@@ -9,7 +9,12 @@ const accessoriesQueryPageTwo =
   "/items?category=cap&category=totebag&category=socks&category=wheel&page=2"
 
   export async function addProduct({title, category, price, specialEdition, shortDesc, longDesc, imgFile}){
-    return await axios.post(`/items/`, {title, category, price, specialEdition, shortDesc, longDesc, imgFile})
+    try{
+      return await axios.post(`/items/`, {title, category, price, specialEdition, shortDesc, longDesc, imgFile})
+    }
+    catch(error){
+      return {error: 'Bad request'}
+    }
   }
 
   export async function updateProduct({id, title, category, price, specialEdition, shortDesc, longDesc, imgFile})

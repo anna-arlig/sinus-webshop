@@ -24,7 +24,7 @@ export default new Vuex.Store({
         city: "",
       },
     },
-    loginError: '',
+    error: '',
     cart: [], 
     deliveryFee: 0,
     orders: []
@@ -103,12 +103,18 @@ export default new Vuex.Store({
     [Mutation.UPDATE_DELIVERY](state, shippingFee) {
       state.deliveryFee = Number(shippingFee)
     },
+    [Mutation.SET_ERROR](state, error){
+      state.error = error
+    }
   },
   
   actions: {
 
     async [Action.CREATE_PRODUCT](context, newProduct){
-      await API.addProduct(newProduct)
+      const response = await API.addProduct(newProduct)
+      if(response.error){
+        context.commit(Mutation.SET_ERROR, response.error)
+      }
     },
 
     async [Action.UPDATE_PRODUCT](_, editedProduct){

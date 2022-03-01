@@ -1,5 +1,8 @@
 <template>
-  <dialog open class="create">
+  <dialog open class="create" v-if="error">
+    <h1>{{error}}</h1>
+  </dialog>
+  <dialog open class="create" v-else>
     <i @click="$emit('close')"><Icon icon="mdi:close" width="25" /></i>
     <h2>Create a new product</h2>
 
@@ -86,6 +89,11 @@ export default {
       this.$emit("close");
     },
   },
+  computed: {
+    error(){
+      return this.$store.state.error
+    }
+  }
 };
 </script>
 
