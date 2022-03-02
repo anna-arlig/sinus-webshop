@@ -51,6 +51,7 @@
           </div>
 
           <div
+            to="/cart"
             class="cart"
             @mouseover="cartHover = true"
             @mouseleave="cartHover = false"
@@ -249,4 +250,5 @@ input {
   width: 20px;
   @include flex-center;
 }
+
 </style>
