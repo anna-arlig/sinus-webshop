@@ -42,8 +42,9 @@ h2 {
   border: 1px solid $black;
   border-radius: 3px;
   background-color: white;
-  margin-right: 15rem;
+  margin-right: 1rem;
   margin-top: 2rem;
+  z-index: 2;
 }
 button:active{  
   transform: scale(1.1);
