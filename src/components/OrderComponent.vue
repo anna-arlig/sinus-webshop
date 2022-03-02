@@ -19,10 +19,10 @@
         </select>
       </div>
 
-      <div class="buttons">
+      <!-- <div class="buttons">
         <button class="user-btn">View user info</button>
         <button class="order-items-btn">View order items</button>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -47,7 +47,6 @@ export default {
   methods: {
     changeStatus(id) {
       this.newStatus.id = id;
-      this.selectedStatus = ""
       this.$emit("changeStatus", this.newStatus);
     },
   },

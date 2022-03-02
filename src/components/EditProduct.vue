@@ -54,7 +54,7 @@
         </li>
         <li>
           <label for="imgFile">Image file</label>
-          <input type="text" name="imgFile" v-model="imgFile" />
+          <input type="file" name="imgFile" ref="imgField" />
         </li>
         <input type="submit" value="Confirm edit" />
       </ul>
@@ -76,7 +76,6 @@ export default {
       specialEdition: null,
       shortDesc: "",
       longDesc: "",
-      imgFile: "",
     };
   },
   methods: {
@@ -89,9 +88,13 @@ export default {
         specialEdition: this.specialEdition,
         shortDesc: this.shortDesc,
         longDesc: this.longDesc,
-        imgFile: this.imgFile,
+        imgFile: this.$refs.imgField.files[0].name,
       };
-      await this.$store.dispatch(Action.UPDATE_PRODUCT, editedProduct);
+      const formData = new FormData();
+      formData.append("imgFile", this.$refs.imgField.files[0]);
+      await this.$store.dispatch(Action.UPLOAD_IMAGE, formData);
+      this.$store.dispatch(Action.UPDATE_PRODUCT, editedProduct);
+
       this.$emit("close");
     },
   },
