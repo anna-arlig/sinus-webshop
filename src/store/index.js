@@ -24,8 +24,8 @@ export default new Vuex.Store({
         city: "",
       },
     },
-    error: '',
-    cart: [], 
+    error: "",
+    cart: [],
     deliveryFee: 0,
     orders: [],
   },
@@ -55,10 +55,9 @@ export default new Vuex.Store({
       state.orders = orders
     },
 
-    [Mutation.UPDATE_ORDER](state, {id, status}){
-    const index = state.orders.findIndex(obj => obj.id == id)
-    state.orders[index].status = status
-      
+    [Mutation.UPDATE_ORDER](state, { id, status }) {
+      const index = state.orders.findIndex((obj) => obj.id == id)
+      state.orders[index].status = status
     },
 
     [Mutation.SAVE_PRODUCTS](state, fetchedProducts) {
@@ -68,6 +67,12 @@ export default new Vuex.Store({
         }
         Vue.set(state.products, product.id, product)
       }
+    },
+    [Mutation.SAVE_ONE_PRODUCT](state, product) {
+      if (!state.productList.find((prod) => prod.id === product.id)) {
+        state.productList.push(product)
+      }
+      Vue.set(state.products, product.id, product)
     },
 
     [Mutation.SET_ROLE](state, role) {
@@ -134,31 +139,35 @@ export default new Vuex.Store({
     [Mutation.UPDATE_DELIVERY](state, shippingFee) {
       state.deliveryFee = Number(shippingFee)
     },
-    [Mutation.SET_ERROR](state, error){
+    [Mutation.SET_ERROR](state, error) {
       state.error = error
-    }, 
-    [Mutation.CLEAR_ERROR](state){
-      state.error = ''
-    }
+    },
+    [Mutation.CLEAR_ERROR](state) {
+      state.error = ""
+    },
   },
-  
+
   actions: {
+
 
     async [Action.UPLOAD_IMAGE](_,formData){
       await API.uploadImg(formData)
     },
 
     [Action.CLEAR_ERROR](context){
+
       context.commit(Mutation.CLEAR_ERROR)
     },
-    [Action.UPDATE_ORDER](context, status){
+    [Action.UPDATE_ORDER](context, status) {
       context.commit(Mutation.UPDATE_ORDER, status)
     },
 
-    async [Action.CREATE_PRODUCT](context, newProduct){
+    async [Action.CREATE_PRODUCT](context, newProduct) {
       const response = await API.addProduct(newProduct)
+
       context.commit(Mutation.SAVE_NEW_PRODUCT, response.data)
       if(response.error){
+
         context.commit(Mutation.SET_ERROR, response.error)
       }
     },
@@ -166,7 +175,7 @@ export default new Vuex.Store({
 
     async [Action.UPDATE_PRODUCT](context, editedProduct){
       const response = await API.updateProduct(editedProduct)
-      if(response.error){
+      if (response.error) {
         context.commit(Mutation.SET_ERROR, response.error)
       }
       context.commit(Mutation.UPDATE_PRODUCT_IN_STATE, editedProduct)
@@ -174,16 +183,16 @@ export default new Vuex.Store({
 
     async [Action.REMOVE_PRODUCT](context, id) {
       const response = await API.removeProduct(id)
-      if(response.error){
+      if (response.error) {
         context.commit(Mutation.SET_ERROR, response.error)
-      }else{
+      } else {
         context.commit(Mutation.REMOVE_PRODUCT_FROM_STATE, id)
       }
     },
 
     async [Action.CHANGE_STATUS](context, status) {
       const response = await API.updateOrder(status)
-      if(response.error){
+      if (response.error) {
         context.commit(Mutation.SET_ERROR, response.error)
       }
     },
@@ -238,10 +247,14 @@ export default new Vuex.Store({
       const response = await API.getMe()
       context.commit(Mutation.SAVE_USER, response.data)
     },
+    async getProduct(context, id) {
+      const response = await API.getOneProduct(id)
+      context.commit(Mutation.SAVE_ONE_PRODUCT, response.data.post)
+    },
 
     async [Action.GET_ME](context) {
       const response = await API.getMe()
-      context.commit(Mutation.SET_ROLE, response.data.role)
+      context.commit(Mutation.SAVE_USER, response.data)
     },
 
     async [Action.GET_CATEGORY](context, query) {
@@ -260,7 +273,7 @@ export default new Vuex.Store({
     async [Action.CREATE_USER](_, newUser) {
       await API.createUser(newUser)
     },
-    
+
     async [Action.CREATE_ORDER](_, payload) {
       await API.saveOrder(payload)
     },

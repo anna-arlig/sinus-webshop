@@ -17,6 +17,7 @@ export const UPDATE_ORDER = 'UPDATE_ORDER'
 export const UPDATE_PRODUCT_IN_STATE = 'UPDATE_PRODUCT_IN_STATE'
 export const SAVE_NEW_PRODUCT = 'SAVE_NEW_PRODUCT'
 export const CLEAR_ERROR = 'CLEAR_ERROR'
+export const SAVE_ONE_PRODUCT = "SAVE_ONE_PRODUCT"
 
 export default {
     SAVE_PRODUCTS, 
@@ -37,5 +38,7 @@ export default {
     UPDATE_PRODUCT_IN_STATE,
     SAVE_NEW_PRODUCT,  
     SET_ERROR,
-    CLEAR_ERROR
+    CLEAR_ERROR,
+    SAVE_ONE_PRODUCT,
+
 }
