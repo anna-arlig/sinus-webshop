@@ -24,8 +24,8 @@ export default new Vuex.Store({
         city: "",
       },
     },
-    loginError: "",
-    cart: [],
+    error: '',
+    cart: [], 
     deliveryFee: 0,
     orders: [],
   },
@@ -37,9 +37,6 @@ export default new Vuex.Store({
     },
     [Mutation.SAVE_ALL_ORDERS](state, orders) {
       state.orders = orders
-    },
-    [Mutation.SAVE_ERROR](state, error){
-      state.loginError = error
     },
 
     [Mutation.UPDATE_ORDER](state, {id, status}){
@@ -121,15 +118,27 @@ export default new Vuex.Store({
     [Mutation.UPDATE_DELIVERY](state, shippingFee) {
       state.deliveryFee = Number(shippingFee)
     },
+    [Mutation.SET_ERROR](state, error){
+      state.error = error
+    }, 
+    [Mutation.CLEAR_ERROR](state){
+      state.error = ''
+    }
   },
   
   actions: {
+    [Action.CLEAR_ERROR](context){
+      context.commit(Mutation.CLEAR_ERROR)
+    },
     [Action.UPDATE_ORDER](context, status){
       context.commit(Mutation.UPDATE_ORDER, status)
     },
 
     async [Action.CREATE_PRODUCT](context, newProduct){
-      await API.addProduct(newProduct)
+      const response = await API.addProduct(newProduct)
+      if(response.error){
+        context.commit(Mutation.SET_ERROR, response.error)
+      }
     },
 
     async [Action.UPDATE_PRODUCT](_, editedProduct) {
