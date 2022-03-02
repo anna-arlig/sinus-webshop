@@ -46,7 +46,7 @@
         </li>
         <li>
           <label for="imgFile">Image file</label>
-          <input type="text" name="imgFile" v-model="imgFile" />
+          <input type="file" name="imgFile" ref="imgField" />
         </li>
         <input type="submit" value="Add new product" />
       </ul>
