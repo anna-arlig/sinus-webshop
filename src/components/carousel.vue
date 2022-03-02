@@ -1,7 +1,6 @@
 <template>
   <div class="carousel">
     <h3>{{ mockTag }}</h3>
-
     <ul>
       <li v-for="product of carouselProducts" :key="product.id">
         <ProductItem small :product="product" />

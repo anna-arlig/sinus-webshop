@@ -4,6 +4,7 @@
       <h1>{{ categoryTitel }}</h1>
       <div class="first-line"></div>
     </div>
+    <h3 v-if="error">{{error}}</h3>
     <ProductList :categoryProducts="selectedCategoryProducts" />
   </div>
 </template>
@@ -20,8 +21,10 @@ export default {
     this.categoryTitel = to.params.category
     if (this.categoryTitel != "Special Edition") {
       this.$store.dispatch(Action.GET_CATEGORY, to.params.category)
+      this.$store.dispatch(Action.CLEAR_ERROR_ON_PAGE)
       next()
     } else {
+      this.$store.dispatch(Action.CLEAR_ERROR_ON_PAGE)
       next()
     }
   },
@@ -34,6 +37,9 @@ export default {
     }
   },
   computed: {
+    error(){
+      return this.$store.state.error.messageOnPage
+    },
     selectedCategoryProducts() {
       if (this.categoryTitel === "Skateboards") {
         return this.$store.getters.skateboards
@@ -55,7 +61,9 @@ export default {
 
 .products {
   max-width: 1440px;
-
+  h3{
+    margin-left: 6rem;
+  }
   .category-title {
     width: 85%;
     margin: 5rem auto 2rem;

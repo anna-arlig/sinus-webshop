@@ -10,13 +10,12 @@ import Action from "@/store/Action.types.js"
 export default {
   computed:{
     error(){
-      return this.$store.state.error
+      return this.$store.state.error.messageOnModal
     }, 
   }, 
   methods:{
       close(){
-        console.log('hallå');
-        this.$store.dispatch(Action.CLEAR_ERROR)
+        this.$store.dispatch(Action.CLEAR_ERROR_ON_MODAL)
       }
     }
 }
