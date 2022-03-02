@@ -16,7 +16,7 @@
 <script>
 import Action from "../store/Action.types"
 export default {
-    mounted(){
+    created(){
     this.$store.dispatch(Action.GET_ONE_PRODUCT, this.item.ProductId)
   },
     data(){return{

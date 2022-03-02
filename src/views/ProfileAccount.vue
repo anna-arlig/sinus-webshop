@@ -58,9 +58,9 @@ import Action from "../store/Action.types"
 import OrderComponent from "../components/OrderComponent.vue"
 export default {
  async mounted(){
-    if(this.$store.state.user.name === ''){
-     await this.$store.dispatch('getUserInfo')
-    }
+    // if(this.$store.state.user.name === ''){
+    //  await this.$store.dispatch('getUserInfo')
+    // }
     await this.$store.dispatch(Action.GET_ALL_ORDERS)
     
   },
