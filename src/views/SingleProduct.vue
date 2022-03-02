@@ -6,10 +6,11 @@
 
 <script>
 import ProductItem from "../components/productItem"
+import Action from "../store/Action.types"
 export default {
   async created() {
     if (!this.$store.state.products[this.productId]) {
-      await this.$store.dispatch("getProduct", this.productId)
+      await this.$store.dispatch(Action.GET_ONE_PRODUCT, this.productId)
     }
   },
 
