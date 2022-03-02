@@ -9,21 +9,57 @@ const accessoriesQueryPageTwo =
   "/items?category=cap&category=totebag&category=socks&category=wheel&page=2"
 
   export async function addProduct({title, category, price, specialEdition, shortDesc, longDesc, imgFile}){
-    return await axios.post(`/items/`, {title, category, price, specialEdition, shortDesc, longDesc, imgFile})
+    try{
+      return await axios.post(`/items/`, {title, category, price, specialEdition, shortDesc, longDesc, imgFile})
+    }
+    catch(error){
+      return {error: 'Nånting gick fel. Produkt ej tillagd.'}
+    }
   }
 
-  export async function updateProduct({id, title, category, price, specialEdition, shortDesc, longDesc, imgFile})
-{
-  return await axios.patch(`/items/${id}`, {title, category, price, specialEdition, shortDesc, longDesc, imgFile})
+export async function updateProduct({
+  id,
+  title,
+  category,
+  price,
+  specialEdition,
+  shortDesc,
+  longDesc,
+  imgFile,
+}) {
+  try{
+    return await axios.patch(`/items/${id}`, {
+      title,
+      category,
+      price,
+      specialEdition,
+      shortDesc,
+      longDesc,
+      imgFile,
+    })
+  }
+  catch{
+    return {error: 'Nånting gick fel. Produkten har ej ändrats.'}
+  }
 }
 
-  export async function removeProduct(id){
+export async function removeProduct(id) {
+  try{
     return await axios.delete(`/items/${id}`)
   }
-
-  export async function updateOrder({id, status}){
-    return await axios.patch(`/orders/${id}`, { "status": status})
+  catch{
+    return {error: 'Nånting gick fel. Produkten har ej tagits bort.'}
   }
+}
+
+export async function updateOrder({ id, status }) {
+  try{
+    return await axios.patch(`/orders/${id}`, { status: status })
+  }
+  catch{
+    return {error: 'Nånting gick fel. Produkten har ej uppdaterats.'}
+  }
+}
 
 export async function markusSearch(searchWord) {
   return await axios.get(`/items?search=${searchWord}`)
@@ -56,15 +92,16 @@ export async function getProducts() {
 }
 
 export async function logIn({ email, password }) {
-  return await axios.post("/auth/", {
-    email,
-    password,
-  })
-  .catch(function (error){
-    if(error.response){
-     return error.response
-    }
-  })
+  return await axios
+    .post("/auth/", {
+      email,
+      password,
+    })
+    .catch(function (error) {
+      if (error.response) {
+        return error.response
+      }
+    })
 }
 
 export async function getMe() {
@@ -80,7 +117,13 @@ export async function createUser({ email, password, name, address }) {
   })
 }
 
-export async function saveOrder(items) {
+export async function saveOrder({ items, shippingAddress }) {
+  return await axios.post("/orders/", {
+    items,
+    shippingAddress,
+  })
+}
+export async function saveCustomerOrder(items) {
   return await axios.post("/orders/", {
     items,
   })
@@ -101,5 +144,3 @@ export async function updateUserInfo(userInfo) {
   console.log(userInfo)
   return await axios.patch("/me", userInfo)
 }
-
-

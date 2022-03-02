@@ -21,19 +21,27 @@
 
       <div class="buttons">
         <button v-if="userRole == 'admin'" class="user-btn">View user info</button>
-        <button class="order-items-btn">View order items</button>
+        <button class="order-items-btn" @click="viewOrder = order.id">View order items</button>
       </div>
+      <section class="products" v-if="viewOrder === order.id">
+          <OrderProduct v-for="item in order.items" :key="item.id" :item="item"/>
+        </section>
     </div>
   </div>
 </template>
 
 <script>
+import OrderProduct from "../components/OrderProduct.vue"
+
 export default {
+  
+  components:{OrderProduct},
   props: ["order"],
 
   data() {
     return {
       selectedStatus: "",
+      viewOrder: null,
     };
   },
   computed: {
@@ -45,15 +53,17 @@ export default {
     },
     userRole(){
       return this.$store.state.user.role
-    }
+    },
+    
   },
   methods: {
     changeStatus(id) {
       this.newStatus.id = id;
-
+      this.selectedStatus = ""
       this.$emit("changeStatus", this.newStatus);
     },
   },
+    
 };
 </script>
 

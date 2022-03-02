@@ -4,9 +4,10 @@
 
 <script>
 export default {
+  props: ['error'],
   computed: {
     fading() {
-      return this.$store.state.showLogIn;
+      return this.$store.state.showLogIn || this.$store.state.error;
     },
   },
 };

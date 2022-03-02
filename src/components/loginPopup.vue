@@ -64,7 +64,7 @@ export default {
     },
     error(){
     
-     return this.$store.state.loginError
+     return this.$store.state.error
     }
   },
   methods: {

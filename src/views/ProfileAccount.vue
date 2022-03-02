@@ -55,7 +55,6 @@
 <script>
 import { Icon } from "@iconify/vue2"
 import Action from "../store/Action.types"
-// import CartViewProduct from "../components/cartViewProduct.vue"
 import OrderComponent from "../components/OrderComponent.vue"
 export default {
  async mounted(){
@@ -63,7 +62,7 @@ export default {
      await this.$store.dispatch('getUserInfo')
     }
     await this.$store.dispatch(Action.GET_ALL_ORDERS)
-    // this.$store.dispatch(Action.GET_ITEM, this.orderIds)
+    
   },
   
   data() {
@@ -98,24 +97,12 @@ export default {
     }
   },
   computed:{
-    orderIds(){
-      return this.$store.getters.allOrderIds
-    },
     userData(){
         return this.$store.state.user
     },
     orders(){
       return this.$store.state.orders
     }
-    // orderData(){
-    //  let allOrderItems= []
-    //   for (let order of this.$store.state.orders){
-    //     for(let item of order.items){
-    //       allOrderItems.push(this.$store.state.products[item.ProductId])
-    //     }
-    //   }
-    //   return allOrderItems
-    // }
   }
 };
 </script>
