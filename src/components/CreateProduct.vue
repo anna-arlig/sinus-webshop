@@ -94,7 +94,6 @@ export default {
 @import "@/assets/styles/mixins.scss";
 
 .create {
-  transform: translateY(-50%);
   @include flex-col-center;
 }
 li {

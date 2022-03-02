@@ -31,17 +31,20 @@ export default new Vuex.Store({
   },
   mutations: {
 
-    [Mutation.SAVE_NEW_PRODUCT](state, newProduct){
-      state.productList.push(newProduct)
+    [Mutation.SAVE_NEW_PRODUCT](state, newSavedProduct){
+      state.productList.push(newSavedProduct.product)
     },
 
-    // [Mutation.UPDATE_PRODUCT_IN_STATE](state, editedProduct){
-    //   const index = state.productList.findIndex(obj => obj.id == editedProduct.id)
-    //   console.log(state.productList[index])
-    //   state.productList[index] = editedProduct
-    //   console.log(state.productList[index])
-    // },
-
+    [Mutation.UPDATE_PRODUCT_IN_STATE](state, editedProduct){
+      const index = state.productList.findIndex(obj => obj.id == editedProduct.id)
+      state.productList[index].title = editedProduct.title
+      state.productList[index].category = editedProduct.category
+      state.productList[index].price = editedProduct.price
+      state.productList[index].specialEdition = editedProduct.specialEdition
+      state.productList[index].shortDesc = editedProduct.shortDesc
+      state.productList[index].longDesc = editedProduct.longDesc
+      state.productList[index].imgFile = editedProduct.imgFile
+    },
    
     [Mutation.REMOVE_PRODUCT_FROM_STATE](state, id) {
       state.productList = state.productList.filter(
@@ -142,8 +145,8 @@ export default new Vuex.Store({
     },
 
     async [Action.CREATE_PRODUCT](context, newProduct){
-      await API.addProduct(newProduct)
-      context.commit(Mutation.SAVE_NEW_PRODUCT, newProduct)
+      const response = await API.addProduct(newProduct)
+      context.commit(Mutation.SAVE_NEW_PRODUCT, response.data)
     },
 
     async [Action.UPDATE_PRODUCT](context, editedProduct){
