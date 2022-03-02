@@ -37,7 +37,6 @@ export default {
 
       await this.$store.dispatch(Action.CHANGE_STATUS, status);
       this.$store.dispatch(Action.UPDATE_ORDER, status);
-      this.selectedStatus = "";
     },
     getUser() {
       // this.$store.dispatch(Action.GET_USER, id);
