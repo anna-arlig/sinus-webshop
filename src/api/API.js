@@ -27,23 +27,38 @@ export async function updateProduct({
   longDesc,
   imgFile,
 }) {
-  return await axios.patch(`/items/${id}`, {
-    title,
-    category,
-    price,
-    specialEdition,
-    shortDesc,
-    longDesc,
-    imgFile,
-  })
+  try{
+    return await axios.patch(`/items/${id}`, {
+      title,
+      category,
+      price,
+      specialEdition,
+      shortDesc,
+      longDesc,
+      imgFile,
+    })
+  }
+  catch{
+    return {error: 'Nånting gick fel. Produkten har ej ändrats.'}
+  }
 }
 
 export async function removeProduct(id) {
-  return await axios.delete(`/items/${id}`)
+  try{
+    return await axios.delete(`/items/${id}`)
+  }
+  catch{
+    return {error: 'Nånting gick fel. Produkten har ej tagits bort.'}
+  }
 }
 
 export async function updateOrder({ id, status }) {
-  return await axios.patch(`/orders/${id}`, { status: status })
+  try{
+    return await axios.patch(`/orders/${id}`, { status: status })
+  }
+  catch{
+    return {error: 'Nånting gick fel. Produkten har ej uppdaterats.'}
+  }
 }
 
 export async function markusSearch(searchWord) {
