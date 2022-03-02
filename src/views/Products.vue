@@ -13,12 +13,17 @@ import ProductList from "../components/ProductList"
 import Action from "../store/Action.types"
 export default {
   mounted() {
-    this.$store.dispatch(Action.GET_CATEGORY, this.$route.params.category)
+    if (this.categoryTitel != "Special Edition")
+      this.$store.dispatch(Action.GET_CATEGORY, this.$route.params.category)
   },
   beforeRouteUpdate(to, from, next) {
     this.categoryTitel = to.params.category
-    this.$store.dispatch(Action.GET_CATEGORY, to.params.category)
-    next()
+    if (this.categoryTitel != "Special Edition") {
+      this.$store.dispatch(Action.GET_CATEGORY, to.params.category)
+      next()
+    } else {
+      next()
+    }
   },
   components: {
     ProductList,
@@ -34,8 +39,10 @@ export default {
         return this.$store.getters.skateboards
       } else if (this.categoryTitel === "Apparel") {
         return this.$store.getters.apparel
-      } else {
+      } else if (this.categoryTitel === "Accessories") {
         return this.$store.getters.accessories
+      } else {
+        return this.$store.getters.specialEdition
       }
     },
   },

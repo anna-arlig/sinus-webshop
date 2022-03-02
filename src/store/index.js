@@ -24,20 +24,20 @@ export default new Vuex.Store({
         city: "",
       },
     },
-    loginError: '',
-    cart: [], 
+    loginError: "",
+    cart: [],
     deliveryFee: 0,
-    orders: []
+    orders: [],
   },
   mutations: {
-
-    [Mutation.REMOVE_PRODUCT_FROM_STATE](state, id){
-     state.productList = state.productList.filter(product => product.id != id)
+    [Mutation.REMOVE_PRODUCT_FROM_STATE](state, id) {
+      state.productList = state.productList.filter(
+        (product) => product.id != id
+      )
     },
-
-    [Mutation.SAVE_ALL_ORDERS](state, orders){
-      state.orders = orders},
-
+    [Mutation.SAVE_ALL_ORDERS](state, orders) {
+      state.orders = orders
+    },
     [Mutation.SAVE_ERROR](state, error){
       state.loginError = error
     },
@@ -67,7 +67,7 @@ export default new Vuex.Store({
     },
 
     [Mutation.MODAL_TOGGLE](state) {
-      state.loginError = ''
+      state.loginError = ""
       state.showLogIn = !state.showLogIn
     },
 
@@ -124,7 +124,6 @@ export default new Vuex.Store({
   },
   
   actions: {
-
     [Action.UPDATE_ORDER](context, status){
       context.commit(Mutation.UPDATE_ORDER, status)
     },
@@ -133,20 +132,20 @@ export default new Vuex.Store({
       await API.addProduct(newProduct)
     },
 
-    async [Action.UPDATE_PRODUCT](_, editedProduct){
+    async [Action.UPDATE_PRODUCT](_, editedProduct) {
       await API.updateProduct(editedProduct)
     },
 
-    async [Action.REMOVE_PRODUCT](context, id){
-    await API.removeProduct(id)
-    context.commit(Mutation.REMOVE_PRODUCT_FROM_STATE, id)
+    async [Action.REMOVE_PRODUCT](context, id) {
+      await API.removeProduct(id)
+      context.commit(Mutation.REMOVE_PRODUCT_FROM_STATE, id)
     },
 
-    async [Action.CHANGE_STATUS](_,status){
+    async [Action.CHANGE_STATUS](_, status) {
       await API.updateOrder(status)
     },
 
-    async [Action.GET_ALL_ORDERS](context){
+    async [Action.GET_ALL_ORDERS](context) {
       const response = await API.getAllOrders()
       context.commit(Mutation.SAVE_ALL_ORDERS, response.data)
     },
@@ -174,17 +173,15 @@ export default new Vuex.Store({
 
     async [Action.LOG_IN](context, user) {
       const response = await API.logIn(user)
-        if(response.data.error){
-          console.log(response.data.error)
-          context.commit(Mutation.SAVE_ERROR, response.data.error)
-        }
-        else{
-          API.saveToken(response.data.token)
-          context.dispatch(Action.GET_ME)
-          context.commit(Mutation.MODAL_TOGGLE)
-          context.commit(Mutation.SAVE_ERROR, '')
-        }
-      
+      if (response.data.error) {
+        console.log(response.data.error)
+        context.commit(Mutation.SAVE_ERROR, response.data.error)
+      } else {
+        API.saveToken(response.data.token)
+        context.dispatch(Action.GET_ME)
+        context.commit(Mutation.MODAL_TOGGLE)
+        context.commit(Mutation.SAVE_ERROR, "")
+      }
     },
     async [Action.UPDATE_USER_INFO](context, userInfo) {
       await API.updateUserInfo(userInfo)
@@ -220,9 +217,13 @@ export default new Vuex.Store({
     async [Action.CREATE_USER](_, newUser) {
       await API.createUser(newUser)
     },
+    
+    async [Action.CREATE_ORDER](_, payload) {
+      await API.saveOrder(payload)
+    },
 
-    async [Action.CREATE_ORDER](_, items) {
-      await API.saveOrder(items)
+    async [Action.CREATE_CUSTOMER_ORDER](_, items) {
+      await API.saveCustomerOrder(items)
     },
 
     async [Action.MARKUS_SEARCH](context, search) {
