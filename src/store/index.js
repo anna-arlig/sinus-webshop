@@ -38,9 +38,6 @@ export default new Vuex.Store({
     [Mutation.SAVE_ALL_ORDERS](state, orders) {
       state.orders = orders
     },
-    [Mutation.SAVE_ERROR](state, error){
-      state.error = error
-    },
 
     [Mutation.UPDATE_ORDER](state, {id, status}){
     const index = state.orders.findIndex(obj => obj.id == id)
@@ -123,10 +120,16 @@ export default new Vuex.Store({
     },
     [Mutation.SET_ERROR](state, error){
       state.error = error
+    }, 
+    [Mutation.CLEAR_ERROR](state){
+      state.error = ''
     }
   },
   
   actions: {
+    [Action.CLEAR_ERROR](context){
+      context.commit(Mutation.CLEAR_ERROR)
+    },
     [Action.UPDATE_ORDER](context, status){
       context.commit(Mutation.UPDATE_ORDER, status)
     },

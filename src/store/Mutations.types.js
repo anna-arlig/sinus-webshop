@@ -14,6 +14,7 @@ export const SAVE_ERROR = "SAVE_ERROR"
 export const UPDATE_DELIVERY = "UPDATE_DELIVERY"
 export const SET_ERROR = 'SET_ERROR'
 export const UPDATE_ORDER = 'UPDATE_ORDER' 
+export const CLEAR_ERROR = 'CLEAR_ERROR'
 
 export default {
     SAVE_PRODUCTS, 
@@ -31,5 +32,6 @@ export default {
     SAVE_ERROR,
     UPDATE_DELIVERY,
     SET_ERROR,
-    UPDATE_ORDER
+    UPDATE_ORDER,
+    CLEAR_ERROR
 }

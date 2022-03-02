@@ -17,11 +17,6 @@ const accessoriesQueryPageTwo =
     }
   }
 
-  export async function updateProduct({id, title, category, price, specialEdition, shortDesc, longDesc, imgFile})
-{
-  return await axios.patch(`/items/${id}`, {title, category, price, specialEdition, shortDesc, longDesc, imgFile})
-}
-
 export async function updateProduct({
   id,
   title,

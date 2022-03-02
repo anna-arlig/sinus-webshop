@@ -16,17 +16,18 @@
 
     <AdminOrders v-if="toggleView" />
     <AdminProducts v-else />
-    
+    <ErrorModal />
   </div>
 </template>
 
 <script>
+import ErrorModal from "@/components/ErrorModal.vue"
 import AdminOrders from "@/components/AdminOrders.vue";
 import AdminProducts from "@/components/AdminProducts.vue";
 import Action from "@/store/Action.types";
 
 export default {
-  components: { AdminOrders, AdminProducts },
+  components: { AdminOrders, AdminProducts, ErrorModal },
 
   data() {
     return {
@@ -49,7 +50,10 @@ export default {
 <style scoped lang="scss">
 @import "@/assets/styles/fonts-colors.scss";
 @import "@/assets/styles/mixins.scss";
-
+.error-modal{
+  position: fixed;
+  top: 10rem;
+}
 .info {
   @include flex-col-center;
 }
