@@ -63,12 +63,8 @@ export default {
   },
   methods: {
     getCategory() {
-<<<<<<< HEAD:src/components/AdminProducts.vue
       this.$store.dispatch(Action.CLEAR_ERROR_ON_PAGE)
       this.$store.dispatch(Action.GET_CATEGORY, this.categoryTitel);
-=======
-      this.$store.dispatch(Action.GET_CATEGORY, this.categoryTitel)
->>>>>>> develop:src/components/admin/AdminProducts.vue
     },
   },
 }
