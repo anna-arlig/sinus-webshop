@@ -8,22 +8,62 @@ const accessoriesQuery =
 const accessoriesQueryPageTwo =
   "/items?category=cap&category=totebag&category=socks&category=wheel&page=2"
 
-  export async function addProduct({title, category, price, specialEdition, shortDesc, longDesc, imgFile}){
-    return await axios.post(`/items/`, {title, category, price, specialEdition, shortDesc, longDesc, imgFile})
+  export async function uploadImg(formData){
+    return await axios.post('/images/', formData)
   }
 
-  export async function updateProduct({id, title, category, price, specialEdition, shortDesc, longDesc, imgFile})
-{
-  return await axios.patch(`/items/${id}`, {title, category, price, specialEdition, shortDesc, longDesc, imgFile})
+  export async function addProduct({title, category, price, specialEdition, shortDesc, longDesc, imgFile}){
+    try{
+      return await axios.post(`/items/`, {title, category, price, specialEdition, shortDesc, longDesc, imgFile})
+    }
+    catch(error){
+      return {error: 'Nånting gick fel. Produkt ej tillagd.'}
+    }
+  }
+
+export async function updateProduct({
+  id,
+  title,
+  category,
+  price,
+  specialEdition,
+  shortDesc,
+  longDesc,
+  imgFile,
+}) {
+  try{
+    return await axios.patch(`/items/${id}`, {
+      title,
+      category,
+      price,
+      specialEdition,
+      shortDesc,
+      longDesc,
+      imgFile,
+    })
+  }
+  catch{
+    return {error: 'Nånting gick fel. Produkten har ej ändrats.'}
+  }
 }
 
-  export async function removeProduct(id){
+export async function removeProduct(id) {
+  try{
     return await axios.delete(`/items/${id}`)
   }
-
-  export async function updateOrder({id, status}){
-    return await axios.patch(`/orders/${id}`, { "status": status})
+  catch{
+    return {error: 'Nånting gick fel. Produkten har ej tagits bort.'}
   }
+}
+
+export async function updateOrder({ id, status }) {
+  try{
+    return await axios.patch(`/orders/${id}`, { status: status })
+  }
+  catch{
+    return {error: 'Nånting gick fel. Ordern har ej uppdaterats.'}
+  }
+}
 
 export async function markusSearch(searchWord) {
   return await axios.get(`/items?search=${searchWord}`)
@@ -33,15 +73,20 @@ export async function categorySearch(searchWord) {
 }
 
 export async function getCategory(query) {
-  if (query === "Skateboards") {
-    return await axios.get(skateboardQuery)
-  } else if (query === "Apparel") {
-    return await axios.get(apparelQuery)
-  } else if (query === "Accessories") {
-    return (
-      (await axios.get(accessoriesQuery)) &&
-      (await axios.get(accessoriesQueryPageTwo))
-    )
+  try{
+    if (query === "Skateboards") {
+      return await axios.get(skateboardQuery)
+    } else if (query === "Apparel") {
+      return await axios.get(apparelQuery)
+    } else if (query === "Accessories") {
+      return (
+        (await axios.get(accessoriesQuery)) &&
+        (await axios.get(accessoriesQueryPageTwo))
+      )
+    }
+  }
+  catch{
+    return {error: 'Hittade inga produkter.'}
   }
 }
 export function saveToken(token) {
@@ -54,17 +99,21 @@ export function clearToken(emptyString) {
 export async function getProducts() {
   return await axios.get("/items/")
 }
+export async function getOneProduct(id) {
+  return await axios.get(`/items/${id}`)
+}
 
 export async function logIn({ email, password }) {
-  return await axios.post("/auth/", {
-    email,
-    password,
-  })
-  .catch(function (error){
-    if(error.response){
-     return error.response
-    }
-  })
+  try{
+    return await axios
+    .post("/auth/", {
+      email,
+      password,
+    })
+  }
+  catch { 
+    return {error: 'Kunde ej logga in. Försök igen'}
+  }
 }
 
 export async function getMe() {
@@ -80,7 +129,13 @@ export async function createUser({ email, password, name, address }) {
   })
 }
 
-export async function saveOrder(items) {
+export async function saveOrder({ items, shippingAddress }) {
+  return await axios.post("/orders/", {
+    items,
+    shippingAddress,
+  })
+}
+export async function saveCustomerOrder(items) {
   return await axios.post("/orders/", {
     items,
   })
@@ -93,10 +148,11 @@ export async function getAllOrders() {
 export async function searchItems(searchString) {
   return await axios.get(`/items?search=${searchString}`)
 }
+export async function getItem(id) {
+  return await axios.get(`/items/${id}`)
+}
 
 export async function updateUserInfo(userInfo) {
   console.log(userInfo)
   return await axios.patch("/me", userInfo)
 }
-
-

@@ -20,7 +20,10 @@
           :to="{ name: 'Products', params: { category: 'Accessories' } }"
           ><a>Accessories</a></router-link
         >
-        <router-link to="/products"><a>Limited Edition</a></router-link>
+        <router-link
+          :to="{ name: 'Products', params: { category: 'Special Edition' } }"
+          ><a>Limited Edition</a></router-link
+        >
       </div>
 
       <div class="links-and-search">
@@ -52,6 +55,9 @@
             @mouseover="cartHover = true"
             @mouseleave="cartHover = false"
           >
+            <div class="cartAmount" v-if="cartAmount > 0">
+              <p>{{cartAmount}}</p>
+            </div>
             <Icon icon="clarity:shopping-cart-solid" width="30" />
             <Transition name="fade">
               <CartPopup v-if="cartHover" />
@@ -127,6 +133,13 @@ export default {
     compSearchWord() {
       return this.search.name
     },
+    cartAmount(){
+      let amount = 0
+      for (let item of this.$store.state.cart){
+        amount += item.amount
+      }
+      return amount
+    }
   },
 }
 </script>
@@ -179,6 +192,7 @@ export default {
 .login,
 .favourites,
 .cart {
+  position:relative;
   height: 100%;
   @include flex-col-center;
   justify-content: space-between;
@@ -222,5 +236,17 @@ input {
     font-weight: bold;
     cursor: pointer;
   }
+}
+.cartAmount{
+  position:absolute;
+  // z-index: 2;
+  top: -8px;
+  right: -8px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  @include flex-center;
 }
 </style>

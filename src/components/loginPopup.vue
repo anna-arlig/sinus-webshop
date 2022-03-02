@@ -20,19 +20,20 @@
       placeholder="********"
       v-model="password"
     />
-    <p v-if="error != ''" class="error">{{error}}</p>
+    <p v-if="error" class="error">{{ error }}</p>
     <span class="btn-controller">
       <button @click="signIn">Log in</button>
       <button @click="closeModal">Cancel</button>
     </span>
-    <p v-if="registerSuccess">User registered! Please enter email and password to log in</p>
+    <p v-if="registerSuccess">
+      User registered! Please enter email and password to log in
+    </p>
     <p class="signup-text">
       Dont't have a <strong>SINUS</strong> account yet? Create one now:
     </p>
     <a @click="currentModal = 'registration'"> Sign up </a>
-    
   </dialog>
-  
+
   <RegistrationForm
     v-else-if="modal && currentModal == 'registration'"
     @goBack="setCurrentModal"
@@ -58,10 +59,9 @@ export default {
     modal() {
       return this.$store.state.showLogIn;
     },
-    error(){
-    
-     return this.$store.state.loginError
-    }
+    error() {
+      return this.$store.state.error.messageOnModal;
+    },
   },
   methods: {
     logInToggle() {
@@ -74,7 +74,7 @@ export default {
       this.$store.dispatch(Action.TOGGLE_MODAL);
     },
     signIn() {
-      this.registerSuccess = false
+      this.registerSuccess = false;
       const user = {
         email: this.email,
         password: this.password,
@@ -174,7 +174,7 @@ form {
     box-shadow: (0px 3px 4px rgba(0, 0, 0, 0.25));
     cursor: pointer;
   }
-  .error{
+  .error {
     color: red;
   }
 }

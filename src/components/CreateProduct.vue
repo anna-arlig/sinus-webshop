@@ -2,7 +2,6 @@
   <dialog open class="create">
     <i @click="$emit('close')"><Icon icon="mdi:close" width="25" /></i>
     <h2>Create a new product</h2>
-
     <form @submit.prevent="newProduct">
       <ul>
         <li>
@@ -47,7 +46,7 @@
         </li>
         <li>
           <label for="imgFile">Image file</label>
-          <input type="text" name="imgFile" v-model="imgFile" />
+          <input type="file" name="imgFile" ref="imgField" />
         </li>
         <input type="submit" value="Add new product" />
       </ul>
@@ -68,7 +67,6 @@ export default {
       specialEdition: null,
       shortDesc: "",
       longDesc: "",
-      imgFile: "",
     };
   },
   methods: {
@@ -80,9 +78,13 @@ export default {
         specialEdition: this.specialEdition,
         shortDesc: this.shortDesc,
         longDesc: this.longDesc,
-        imgFile: this.imgFile,
+        imgFile: this.$refs.imgField.files[0].name,
       };
-      await this.$store.dispatch(Action.CREATE_PRODUCT, newProduct);
+      const formData = new FormData();
+      formData.append("imgFile", this.$refs.imgField.files[0]);
+      await this.$store.dispatch(Action.UPLOAD_IMAGE, formData);
+      this.$store.dispatch(Action.CREATE_PRODUCT, newProduct);
+
       this.$emit("close");
     },
   },
@@ -92,9 +94,7 @@ export default {
 <style scoped lang="scss">
 @import "@/assets/styles/fonts-colors.scss";
 @import "@/assets/styles/mixins.scss";
-
 .create {
-  transform: translateY(-50%);
   @include flex-col-center;
 }
 li {
