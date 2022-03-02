@@ -166,9 +166,9 @@
 </template>
 
 <script>
-import Action from "../store/Action.types"
+import Action from "@/store/Action.types"
 import LogInPopup from "../components/loginPopup.vue"
-import CartProduct from "@/components/cartProduct.vue"
+import CartProduct from "@/components/cart/cartProduct.vue"
 import ThankYou from "@/components/ThankYou.vue"
 export default {
   beforeDestroy(){

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import ProductItem from "../components/productItem"
+import ProductItem from "@/components/products/productItem"
 import Action from "../store/Action.types"
 export default {
   async created() {

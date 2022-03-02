@@ -26,11 +26,11 @@
         </div>
         <h3 v-if="small">{{ product.title }}</h3>
         <div class="stars">
-          <img src="../assets/images/star.svg" alt="star" />
-          <img src="../assets/images/star.svg" alt="star" />
-          <img src="../assets/images/star.svg" alt="star" />
-          <img src="../assets/images/star.svg" alt="star" />
-          <img src="../assets/images/star.svg" alt="star" />
+          <img src="@/assets/images/star.svg" alt="star" />
+          <img src="@/assets/images/star.svg" alt="star" />
+          <img src="@/assets/images/star.svg" alt="star" />
+          <img src="@/assets/images/star.svg" alt="star" />
+          <img src="@/assets/images/star.svg" alt="star" />
           <p class="reviews" v-if="large">Read 15 other reviews</p>
         </div>
         <p v-if="large">

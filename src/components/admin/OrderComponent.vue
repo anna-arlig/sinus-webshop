@@ -20,51 +20,51 @@
       </div>
 
       <div class="buttons">
-        <button v-if="userRole == 'admin'" class="user-btn">View user info</button>
-        <button class="order-items-btn" @click="viewOrder = !viewOrder">View order items</button>
+        <button v-if="userRole == 'admin'" class="user-btn">
+          View user info
+        </button>
+        <button class="order-items-btn" @click="viewOrder = !viewOrder">
+          View order items
+        </button>
       </div>
       <section class="products" v-if="viewOrder">
-          <OrderProduct v-for="item of order.items" :key="item.id" :item="item"/>
-          
-        </section>
+        <OrderProduct v-for="item of order.items" :key="item.id" :item="item" />
+      </section>
     </div>
   </div>
 </template>
 
 <script>
-import OrderProduct from "../components/OrderProduct.vue"
+import OrderProduct from "@/components/admin/OrderProduct.vue"
 
 export default {
-  
-  components:{OrderProduct},
+  components: { OrderProduct },
   props: ["order"],
 
   data() {
     return {
       selectedStatus: "",
       viewOrder: false,
-    };
+    }
   },
   computed: {
     newStatus() {
       return {
         id: "",
         status: this.selectedStatus,
-      };
+      }
     },
-    userRole(){
+    userRole() {
       return this.$store.state.user.role
     },
-    
   },
   methods: {
     changeStatus(id) {
-      this.newStatus.id = id;
-      this.$emit("changeStatus", this.newStatus);
+      this.newStatus.id = id
+      this.$emit("changeStatus", this.newStatus)
     },
   },
-    
-};
+}
 </script>
 
 <style scoped lang="scss">
