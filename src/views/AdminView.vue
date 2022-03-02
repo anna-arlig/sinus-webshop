@@ -11,6 +11,7 @@
         <button @click="getProducts" class="products-btn">
           Display products
         </button>
+        <router-link to="/"><button @click="logOut">Log out</button></router-link>
       </div>
     </div>
 
@@ -43,6 +44,9 @@ export default {
     getProducts() {
       this.toggleView = false
     },
+    logOut(){
+      this.$store.dispatch(Action.LOG_OUT)
+    }
   },
 }
 </script>
