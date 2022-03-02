@@ -12,7 +12,6 @@
           Display products
         </button>
         <router-link to="/"><button @click="logOut">Log out</button></router-link>
-        <p v-if="error" class="error">{{error}}</p>
       </div>
     </div>
 
@@ -30,18 +29,10 @@ import Action from "@/store/Action.types"
 
 export default {
   components: { AdminOrders, AdminProducts, ErrorModal },
-  destroyed(){
-    this.$store.dispatch(Action.CLEAR_ERROR_ON_PAGE)
-  },
   data() {
     return {
       toggleView: true,
     }
-  },
-  computed:{
-    error(){
-      return this.$store.state.error.messageOnPage
-    },
   },
   methods: {
     getOrders() {
@@ -61,9 +52,6 @@ export default {
 <style scoped lang="scss">
 @import "@/assets/styles/fonts-colors.scss";
 @import "@/assets/styles/mixins.scss";
-.error{
-  color: red;
-}
 .error-modal {
   position: fixed;
   top: 10rem;

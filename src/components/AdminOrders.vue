@@ -16,7 +16,10 @@ import Action from "@/store/Action.types";
 import UserInfoAdmin from "@/components/UserInfoAdmin.vue";
 import OrderComponent from "@/components/OrderComponent.vue";
 export default {
-  components: { OrderComponent, UserInfoAdmin },
+  destroyed(){
+    this.$store.dispatch(Action.CLEAR_ERROR_ON_PAGE)
+  },
+  components: { OrderComponent, UserInfoAdmin},
   computed: {
     orders() {
       return this.$store.state.orders;
@@ -47,7 +50,10 @@ export default {
 <style scoped lang="scss">
 @import "@/assets/styles/fonts-colors.scss";
 @import "@/assets/styles/mixins.scss";
-
+.error{
+  margin-left: 1.4rem;
+  color: red;
+}
 h1 {
   margin: 20px;
 }

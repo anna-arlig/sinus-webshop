@@ -203,14 +203,14 @@ export default new Vuex.Store({
     async [Action.CHANGE_STATUS](context, status) {
       const response = await API.updateOrder(status)
       if (response.error) {
-        context.commit(Mutation.SET_ERROR, response.error)
+        context.commit(Mutation.SET_ERROR_ON_MODAL, response.error)
       }
     },
 
     async [Action.GET_ALL_ORDERS](context) {
       const response = await API.getAllOrders()
       if(response.error){
-        context.commit(Mutation.SET_ERROR_ON_PAGE, response.error)
+        context.commit(Mutation.SET_ERROR_ON_MODAL, response.error)
       }else
       context.commit(Mutation.SAVE_ALL_ORDERS, response.data)
     },
@@ -248,11 +248,14 @@ export default new Vuex.Store({
       }
     },
     async [Action.UPDATE_USER_INFO](context, userInfo) {
-      await API.updateUserInfo(userInfo)
-
-      userInfo.role = context.state.user.role
-      userInfo.name = context.state.user.name
-      context.commit(Mutation.SAVE_USER, userInfo)
+      const response = await API.updateUserInfo(userInfo)
+      if(response.error){
+        context.commit(Mutation.SET_ERROR_ON_MODAL, response.error)
+      }else{
+        userInfo.role = context.state.user.role
+        userInfo.name = context.state.user.name
+        context.commit(Mutation.SAVE_USER, userInfo)
+      }
     },
 
     async getUserInfo(context) {

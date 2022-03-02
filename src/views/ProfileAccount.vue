@@ -20,6 +20,7 @@
           <button v-if="!edit" @click="edit=true">Update my info <Icon icon="clarity:edit-line" width="20" /></button>
           <button v-if="edit" @click="updateInfo">Save my info</button>
           <router-link to="/"><button @click="logOut">Log out</button></router-link>
+          <ErrorModal />
         </div>
       </div>
 
@@ -53,6 +54,7 @@
 </template>
 
 <script>
+import ErrorModal from "@/components/ErrorModal.vue"
 import { Icon } from "@iconify/vue2"
 import Action from "../store/Action.types"
 import OrderComponent from "../components/OrderComponent.vue"
@@ -77,7 +79,7 @@ export default {
       
     };
   },
-  components:{Icon, OrderComponent},
+  components:{Icon, OrderComponent, ErrorModal},
   methods:{
     async updateInfo(){
       this.edit=false
@@ -97,6 +99,9 @@ export default {
     }
   },
   computed:{
+    error(){
+      return this.$store.state.error.messageOnModal
+    },
     userData(){
         return this.$store.state.user
     },
@@ -110,7 +115,6 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/styles/fonts-colors.scss";
 @import "@/assets/styles/mixins.scss";
-
 h1 {
   color: $teal;
   text-align: center;
@@ -149,6 +153,10 @@ button {
     margin: 0px;
     font-size: 18px;
   }
+  p.error{
+  color: red;
+  font-size: 12px;
+}
 }
 
 img {

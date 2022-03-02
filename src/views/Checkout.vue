@@ -11,7 +11,7 @@
       </div>
     </section>
     <ThankYou v-if="orderPlaced && !error" />
-    <p v-if="error">{{error}}</p>
+    <p v-if="error" class="error">{{error}}</p>
     <LogInPopup />
     <form class="checkout" v-if="!orderPlaced" @submit.prevent="placeOrder">
       <div class="checkout-info">
@@ -265,6 +265,10 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/styles/fonts-colors.scss";
 @import "@/assets/styles/mixins.scss";
+.error{
+  color: red;
+  margin: 5rem;
+}
 h2 {
   margin: 3rem 6rem;
   letter-spacing: 1px;
