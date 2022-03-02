@@ -36,6 +36,7 @@ export default new Vuex.Store({
 
     [Mutation.SAVE_NEW_PRODUCT](state, newSavedProduct){
       state.productList.push(newSavedProduct.product)
+      Vue.set(state.products, newSavedProduct.product.id, newSavedProduct.product)
     },
 
     [Mutation.UPDATE_PRODUCT_IN_STATE](state, editedProduct){
@@ -47,12 +48,15 @@ export default new Vuex.Store({
       state.productList[index].shortDesc = editedProduct.shortDesc
       state.productList[index].longDesc = editedProduct.longDesc
       state.productList[index].imgFile = editedProduct.imgFile
+      
+      Vue.set(state.products, editedProduct.id, editedProduct)
     },
    
     [Mutation.REMOVE_PRODUCT_FROM_STATE](state, id) {
       state.productList = state.productList.filter(
         (product) => product.id != id
       )
+      Vue.delete(state.products, id)
     },
     [Mutation.SAVE_ALL_ORDERS](state, orders) {
       state.orders = orders
