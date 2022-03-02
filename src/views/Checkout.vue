@@ -171,10 +171,7 @@ import CartProduct from "@/components/cartProduct.vue"
 import ThankYou from "@/components/ThankYou.vue"
 export default {
   mounted() {
-    console.log(this.userRole)
     if (this.userRole === "customer") {
-      this.$store.dispatch("getUserInfo")
-      console.log(this.userInfo)
       this.name = this.userInfo.name
       this.email = this.userInfo.email
       this.street = this.userInfo.address.street
@@ -182,17 +179,15 @@ export default {
       this.city = this.userInfo.address.city
     }
   },
-  // beforeUpdate() {
-  //   if (this.$store.state.user.role === "customer") {
-  //     this.$store.dispatch("getUserInfo")
-  //     console.log()
-  //     this.name = this.userInfo.name
-  //     this.email = this.userInfo.email
-  //     this.street = this.userInfo.address.street
-  //     this.zip = this.userInfo.address.zip
-  //     this.city = this.userInfo.address.city
-  //   }
-  // },
+  beforeUpdate() {
+    if (this.$store.state.user.role === "customer") {
+      this.name = this.userInfo.name
+      this.email = this.userInfo.email
+      this.street = this.userInfo.address.street
+      this.zip = this.userInfo.address.zip
+      this.city = this.userInfo.address.city
+    }
+  },
   components: {
     LogInPopup,
     CartProduct,

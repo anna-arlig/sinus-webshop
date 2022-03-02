@@ -226,7 +226,7 @@ export default new Vuex.Store({
 
     async [Action.GET_ME](context) {
       const response = await API.getMe()
-      context.commit(Mutation.SET_ROLE, response.data.role)
+      context.commit(Mutation.SAVE_USER, response.data)
     },
 
     async [Action.GET_CATEGORY](context, query) {
