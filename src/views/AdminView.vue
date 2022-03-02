@@ -11,7 +11,9 @@
         <button @click="getProducts" class="products-btn">
           Display products
         </button>
-        <router-link to="/"><button @click="logOut">Log out</button></router-link>
+        <router-link to="/"
+          ><button @click="logOut">Log out</button></router-link
+        >
       </div>
     </div>
 
@@ -23,8 +25,8 @@
 
 <script>
 import ErrorModal from "@/components/ErrorModal.vue"
-import AdminOrders from "@/components/AdminOrders.vue"
-import AdminProducts from "@/components/AdminProducts.vue"
+import AdminOrders from "@/components/admin/AdminOrders.vue"
+import AdminProducts from "@/components/admin/AdminProducts.vue"
 import Action from "@/store/Action.types"
 
 export default {
@@ -44,9 +46,9 @@ export default {
     getProducts() {
       this.toggleView = false
     },
-    logOut(){
+    logOut() {
       this.$store.dispatch(Action.LOG_OUT)
-    }
+    },
   },
 }
 </script>
