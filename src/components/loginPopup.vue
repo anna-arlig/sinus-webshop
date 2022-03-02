@@ -50,7 +50,7 @@ export default {
     return {
       registerSuccess: false,
       currentModal: "login",
-      email: "admin@example.com",
+      email: "customer@example.com",
       password: "password",
     };
   },

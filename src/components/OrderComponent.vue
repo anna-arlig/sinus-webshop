@@ -5,7 +5,7 @@
       <p>Created at: {{ order.createdAt }}</p>
       <p>Status: {{ order.status }}</p>
 
-      <div class="select">
+      <div class="select" v-if="userRole == 'admin'">
         <label for="status">Change the status of this order</label>
         <select
           name="status"
@@ -19,21 +19,30 @@
         </select>
       </div>
 
-      <!-- <div class="buttons">
-        <button class="user-btn">View user info</button>
-        <button class="order-items-btn">View order items</button>
-      </div> -->
+      <div class="buttons">
+        <button v-if="userRole == 'admin'" class="user-btn">View user info</button>
+        <button class="order-items-btn" @click="viewOrder = !viewOrder">View order items</button>
+      </div>
+      <section class="products" v-if="viewOrder">
+          <OrderProduct v-for="item of order.items" :key="item.id" :item="item"/>
+          
+        </section>
     </div>
   </div>
 </template>
 
 <script>
+import OrderProduct from "../components/OrderProduct.vue"
+
 export default {
+  
+  components:{OrderProduct},
   props: ["order"],
 
   data() {
     return {
       selectedStatus: "",
+      viewOrder: false,
     };
   },
   computed: {
@@ -43,6 +52,10 @@ export default {
         status: this.selectedStatus,
       };
     },
+    userRole(){
+      return this.$store.state.user.role
+    },
+    
   },
   methods: {
     changeStatus(id) {
@@ -50,6 +63,7 @@ export default {
       this.$emit("changeStatus", this.newStatus);
     },
   },
+    
 };
 </script>
 
