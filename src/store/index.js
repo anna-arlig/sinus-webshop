@@ -30,6 +30,22 @@ export default new Vuex.Store({
     orders: [],
   },
   mutations: {
+
+    [Mutation.SAVE_NEW_PRODUCT](state, newSavedProduct){
+      state.productList.push(newSavedProduct.product)
+    },
+
+    [Mutation.UPDATE_PRODUCT_IN_STATE](state, editedProduct){
+      const index = state.productList.findIndex(obj => obj.id == editedProduct.id)
+      state.productList[index].title = editedProduct.title
+      state.productList[index].category = editedProduct.category
+      state.productList[index].price = editedProduct.price
+      state.productList[index].specialEdition = editedProduct.specialEdition
+      state.productList[index].shortDesc = editedProduct.shortDesc
+      state.productList[index].longDesc = editedProduct.longDesc
+      state.productList[index].imgFile = editedProduct.imgFile
+    },
+   
     [Mutation.REMOVE_PRODUCT_FROM_STATE](state, id) {
       state.productList = state.productList.filter(
         (product) => product.id != id
@@ -127,6 +143,11 @@ export default new Vuex.Store({
   },
   
   actions: {
+
+    async [Action.UPLOAD_IMAGE](_,formData){
+      await API.uploadImg(formData)
+    },
+
     [Action.CLEAR_ERROR](context){
       context.commit(Mutation.CLEAR_ERROR)
     },
@@ -136,16 +157,19 @@ export default new Vuex.Store({
 
     async [Action.CREATE_PRODUCT](context, newProduct){
       const response = await API.addProduct(newProduct)
+      context.commit(Mutation.SAVE_NEW_PRODUCT, response.data)
       if(response.error){
         context.commit(Mutation.SET_ERROR, response.error)
       }
     },
 
-    async [Action.UPDATE_PRODUCT](context, editedProduct) {
+
+    async [Action.UPDATE_PRODUCT](context, editedProduct){
       const response = await API.updateProduct(editedProduct)
       if(response.error){
         context.commit(Mutation.SET_ERROR, response.error)
       }
+      context.commit(Mutation.UPDATE_PRODUCT_IN_STATE, editedProduct)
     },
 
     async [Action.REMOVE_PRODUCT](context, id) {
