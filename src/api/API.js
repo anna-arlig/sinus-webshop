@@ -94,6 +94,9 @@ export function clearToken(emptyString) {
 export async function getProducts() {
   return await axios.get("/items/")
 }
+export async function getOneProduct(id) {
+  return await axios.get(`/items/${id}`)
+}
 
 export async function logIn({ email, password }) {
   return await axios
