@@ -19,10 +19,10 @@
         </select>
       </div>
 
-      <div class="buttons">
+      <!-- <div class="buttons">
         <button class="user-btn">View user info</button>
         <button class="order-items-btn">View order items</button>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

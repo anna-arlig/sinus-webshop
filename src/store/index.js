@@ -169,7 +169,7 @@ export default new Vuex.Store({
       if(response.error){
         context.commit(Mutation.SET_ERROR, response.error)
       }
-      context.commit(Mutation.UPDATE_PRODUCT_IN_STATE, response.data)
+      context.commit(Mutation.UPDATE_PRODUCT_IN_STATE, editedProduct)
     },
 
     async [Action.REMOVE_PRODUCT](context, id) {
