@@ -20,7 +20,7 @@
       placeholder="********"
       v-model="password"
     />
-    <p v-if="error != ''" class="error">{{error}}</p>
+    <p v-if="error" class="error">{{error}}</p>
     <span class="btn-controller">
       <button @click="signIn">Log in</button>
       <button @click="closeModal">Cancel</button>
@@ -62,9 +62,8 @@ export default {
     modal() {
       return this.$store.state.showLogIn;
     },
-    error(){
-    
-     return this.$store.state.error
+    error(){    
+     return this.$store.state.error.messageOnModal
     }
   },
   methods: {

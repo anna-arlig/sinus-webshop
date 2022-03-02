@@ -61,7 +61,7 @@ export async function updateOrder({ id, status }) {
     return await axios.patch(`/orders/${id}`, { status: status })
   }
   catch{
-    return {error: 'Nånting gick fel. Produkten har ej uppdaterats.'}
+    return {error: 'Nånting gick fel. Ordern har ej uppdaterats.'}
   }
 }
 
@@ -73,15 +73,20 @@ export async function categorySearch(searchWord) {
 }
 
 export async function getCategory(query) {
-  if (query === "Skateboards") {
-    return await axios.get(skateboardQuery)
-  } else if (query === "Apparel") {
-    return await axios.get(apparelQuery)
-  } else if (query === "Accessories") {
-    return (
-      (await axios.get(accessoriesQuery)) &&
-      (await axios.get(accessoriesQueryPageTwo))
-    )
+  try{
+    if (query === "Skateboards") {
+      return await axios.get(skateboardQuery)
+    } else if (query === "Apparel") {
+      return await axios.get(apparelQuery)
+    } else if (query === "Accessories") {
+      return (
+        (await axios.get(accessoriesQuery)) &&
+        (await axios.get(accessoriesQueryPageTwo))
+      )
+    }
+  }
+  catch{
+    return {error: 'Hittade inga produkter.'}
   }
 }
 export function saveToken(token) {
@@ -99,16 +104,16 @@ export async function getOneProduct(id) {
 }
 
 export async function logIn({ email, password }) {
-  return await axios
+  try{
+    return await axios
     .post("/auth/", {
       email,
       password,
     })
-    .catch(function (error) {
-      if (error.response) {
-        return error.response
-      }
-    })
+  }
+  catch { 
+    return {error: 'Kunde ej logga in. Försök igen'}
+  }
 }
 
 export async function getMe() {

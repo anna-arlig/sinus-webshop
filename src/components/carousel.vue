@@ -1,7 +1,6 @@
 <template>
   <div class="carousel">
     <h3>{{ mockTag }}</h3>
-
     <ul>
       <router-link
       :to="`/product/${product.id}`"

@@ -24,8 +24,11 @@ export default new Vuex.Store({
         city: "",
       },
     },
-    error: "",
-    cart: [],
+    error: {
+      messageOnPage: '',
+      messageOnModal: ''
+    },
+    cart: [], 
     deliveryFee: 0,
     orders: [],
   },
@@ -139,17 +142,24 @@ export default new Vuex.Store({
     [Mutation.UPDATE_DELIVERY](state, shippingFee) {
       state.deliveryFee = Number(shippingFee)
     },
-    [Mutation.SET_ERROR](state, error) {
-      state.error = error
+    [Mutation.SET_ERROR_ON_MODAL](state, error){
+      state.error.messageOnModal = error
+    }, 
+    [Mutation.SET_ERROR_ON_PAGE](state, error){
+      state.error.messageOnPage = error
     },
-    [Mutation.CLEAR_ERROR](state) {
-      state.error = ""
+    [Mutation.CLEAR_ERROR_ON_MODAL](state){
+      state.error.messageOnModal = ''
     },
+    [Mutation.CLEAR_ERROR_ON_PAGE](state){
+      state.error.messageOnPage = ''
+    }
   },
 
   actions: {
-
-
+    [Action.CLEAR_ERROR_ON_MODAL](context){
+      context.commit(Mutation.CLEAR_ERROR_ON_MODAL)
+    },
     async [Action.UPLOAD_IMAGE](_,formData){
       await API.uploadImg(formData)
     },
@@ -164,28 +174,25 @@ export default new Vuex.Store({
 
     async [Action.CREATE_PRODUCT](context, newProduct) {
       const response = await API.addProduct(newProduct)
-
-      context.commit(Mutation.SAVE_NEW_PRODUCT, response.data)
       if(response.error){
-
-        context.commit(Mutation.SET_ERROR, response.error)
+        context.commit(Mutation.SET_ERROR_ON_MODAL, response.error)
+      }else {
+        context.commit(Mutation.SAVE_NEW_PRODUCT, response.data)
       }
     },
-
-
     async [Action.UPDATE_PRODUCT](context, editedProduct){
       const response = await API.updateProduct(editedProduct)
-      if (response.error) {
-        context.commit(Mutation.SET_ERROR, response.error)
+      if(response.error){
+        context.commit(Mutation.SET_ERROR_ON_MODAL, response.error)
       }
       context.commit(Mutation.UPDATE_PRODUCT_IN_STATE, editedProduct)
     },
 
     async [Action.REMOVE_PRODUCT](context, id) {
       const response = await API.removeProduct(id)
-      if (response.error) {
-        context.commit(Mutation.SET_ERROR, response.error)
-      } else {
+      if(response.error){
+        context.commit(Mutation.SET_ERROR_ON_MODAL, response.error)
+      }else{
         context.commit(Mutation.REMOVE_PRODUCT_FROM_STATE, id)
       }
     },
@@ -225,14 +232,13 @@ export default new Vuex.Store({
 
     async [Action.LOG_IN](context, user) {
       const response = await API.logIn(user)
-      if (response.data.error) {
-        console.log(response.data.error)
-        context.commit(Mutation.SAVE_ERROR, response.data.error)
+      console.log(response);
+      if (response.error) {
+        context.commit(Mutation.SET_ERROR_ON_MODAL, response.error)
       } else {
         API.saveToken(response.data.token)
         context.dispatch(Action.GET_ME)
         context.commit(Mutation.MODAL_TOGGLE)
-        context.commit(Mutation.SAVE_ERROR, "")
       }
     },
     async [Action.UPDATE_USER_INFO](context, userInfo) {
@@ -259,6 +265,9 @@ export default new Vuex.Store({
 
     async [Action.GET_CATEGORY](context, query) {
       const response = await API.getCategory(query)
+      if(response.error){
+        context.commit(Mutation.SET_ERROR_ON_PAGE, response.error)
+      }
       context.commit(Mutation.SAVE_PRODUCTS, response.data)
     },
 

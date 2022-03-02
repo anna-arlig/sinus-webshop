@@ -7,7 +7,7 @@ export default {
   props: ['error'],
   computed: {
     fading() {
-      return this.$store.state.showLogIn || this.$store.state.error;
+      return this.$store.state.showLogIn && this.$store.state.error;
     },
   },
 };
