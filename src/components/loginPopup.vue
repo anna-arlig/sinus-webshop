@@ -55,10 +55,6 @@ export default {
       password: "password",
     };
   },
-  // errorCaptured: function(err) {
-  //     console.log('Caught error', err.message);
-  //     this.error = err.message
-  // },
   computed: {
     modal() {
       return this.$store.state.showLogIn;
