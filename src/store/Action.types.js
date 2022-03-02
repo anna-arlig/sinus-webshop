@@ -5,23 +5,23 @@ export const UPDATE_SEARCH_RESULTS = "UPDATE_SEARCH_RESULTS"
 export const CREATE_USER = "CREATE_USER"
 export const MARKUS_SEARCH = "MARKUS_SEARCH"
 export const GET_CATEGORY = "GET_CATEGORY"
-export const SEARCH_ITEMS = 'SEARCH_ITEMS'
-export const LOG_OUT = 'LOG_OUT'
-export const UPDATE_USER_INFO = 'UPDATE_USER_INFO'
-export const ADD_TO_CART = 'ADD_TO_CART'
-export const UPDATE_CART = 'UPDATE_CART'
-export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
-export const EMPTY_CART = 'EMPTY_CART'
-export const GET_ME = 'GET_ME'
-export const GET_ALL_ORDERS = 'GET_ALL_ORDERS'
-export const CHANGE_STATUS = 'CHANGE_STATUS'
-export const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
+export const SEARCH_ITEMS = "SEARCH_ITEMS"
+export const LOG_OUT = "LOG_OUT"
+export const UPDATE_USER_INFO = "UPDATE_USER_INFO"
+export const ADD_TO_CART = "ADD_TO_CART"
+export const UPDATE_CART = "UPDATE_CART"
+export const REMOVE_FROM_CART = "REMOVE_FROM_CART"
+export const EMPTY_CART = "EMPTY_CART"
+export const GET_ME = "GET_ME"
+export const GET_ALL_ORDERS = "GET_ALL_ORDERS"
+export const CHANGE_STATUS = "CHANGE_STATUS"
+export const REMOVE_PRODUCT = "REMOVE_PRODUCT"
 export const UPDATE_DELIVERY = "UPDATE_DELIVERY"
 export const CREATE_ORDER = "CREATE_ORDER"
 export const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
 export const CREATE_PRODUCT = 'CREATE_PRODUCT'
 export const UPDATE_ORDER = 'UPDATE_ORDER'
-
+export const CREATE_CUSTOMER_ORDER = "CREATE_CUSTOMER_ORDER"
 
 
 export default {
@@ -47,5 +47,6 @@ export default {
     CREATE_ORDER,
     UPDATE_PRODUCT,
     CREATE_PRODUCT,
-    UPDATE_ORDER
+    UPDATE_ORDER, 
+    CREATE_CUSTOMER_ORDER
 }

@@ -20,7 +20,10 @@
           :to="{ name: 'Products', params: { category: 'Accessories' } }"
           ><a>Accessories</a></router-link
         >
-        <router-link to="/products"><a>Limited Edition</a></router-link>
+        <router-link
+          :to="{ name: 'Products', params: { category: 'Special Edition' } }"
+          ><a>Limited Edition</a></router-link
+        >
       </div>
 
       <div class="links-and-search">
