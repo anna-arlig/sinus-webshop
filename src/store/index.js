@@ -31,6 +31,17 @@ export default new Vuex.Store({
   },
   mutations: {
 
+    [Mutation.SAVE_NEW_PRODUCT](state, newProduct){
+      state.productList.push(newProduct)
+    },
+
+    // [Mutation.UPDATE_PRODUCT_IN_STATE](state, editedProduct){
+    //   const index = state.productList.findIndex(obj => obj.id == editedProduct.id)
+    //   console.log(state.productList[index])
+    //   state.productList[index] = editedProduct
+    //   console.log(state.productList[index])
+    // },
+
     [Mutation.REMOVE_PRODUCT_FROM_STATE](state, id){
      state.productList = state.productList.filter(product => product.id != id)
     },
@@ -131,10 +142,12 @@ export default new Vuex.Store({
 
     async [Action.CREATE_PRODUCT](context, newProduct){
       await API.addProduct(newProduct)
+      context.commit(Mutation.SAVE_NEW_PRODUCT, newProduct)
     },
 
-    async [Action.UPDATE_PRODUCT](_, editedProduct){
+    async [Action.UPDATE_PRODUCT](context, editedProduct){
       await API.updateProduct(editedProduct)
+      context.commit(Mutation.UPDATE_PRODUCT_IN_STATE, editedProduct)
     },
 
     async [Action.REMOVE_PRODUCT](context, id){
