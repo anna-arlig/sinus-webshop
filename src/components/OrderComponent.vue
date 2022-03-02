@@ -47,7 +47,7 @@ export default {
   methods: {
     changeStatus(id) {
       this.newStatus.id = id;
-
+      this.selectedStatus = ""
       this.$emit("changeStatus", this.newStatus);
     },
   },

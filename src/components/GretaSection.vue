@@ -1,5 +1,5 @@
 <template>
-  <section class="greta" @click="$router.push('/')">
+  <section class="greta" @click="$router.push({ name: 'Products', params: { category: 'Special Edition' } })">
     <article  v-if="gretaProducts.length">
       <figure class="img-container">
         <img :src="`${BASE_URL}/images/${gretaProducts[0].imgFile}`">
@@ -32,13 +32,7 @@
 
 <script>
 export default {
-    computed:{
-    gretaProducts(){
-      if(this.$store.getters.specialEdition){
-        return this.$store.getters.specialEdition
-      }else{ return null}
-    }
-  },
+    props: ['gretaProducts'],
     data(){return{
       BASE_URL: process.env.VUE_APP_BASE_URL
     }}

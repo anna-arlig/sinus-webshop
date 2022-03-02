@@ -141,17 +141,27 @@ export default new Vuex.Store({
       }
     },
 
-    async [Action.UPDATE_PRODUCT](_, editedProduct) {
-      await API.updateProduct(editedProduct)
+    async [Action.UPDATE_PRODUCT](context, editedProduct) {
+      const response = await API.updateProduct(editedProduct)
+      if(response.error){
+        context.commit(Mutation.SET_ERROR, response.error)
+      }
     },
 
     async [Action.REMOVE_PRODUCT](context, id) {
-      await API.removeProduct(id)
-      context.commit(Mutation.REMOVE_PRODUCT_FROM_STATE, id)
+      const response = await API.removeProduct(id)
+      if(response.error){
+        context.commit(Mutation.SET_ERROR, response.error)
+      }else{
+        context.commit(Mutation.REMOVE_PRODUCT_FROM_STATE, id)
+      }
     },
 
-    async [Action.CHANGE_STATUS](_, status) {
-      await API.updateOrder(status)
+    async [Action.CHANGE_STATUS](context, status) {
+      const response = await API.updateOrder(status)
+      if(response.error){
+        context.commit(Mutation.SET_ERROR, response.error)
+      }
     },
 
     async [Action.GET_ALL_ORDERS](context) {
