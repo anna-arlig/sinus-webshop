@@ -55,6 +55,9 @@
             @mouseover="cartHover = true"
             @mouseleave="cartHover = false"
           >
+            <div class="cartAmount" v-if="cartAmount > 0">
+              <p>{{cartAmount}}</p>
+            </div>
             <Icon icon="clarity:shopping-cart-solid" width="30" />
             <Transition name="fade">
               <CartPopup v-if="cartHover" />
@@ -130,6 +133,9 @@ export default {
     compSearchWord() {
       return this.search.name
     },
+    cartAmount(){
+      return this.$store.state.cart.length
+    }
   },
 }
 </script>
@@ -182,6 +188,7 @@ export default {
 .login,
 .favourites,
 .cart {
+  position:relative;
   height: 100%;
   @include flex-col-center;
   justify-content: space-between;
@@ -225,5 +232,17 @@ input {
     font-weight: bold;
     cursor: pointer;
   }
+}
+.cartAmount{
+  position:absolute;
+  // z-index: 2;
+  top: -8px;
+  right: -8px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  @include flex-center;
 }
 </style>

@@ -165,13 +165,14 @@
 </template>
 
 <script>
-import Action from "../store/Action.types"
-import LogInPopup from "../components/loginPopup.vue"
-import CartProduct from "@/components/cartProduct.vue"
-import ThankYou from "@/components/ThankYou.vue"
+import Action from "../store/Action.types";
+import LogInPopup from "../components/loginPopup.vue";
+import CartProduct from "@/components/cartProduct.vue";
+import ThankYou from "@/components/ThankYou.vue";
 export default {
   mounted() {
     if (this.$store.state.user.role === "customer") {
+
       this.$store.dispatch("getUserInfo")
       this.name = this.userInfo.name
       this.email = this.userInfo.email
@@ -206,34 +207,34 @@ export default {
       shippingFee: "",
       paymentMethod: "",
       orderPlaced: false,
-    }
+    };
   },
   computed: {
     cart() {
-      return this.$store.state.cart
+      return this.$store.state.cart;
     },
     cartIds() {
-      return this.$store.getters.idsOfCartItems
+      return this.$store.getters.idsOfCartItems;
     },
     userInfo() {
-      return this.$store.state.user
+      return this.$store.state.user;
     },
     userRole() {
-      return this.$store.state.user.role
+      return this.$store.state.user.role;
     },
     subTotalForCheckout() {
-      return this.$store.getters.subTotalForCheckout
+      return this.$store.getters.subTotalForCheckout;
     },
     costIncludingShipping() {
-      return this.$store.getters.costIncludingShipping
+      return this.$store.getters.costIncludingShipping;
     },
   },
   methods: {
     modalToggle() {
-      this.$store.dispatch(Action.TOGGLE_MODAL)
+        this.$store.dispatch(Action.TOGGLE_MODAL)
     },
     updateDelivery() {
-      this.$store.dispatch(Action.UPDATE_DELIVERY, this.shippingFee)
+      this.$store.dispatch(Action.UPDATE_DELIVERY, this.shippingFee);
     },
     placeOrder() {
       if (this.userRole === "") {
@@ -255,7 +256,7 @@ export default {
       this.$store.dispatch(Action.EMPTY_CART)
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
