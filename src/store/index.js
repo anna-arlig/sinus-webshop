@@ -247,7 +247,7 @@ export default new Vuex.Store({
       const response = await API.getMe()
       context.commit(Mutation.SAVE_USER, response.data)
     },
-    async getProduct(context, id) {
+    async [Action.GET_ONE_PRODUCT](context, id) {
       const response = await API.getOneProduct(id)
       context.commit(Mutation.SAVE_ONE_PRODUCT, response.data.post)
     },

@@ -25,6 +25,7 @@ export const GET_ITEM = 'GET_ITEM'
 export const CREATE_CUSTOMER_ORDER = "CREATE_CUSTOMER_ORDER"
 export const CLEAR_ERROR = 'CLEAR_ERROR'
 export const UPLOAD_IMAGE = 'UPLOAD_IMAGE'
+export const GET_ONE_PRODUCT = 'GET_ONE_PRODUCT'
 
 export default {
     GET_CATEGORY,
@@ -53,5 +54,6 @@ export default {
     GET_ITEM,
     CREATE_CUSTOMER_ORDER,
     CLEAR_ERROR,
-    UPLOAD_IMAGE
+    UPLOAD_IMAGE,
+    GET_ONE_PRODUCT
 }

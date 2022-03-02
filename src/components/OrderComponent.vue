@@ -21,10 +21,11 @@
 
       <div class="buttons">
         <button v-if="userRole == 'admin'" class="user-btn">View user info</button>
-        <button class="order-items-btn" @click="viewOrder = order.id">View order items</button>
+        <button class="order-items-btn" @click="viewOrder = !viewOrder">View order items</button>
       </div>
-      <section class="products" v-if="viewOrder === order.id">
-          <OrderProduct v-for="item in order.items" :key="item.id" :item="item"/>
+      <section class="products" v-if="viewOrder">
+          <OrderProduct v-for="item of order.items" :key="item.id" :item="item"/>
+          
         </section>
     </div>
   </div>
@@ -41,7 +42,7 @@ export default {
   data() {
     return {
       selectedStatus: "",
-      viewOrder: null,
+      viewOrder: false,
     };
   },
   computed: {
