@@ -4,14 +4,14 @@
       <h1>{{ categoryTitel }}</h1>
       <div class="first-line"></div>
     </div>
-    <h3 v-if="error">{{error}}</h3>
+    <h3 v-if="error">{{ error }}</h3>
     <ProductList :categoryProducts="selectedCategoryProducts" />
   </div>
 </template>
 
 <script>
-import ProductList from "../components/ProductList"
-import Action from "../store/Action.types"
+import ProductList from "@/components/products/ProductList"
+import Action from "@/store/Action.types"
 export default {
   mounted() {
     if (this.categoryTitel != "Special Edition")
@@ -37,7 +37,7 @@ export default {
     }
   },
   computed: {
-    error(){
+    error() {
       return this.$store.state.error.messageOnPage
     },
     selectedCategoryProducts() {
@@ -61,7 +61,7 @@ export default {
 
 .products {
   max-width: 1440px;
-  h3{
+  h3 {
     margin-left: 6rem;
   }
   .category-title {

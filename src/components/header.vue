@@ -22,7 +22,7 @@
         >
         <router-link
           :to="{ name: 'Products', params: { category: 'Special Edition' } }"
-          ><a>Limited Edition</a></router-link
+          ><a>Special Edition</a></router-link
         >
       </div>
 
@@ -56,7 +56,7 @@
             @mouseleave="cartHover = false"
           >
             <div class="cartAmount" v-if="cartAmount > 0">
-              <p>{{cartAmount}}</p>
+              <p>{{ cartAmount }}</p>
             </div>
             <Icon icon="clarity:shopping-cart-solid" width="30" />
             <Transition name="fade">
@@ -94,9 +94,9 @@
 
 <script>
 import { Icon } from "@iconify/vue2"
-import CartPopup from "@/components/cartPopup.vue"
-import Action from "../store/Action.types"
-import Mutation from "../store/Action.types"
+import CartPopup from "@/components/cart/cartPopup.vue"
+import Action from "@/store/Action.types"
+import Mutation from "@/store/Mutations.types"
 export default {
   data() {
     return {
@@ -133,13 +133,13 @@ export default {
     compSearchWord() {
       return this.search.name
     },
-    cartAmount(){
+    cartAmount() {
       let amount = 0
-      for (let item of this.$store.state.cart){
+      for (let item of this.$store.state.cart) {
         amount += item.amount
       }
       return amount
-    }
+    },
   },
 }
 </script>
@@ -192,7 +192,7 @@ export default {
 .login,
 .favourites,
 .cart {
-  position:relative;
+  position: relative;
   height: 100%;
   @include flex-col-center;
   justify-content: space-between;
@@ -237,8 +237,8 @@ input {
     cursor: pointer;
   }
 }
-.cartAmount{
-  position:absolute;
+.cartAmount {
+  position: absolute;
   // z-index: 2;
   top: -8px;
   right: -8px;

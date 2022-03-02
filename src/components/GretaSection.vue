@@ -1,30 +1,38 @@
 <template>
-  <section class="greta" @click="$router.push({ name: 'Products', params: { category: 'Special Edition' } })">
-    <article  v-if="gretaProducts.length">
+  <section
+    class="greta"
+    @click="
+      $router.push({
+        name: 'Products',
+        params: { category: 'Special Edition' },
+      })
+    "
+  >
+    <article v-if="gretaProducts.length">
       <figure class="img-container">
-        <img :src="`${BASE_URL}/images/${gretaProducts[0].imgFile}`">
+        <img :src="`${BASE_URL}/images/${gretaProducts[0].imgFile}`" />
       </figure>
-      <h3>{{gretaProducts[0].category}} - {{gretaProducts[0].title}}</h3>
+      <h3>{{ gretaProducts[0].category }} - {{ gretaProducts[0].title }}</h3>
       <div>
-        <h3>{{gretaProducts[0].shortDesc}}</h3>
-        <h3>{{gretaProducts[0].price}}€</h3>
+        <h3>{{ gretaProducts[0].shortDesc }}</h3>
+        <h3>{{ gretaProducts[0].price }}€</h3>
       </div>
     </article>
     <span>
       <h3>
         GRETA <br />
-        LIMITED EDITION
+        SPECIAL EDITION
       </h3>
       <button>CHECK IT OUT</button>
     </span>
     <article v-if="gretaProducts.length">
       <figure class="img-container">
-        <img :src="`${BASE_URL}/images/${gretaProducts[1].imgFile}`">
+        <img :src="`${BASE_URL}/images/${gretaProducts[1].imgFile}`" />
       </figure>
-      <h3>{{gretaProducts[1].category}} - {{gretaProducts[1].title}}</h3>
+      <h3>{{ gretaProducts[1].category }} - {{ gretaProducts[1].title }}</h3>
       <div>
-        <h3>{{gretaProducts[1].shortDesc}}</h3>
-        <h3>{{gretaProducts[1].price}}€</h3>
+        <h3>{{ gretaProducts[1].shortDesc }}</h3>
+        <h3>{{ gretaProducts[1].price }}€</h3>
       </div>
     </article>
   </section>
@@ -32,10 +40,12 @@
 
 <script>
 export default {
-    props: ['gretaProducts'],
-    data(){return{
-      BASE_URL: process.env.VUE_APP_BASE_URL
-    }}
+  props: ["gretaProducts"],
+  data() {
+    return {
+      BASE_URL: process.env.VUE_APP_BASE_URL,
+    }
+  },
 }
 </script>
 
@@ -50,7 +60,7 @@ export default {
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
-  &:hover{
+  &:hover {
     cursor: pointer;
   }
   @include flex-center;
@@ -66,32 +76,32 @@ export default {
     @include flex-col-center;
     padding: 1rem 1.5rem;
     justify-content: space-between;
-    h3{
+    h3 {
       align-self: flex-start;
     }
-    div{
+    div {
       width: 100%;
       display: flex;
       justify-content: space-between;
       align-self: flex-start;
-      h3{
+      h3 {
         font-size: 18px;
         color: #ffffff;
       }
     }
-    img{
+    img {
       height: 190px;
     }
   }
-  h3::first-letter{
+  h3::first-letter {
     text-transform: capitalize;
   }
-  .img-container{
+  .img-container {
     width: 10rem;
     height: 15rem;
     display: flex;
     justify-content: center;
-    img{
+    img {
       max-width: 100%;
       max-height: 100%;
     }
