@@ -40,17 +40,17 @@
 </template>
 
 <script>
-import ConfirmDelete from "@/components/ConfirmDelete.vue";
-import { Icon } from "@iconify/vue2";
-import EditProduct from "@/components/EditProduct.vue";
-import Action from "../store/Action.types";
+import ConfirmDelete from "@/components/admin/ConfirmDelete.vue"
+import { Icon } from "@iconify/vue2"
+import EditProduct from "@/components/admin/EditProduct.vue"
+import Action from "@/store/Action.types"
 export default {
   props: ["product"],
   components: { ConfirmDelete, Icon, EditProduct },
   methods: {
     removeProduct(id) {
-      this.$store.dispatch(Action.REMOVE_PRODUCT, id);
-      this.showRemove = false;
+      this.$store.dispatch(Action.REMOVE_PRODUCT, id)
+      this.showRemove = false
     },
   },
   data() {
@@ -58,9 +58,9 @@ export default {
       showRemove: null,
       edit: null,
       BASE_URL: process.env.VUE_APP_BASE_URL,
-    };
+    }
   },
-};
+}
 </script>
 
 <style scoped lang="scss">

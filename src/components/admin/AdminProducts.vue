@@ -30,9 +30,9 @@
 </template>
 
 <script>
-import Action from "../store/Action.types";
-import CreateProduct from "@/components/CreateProduct.vue";
-import ProductComponent from "@/components/ProductComponent.vue";
+import Action from "@/store/Action.types"
+import CreateProduct from "@/components/admin/CreateProduct.vue"
+import ProductComponent from "@/components/admin/ProductComponent.vue"
 
 export default {
   components: {
@@ -44,25 +44,25 @@ export default {
       BASE_URL: process.env.VUE_APP_BASE_URL,
       create: false,
       categoryTitel: "",
-    };
+    }
   },
   computed: {
     selectedCategoryProducts() {
       if (this.categoryTitel === "Skateboards") {
-        return this.$store.getters.skateboards;
+        return this.$store.getters.skateboards
       } else if (this.categoryTitel === "Apparel") {
-        return this.$store.getters.apparel;
+        return this.$store.getters.apparel
       } else {
-        return this.$store.getters.accessories;
+        return this.$store.getters.accessories
       }
     },
   },
   methods: {
     getCategory() {
-      this.$store.dispatch(Action.GET_CATEGORY, this.categoryTitel);
+      this.$store.dispatch(Action.GET_CATEGORY, this.categoryTitel)
     },
   },
-};
+}
 </script>
 
 <style scoped lang="scss">
