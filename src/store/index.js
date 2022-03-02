@@ -209,6 +209,9 @@ export default new Vuex.Store({
 
     async [Action.GET_ALL_ORDERS](context) {
       const response = await API.getAllOrders()
+      if(response.error){
+        context.commit(Mutation.SET_ERROR_ON_PAGE, response.error)
+      }else
       context.commit(Mutation.SAVE_ALL_ORDERS, response.data)
     },
 
@@ -296,8 +299,11 @@ export default new Vuex.Store({
       }
     },
 
-    async [Action.CREATE_CUSTOMER_ORDER](_, items) {
-      await API.saveCustomerOrder(items)
+    async [Action.CREATE_CUSTOMER_ORDER](context, items) {
+      const response = await API.saveCustomerOrder(items)
+      if(response.error){
+        context.commit(Mutation.SET_ERROR_ON_PAGE, response.error)
+      }
     },
 
     async [Action.MARKUS_SEARCH](context, search) {

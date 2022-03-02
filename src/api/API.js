@@ -145,13 +145,21 @@ export async function saveOrder({ items, shippingAddress }) {
   }
 }
 export async function saveCustomerOrder(items) {
-  return await axios.post("/orders/", {
-    items,
-  })
+  try{
+    return await axios.post("/orders/", {
+      items,
+    })
+  }catch{
+    return {error: 'Kunde inte skicka order'}
+  }
 }
 
 export async function getAllOrders() {
-  return await axios.get("/orders/")
+  try{
+    return await axios.get("/orders/")
+  }catch{
+    return {error: 'Kunde inte hämta ordrar'}
+  }
 }
 
 export async function searchItems(searchString) {
