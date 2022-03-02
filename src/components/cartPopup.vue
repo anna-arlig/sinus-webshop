@@ -44,6 +44,7 @@ h2 {
   background-color: white;
   margin-right: 1rem;
   margin-top: 2rem;
+  z-index: 2;
 }
 button:active{  
   transform: scale(1.1);
