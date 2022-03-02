@@ -131,7 +131,11 @@ export default {
       return this.search.name
     },
     cartAmount(){
-      return this.$store.state.cart.length
+      let amount = 0
+      for (let item of this.$store.state.cart){
+        amount += item.amount
+      }
+      return amount
     }
   },
 }
