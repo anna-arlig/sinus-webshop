@@ -38,14 +38,13 @@ export default new Vuex.Store({
     [Mutation.SAVE_ALL_ORDERS](state, orders) {
       state.orders = orders
     },
-    [Mutation.SAVE_ERROR](state, error){
+    [Mutation.SAVE_ERROR](state, error) {
       state.loginError = error
     },
 
-    [Mutation.UPDATE_ORDER](state, {id, status}){
-    const index = state.orders.findIndex(obj => obj.id == id)
-    state.orders[index].status = status
-      
+    [Mutation.UPDATE_ORDER](state, { id, status }) {
+      const index = state.orders.findIndex((obj) => obj.id == id)
+      state.orders[index].status = status
     },
 
     [Mutation.SAVE_PRODUCTS](state, fetchedProducts) {
@@ -55,6 +54,12 @@ export default new Vuex.Store({
         }
         Vue.set(state.products, product.id, product)
       }
+    },
+    [Mutation.SAVE_ONE_PRODUCT](state, product) {
+      if (!state.productList.find((prod) => prod.id === product.id)) {
+        state.productList.push(product)
+      }
+      Vue.set(state.products, product.id, product)
     },
 
     [Mutation.SET_ROLE](state, role) {
@@ -122,13 +127,13 @@ export default new Vuex.Store({
       state.deliveryFee = Number(shippingFee)
     },
   },
-  
+
   actions: {
-    [Action.UPDATE_ORDER](context, status){
+    [Action.UPDATE_ORDER](context, status) {
       context.commit(Mutation.UPDATE_ORDER, status)
     },
 
-    async [Action.CREATE_PRODUCT](context, newProduct){
+    async [Action.CREATE_PRODUCT](_, newProduct) {
       await API.addProduct(newProduct)
     },
 
@@ -195,6 +200,10 @@ export default new Vuex.Store({
       const response = await API.getMe()
       context.commit(Mutation.SAVE_USER, response.data)
     },
+    async getProduct(context, id) {
+      const response = await API.getOneProduct(id)
+      context.commit(Mutation.SAVE_ONE_PRODUCT, response.data.post)
+    },
 
     async [Action.GET_ME](context) {
       const response = await API.getMe()
@@ -217,7 +226,7 @@ export default new Vuex.Store({
     async [Action.CREATE_USER](_, newUser) {
       await API.createUser(newUser)
     },
-    
+
     async [Action.CREATE_ORDER](_, payload) {
       await API.saveOrder(payload)
     },

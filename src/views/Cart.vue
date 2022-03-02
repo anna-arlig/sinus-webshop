@@ -65,19 +65,22 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/styles/fonts-colors.scss";
 @import "@/assets/styles/mixins.scss";
-
+.cart {
+  width: 90%;
+  margin: 4rem auto;
+}
 h2 {
-  margin-left: 60px;
+  margin-bottom: 2rem;
 }
 
 main {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .cart-items {
   min-width: 55%;
-  margin-left: 30px;
+  margin-right: 3rem;
 }
 
 .checkout {
