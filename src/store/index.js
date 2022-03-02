@@ -33,6 +33,22 @@ export default new Vuex.Store({
     orders: [],
   },
   mutations: {
+
+    [Mutation.SAVE_NEW_PRODUCT](state, newSavedProduct){
+      state.productList.push(newSavedProduct.product)
+    },
+
+    [Mutation.UPDATE_PRODUCT_IN_STATE](state, editedProduct){
+      const index = state.productList.findIndex(obj => obj.id == editedProduct.id)
+      state.productList[index].title = editedProduct.title
+      state.productList[index].category = editedProduct.category
+      state.productList[index].price = editedProduct.price
+      state.productList[index].specialEdition = editedProduct.specialEdition
+      state.productList[index].shortDesc = editedProduct.shortDesc
+      state.productList[index].longDesc = editedProduct.longDesc
+      state.productList[index].imgFile = editedProduct.imgFile
+    },
+   
     [Mutation.REMOVE_PRODUCT_FROM_STATE](state, id) {
       state.productList = state.productList.filter(
         (product) => product.id != id
@@ -42,10 +58,9 @@ export default new Vuex.Store({
       state.orders = orders
     },
 
-    [Mutation.UPDATE_ORDER](state, {id, status}){
-    const index = state.orders.findIndex(obj => obj.id == id)
-    state.orders[index].status = status
-      
+    [Mutation.UPDATE_ORDER](state, { id, status }) {
+      const index = state.orders.findIndex((obj) => obj.id == id)
+      state.orders[index].status = status
     },
 
     [Mutation.SAVE_PRODUCTS](state, fetchedProducts) {
@@ -55,6 +70,12 @@ export default new Vuex.Store({
         }
         Vue.set(state.products, product.id, product)
       }
+    },
+    [Mutation.SAVE_ONE_PRODUCT](state, product) {
+      if (!state.productList.find((prod) => prod.id === product.id)) {
+        state.productList.push(product)
+      }
+      Vue.set(state.products, product.id, product)
     },
 
     [Mutation.SET_ROLE](state, role) {
@@ -134,27 +155,37 @@ export default new Vuex.Store({
       state.error.messageOnPage = ''
     }
   },
-  
+
   actions: {
     [Action.CLEAR_ERROR_ON_MODAL](context){
       context.commit(Mutation.CLEAR_ERROR_ON_MODAL)
     },
-    [Action.UPDATE_ORDER](context, status){
+    async [Action.UPLOAD_IMAGE](_,formData){
+      await API.uploadImg(formData)
+    },
+
+    [Action.CLEAR_ERROR](context){
+
+      context.commit(Mutation.CLEAR_ERROR)
+    },
+    [Action.UPDATE_ORDER](context, status) {
       context.commit(Mutation.UPDATE_ORDER, status)
     },
 
-    async [Action.CREATE_PRODUCT](context, newProduct){
+    async [Action.CREATE_PRODUCT](context, newProduct) {
       const response = await API.addProduct(newProduct)
       if(response.error){
         context.commit(Mutation.SET_ERROR_ON_MODAL, response.error)
+      }else {
+        context.commit(Mutation.SAVE_NEW_PRODUCT, response.data)
       }
     },
-
-    async [Action.UPDATE_PRODUCT](context, editedProduct) {
+    async [Action.UPDATE_PRODUCT](context, editedProduct){
       const response = await API.updateProduct(editedProduct)
       if(response.error){
         context.commit(Mutation.SET_ERROR_ON_MODAL, response.error)
       }
+      context.commit(Mutation.UPDATE_PRODUCT_IN_STATE, editedProduct)
     },
 
     async [Action.REMOVE_PRODUCT](context, id) {
@@ -168,7 +199,7 @@ export default new Vuex.Store({
 
     async [Action.CHANGE_STATUS](context, status) {
       const response = await API.updateOrder(status)
-      if(response.error){
+      if (response.error) {
         context.commit(Mutation.SET_ERROR, response.error)
       }
     },
@@ -222,10 +253,14 @@ export default new Vuex.Store({
       const response = await API.getMe()
       context.commit(Mutation.SAVE_USER, response.data)
     },
+    async getProduct(context, id) {
+      const response = await API.getOneProduct(id)
+      context.commit(Mutation.SAVE_ONE_PRODUCT, response.data.post)
+    },
 
     async [Action.GET_ME](context) {
       const response = await API.getMe()
-      context.commit(Mutation.SET_ROLE, response.data.role)
+      context.commit(Mutation.SAVE_USER, response.data)
     },
 
     async [Action.GET_CATEGORY](context, query) {
@@ -247,7 +282,7 @@ export default new Vuex.Store({
     async [Action.CREATE_USER](_, newUser) {
       await API.createUser(newUser)
     },
-    
+
     async [Action.CREATE_ORDER](_, payload) {
       await API.saveOrder(payload)
     },

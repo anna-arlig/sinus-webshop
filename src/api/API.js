@@ -8,6 +8,10 @@ const accessoriesQuery =
 const accessoriesQueryPageTwo =
   "/items?category=cap&category=totebag&category=socks&category=wheel&page=2"
 
+  export async function uploadImg(formData){
+    return await axios.post('/images/', formData)
+  }
+
   export async function addProduct({title, category, price, specialEdition, shortDesc, longDesc, imgFile}){
     try{
       return await axios.post(`/items/`, {title, category, price, specialEdition, shortDesc, longDesc, imgFile})
@@ -94,6 +98,9 @@ export function clearToken(emptyString) {
 
 export async function getProducts() {
   return await axios.get("/items/")
+}
+export async function getOneProduct(id) {
+  return await axios.get(`/items/${id}`)
 }
 
 export async function logIn({ email, password }) {
