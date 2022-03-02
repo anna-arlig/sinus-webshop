@@ -143,6 +143,11 @@ export default new Vuex.Store({
   },
   
   actions: {
+
+    async [Action.UPLOAD_IMAGE](_,formData){
+      await API.uploadImg(formData)
+    },
+
     [Action.CLEAR_ERROR](context){
       context.commit(Mutation.CLEAR_ERROR)
     },

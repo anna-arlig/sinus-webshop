@@ -67,7 +67,6 @@ export default {
       specialEdition: null,
       shortDesc: "",
       longDesc: "",
-      imgFile: "",
     };
   },
   methods: {
@@ -79,9 +78,12 @@ export default {
         specialEdition: this.specialEdition,
         shortDesc: this.shortDesc,
         longDesc: this.longDesc,
-        imgFile: this.imgFile,
+        imgFile: this.$refs.imgField.files[0].name,
       };
       await this.$store.dispatch(Action.CREATE_PRODUCT, newProduct);
+      const formData = new FormData();
+      formData.append("imgFile", this.$refs.imgField.files[0]);
+      this.$store.dispatch(Action.UPLOAD_IMAGE, formData);
       this.$emit("close");
     },
   },

@@ -16,8 +16,6 @@ export const SET_ERROR = 'SET_ERROR'
 export const UPDATE_ORDER = 'UPDATE_ORDER' 
 export const UPDATE_PRODUCT_IN_STATE = 'UPDATE_PRODUCT_IN_STATE'
 export const SAVE_NEW_PRODUCT = 'SAVE_NEW_PRODUCT'
-
-
 export const CLEAR_ERROR = 'CLEAR_ERROR'
 
 export default {
