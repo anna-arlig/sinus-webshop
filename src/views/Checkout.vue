@@ -173,7 +173,6 @@ export default {
   mounted() {
     if (this.$store.state.user.role === "customer") {
       this.$store.dispatch("getUserInfo")
-      console.log()
       this.name = this.userInfo.name
       this.email = this.userInfo.email
       this.street = this.userInfo.address.street
@@ -231,18 +230,29 @@ export default {
   },
   methods: {
     modalToggle() {
-      if (this.user == null) {
-        this.$store.dispatch(Action.TOGGLE_MODAL)
-      }
+      this.$store.dispatch(Action.TOGGLE_MODAL)
     },
     updateDelivery() {
       this.$store.dispatch(Action.UPDATE_DELIVERY, this.shippingFee)
     },
     placeOrder() {
-      this.$store.dispatch(Action.CREATE_ORDER, this.cartIds)
+      if (this.userRole === "") {
+        const address = {
+          city: this.city,
+          street: this.street,
+          zip: this.zip,
+        }
+        const payload = {
+          items: this.cartIds,
+          shippingAddress: address,
+        }
+        this.$store.dispatch(Action.CREATE_ORDER, payload)
+      } else {
+        this.$store.dispatch(Action.CREATE_CUSTOMER_ORDER, this.cartIds)
+      }
       this.orderPlaced = true
-      this.$store.state.cart = []
       this.shippingFee = ""
+      this.$store.dispatch(Action.EMPTY_CART)
     },
   },
 }
