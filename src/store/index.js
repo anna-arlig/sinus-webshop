@@ -247,7 +247,7 @@ export default new Vuex.Store({
       const response = await API.getMe()
       context.commit(Mutation.SAVE_USER, response.data)
     },
-    async getProduct(context, id) {
+    async [Action.GET_ONE_PRODUCT](context, id) {
       const response = await API.getOneProduct(id)
       context.commit(Mutation.SAVE_ONE_PRODUCT, response.data.post)
     },
@@ -304,6 +304,12 @@ export default new Vuex.Store({
     [Action.UPDATE_DELIVERY](context, shippingFee) {
       context.commit(Mutation.UPDATE_DELIVERY, shippingFee)
     },
+    async [Action.GET_ITEM](context, id) {
+     
+      const response = await API.getItem(id)
+      console.log(response.data)
+      context.commit(Mutation.SAVE_PRODUCTS, response.data)
+    },
   },
 
   getters: {
@@ -343,6 +349,15 @@ export default new Vuex.Store({
         )
       })
       return accessories
+    },
+    allOrderIds(state){
+      let ids= []
+      for (let order of state.orders){
+        for(let item of order.items){
+          ids.push(item.ProductId)
+        }
+      }
+      return ids
     },
   },
   modules: {},

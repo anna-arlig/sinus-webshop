@@ -143,6 +143,9 @@ export async function getAllOrders() {
 export async function searchItems(searchString) {
   return await axios.get(`/items?search=${searchString}`)
 }
+export async function getItem(id) {
+  return await axios.get(`/items/${id}`)
+}
 
 export async function updateUserInfo(userInfo) {
   console.log(userInfo)
