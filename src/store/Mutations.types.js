@@ -12,7 +12,9 @@ export const REMOVE_PRODUCT_FROM_STATE = "REMOVE_PRODUCT_FROM_STATE"
 export const SAVE_USER = "SAVE_USER"
 export const SAVE_ERROR = "SAVE_ERROR"
 export const UPDATE_DELIVERY = "UPDATE_DELIVERY"
+export const SET_ERROR = "SET_ERROR"
 export const UPDATE_ORDER = "UPDATE_ORDER"
+export const CLEAR_ERROR = "CLEAR_ERROR"
 export const SAVE_ONE_PRODUCT = "SAVE_ONE_PRODUCT"
 
 export default {
@@ -30,6 +32,8 @@ export default {
   SAVE_USER,
   SAVE_ERROR,
   UPDATE_DELIVERY,
+  SET_ERROR,
   UPDATE_ORDER,
+  CLEAR_ERROR,
   SAVE_ONE_PRODUCT,
 }
