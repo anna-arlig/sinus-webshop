@@ -3,9 +3,11 @@
     <h3>{{ mockTag }}</h3>
 
     <ul>
-      <li v-for="product of carouselProducts" :key="product.id">
+      <router-link
+      :to="`/product/${product.id}`"
+      v-for="product of carouselProducts" :key="product.id">
         <ProductItem small :product="product" />
-      </li>
+      </router-link>
     </ul>
     <div class="carousel-nav">
       <button @click="updatePageCounter('back')">
@@ -133,5 +135,9 @@ button {
   &:hover {
     transform: scale(1.1);
   }
+}
+a {
+  text-decoration: none;
+  color: #312f30;
 }
 </style>
