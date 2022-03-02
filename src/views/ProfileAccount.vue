@@ -40,8 +40,14 @@
       </div>
     </div>
 
-    <div class="orders">
+    <div class="orders" v-if="orders.length">
       <h3>My orders</h3>
+      <!-- <section class="order">
+      <li v-for="product of orderData" :key="product.id">{{product.id}}</li>
+      </section> -->
+      <!-- <CartViewProduct v-for="product of orderData" :key="product.id" :productInCart="product" /> -->
+      <OrderComponent v-for="order of orders" :key="order.id" :order="order"/>
+      
     </div>
   </div>
 </template>
@@ -49,12 +55,16 @@
 <script>
 import { Icon } from "@iconify/vue2"
 import Action from "../store/Action.types"
+import OrderComponent from "../components/OrderComponent.vue"
 export default {
-  mounted(){
-    if(this.$store.state.user.name === ''){
-      this.$store.dispatch('getUserInfo')
-    }
+ async mounted(){
+    // if(this.$store.state.user.name === ''){
+    //  await this.$store.dispatch('getUserInfo')
+    // }
+    await this.$store.dispatch(Action.GET_ALL_ORDERS)
+    
   },
+  
   data() {
     return {
       BASE_URL: process.env.VUE_APP_BASE_URL,
@@ -67,7 +77,7 @@ export default {
       
     };
   },
-  components:{Icon},
+  components:{Icon, OrderComponent},
   methods:{
     async updateInfo(){
       this.edit=false
@@ -89,6 +99,9 @@ export default {
   computed:{
     userData(){
         return this.$store.state.user
+    },
+    orders(){
+      return this.$store.state.orders
     }
   }
 };
