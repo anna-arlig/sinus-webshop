@@ -2,7 +2,11 @@
   <dialog open class="cartPopup">
     <h2>Your Cart</h2>
     <h3 v-if="!cart.length">Your cart is empty! 😞</h3>
-    <CartProduct v-for="product in cart" :key="product.id" :inCartProduct="product"/>
+    <CartProduct
+      v-for="product in cart"
+      :key="product.id"
+      :inCartProduct="product"
+    />
     <span class="buttons">
       <button @click="emptyCart" class="empty-cart-btn">empty cart</button>
       <router-link to="/cart">
@@ -13,21 +17,21 @@
 </template>
 
 <script>
-import CartProduct from "@/components/cartProduct.vue";
-import Action from '@/store/Action.types.js'
+import CartProduct from "@/components/cart/cartProduct.vue"
+import Action from "@/store/Action.types.js"
 export default {
   components: { CartProduct },
-  computed:  {
-    cart(){
+  computed: {
+    cart() {
       return this.$store.state.cart
-    }
-  }, 
+    },
+  },
   methods: {
-    emptyCart(){
+    emptyCart() {
       this.$store.dispatch(Action.EMPTY_CART)
-    }
-  }
-};
+    },
+  },
+}
 </script>
 
 <style scoped lang="scss">
@@ -42,16 +46,17 @@ h2 {
   border: 1px solid $black;
   border-radius: 3px;
   background-color: white;
-  margin-right: 15rem;
+  margin-right: 1rem;
   margin-top: 2rem;
+  z-index: 2;
 }
-button:active{  
+button:active {
   transform: scale(1.1);
 }
 .empty-cart-btn {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   color: $teal;
-  &:hover{
+  &:hover {
     cursor: pointer;
     background-color: red;
     color: #000000;
@@ -61,9 +66,9 @@ button:active{
 .cart-btn {
   background-color: $teal;
   color: white;
-  &:hover{
+  &:hover {
     cursor: pointer;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     color: $teal;
     border: 1px solid $teal;
   }

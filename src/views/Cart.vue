@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import CartViewProduct from "@/components/cartViewProduct.vue"
+import CartViewProduct from "@/components/cart/cartViewProduct.vue"
 import Carousel from "@/components/carousel.vue"
 export default {
   components: { CartViewProduct, Carousel },

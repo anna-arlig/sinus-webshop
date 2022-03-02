@@ -12,7 +12,7 @@
     <router-link
       :to="{ name: 'Products', params: { category: 'Special Edition' } }"
     >
-      <h2>Limited Edition</h2>
+      <h2>Special Edition</h2>
     </router-link>
   </section>
 </template>
