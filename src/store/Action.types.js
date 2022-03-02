@@ -21,6 +21,7 @@ export const CREATE_ORDER = "CREATE_ORDER"
 export const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
 export const CREATE_PRODUCT = 'CREATE_PRODUCT'
 export const UPDATE_ORDER = 'UPDATE_ORDER'
+export const GET_ITEM = 'GET_ITEM'
 
 
 
@@ -47,5 +48,6 @@ export default {
     CREATE_ORDER,
     UPDATE_PRODUCT,
     CREATE_PRODUCT,
-    UPDATE_ORDER
+    UPDATE_ORDER,
+    GET_ITEM
 }

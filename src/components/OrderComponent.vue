@@ -5,7 +5,7 @@
       <p>Created at: {{ order.createdAt }}</p>
       <p>Status: {{ order.status }}</p>
 
-      <div class="select">
+      <div class="select" v-if="userRole == 'admin'">
         <label for="status">Change the status of this order</label>
         <select
           name="status"
@@ -20,7 +20,7 @@
       </div>
 
       <div class="buttons">
-        <button class="user-btn">View user info</button>
+        <button v-if="userRole == 'admin'" class="user-btn">View user info</button>
         <button class="order-items-btn">View order items</button>
       </div>
     </div>
@@ -43,6 +43,9 @@ export default {
         status: this.selectedStatus,
       };
     },
+    userRole(){
+      return this.$store.state.user.role
+    }
   },
   methods: {
     changeStatus(id) {
