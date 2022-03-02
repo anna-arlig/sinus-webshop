@@ -168,9 +168,8 @@ export default new Vuex.Store({
       await API.uploadImg(formData)
     },
 
-    [Action.CLEAR_ERROR](context){
-
-      context.commit(Mutation.CLEAR_ERROR)
+    [Action.CLEAR_ERROR_ON_PAGE](context){
+      context.commit(Mutation.CLEAR_ERROR_ON_PAGE)
     },
     [Action.UPDATE_ORDER](context, status) {
       context.commit(Mutation.UPDATE_ORDER, status)
@@ -283,12 +282,18 @@ export default new Vuex.Store({
       context.commit(Mutation.UPDATE_SEARCH_RESULTS, search)
     },
 
-    async [Action.CREATE_USER](_, newUser) {
-      await API.createUser(newUser)
+    async [Action.CREATE_USER](context, newUser) {
+      const response = await API.createUser(newUser)
+      if(response.error){
+        context.commit(Mutation.SET_ERROR_ON_MODAL, response.error)
+      }
     },
 
-    async [Action.CREATE_ORDER](_, payload) {
-      await API.saveOrder(payload)
+    async [Action.CREATE_ORDER](context, payload) {
+      const response = await API.saveOrder(payload)
+      if(response.error){
+        context.commit(Mutation.SET_ERROR_ON_PAGE, response.error)
+      }
     },
 
     async [Action.CREATE_CUSTOMER_ORDER](_, items) {

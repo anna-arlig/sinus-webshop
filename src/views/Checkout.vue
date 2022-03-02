@@ -10,7 +10,8 @@
         <button class="login-btn">Log in</button>
       </div>
     </section>
-    <ThankYou v-if="orderPlaced" />
+    <ThankYou v-if="orderPlaced && !error" />
+    <p v-if="error">{{error}}</p>
     <LogInPopup />
     <form class="checkout" v-if="!orderPlaced" @submit.prevent="placeOrder">
       <div class="checkout-info">
@@ -170,6 +171,9 @@ import LogInPopup from "../components/loginPopup.vue"
 import CartProduct from "@/components/cartProduct.vue"
 import ThankYou from "@/components/ThankYou.vue"
 export default {
+  beforeDestroy(){
+    this.$store.dispatch(Action.CLEAR_ERROR_ON_PAGE)
+  },
   mounted() {
     if (this.userRole === "customer") {
       this.name = this.userInfo.name
@@ -206,6 +210,9 @@ export default {
     }
   },
   computed: {
+    error(){
+      return this.$store.state.error.messageOnPage
+    },
     cart() {
       return this.$store.state.cart
     },

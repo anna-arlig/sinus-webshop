@@ -121,19 +121,28 @@ export async function getMe() {
 }
 
 export async function createUser({ email, password, name, address }) {
-  return await axios.post("/register/", {
-    email,
-    password,
-    name,
-    address,
-  })
+  try{
+    return await axios.post("/register/", {
+      email,
+      password,
+      name,
+      address,
+    })
+  }catch{
+    return {error: 'Kunde inte skapa användare'}
+  }
 }
 
 export async function saveOrder({ items, shippingAddress }) {
-  return await axios.post("/orders/", {
-    items,
-    shippingAddress,
-  })
+  try{
+    return await axios.post("/orders/", {
+      items,
+      shippingAddress,
+    })
+  }
+  catch{
+    return {error: 'Kunde inte skicka order'}
+  }
 }
 export async function saveCustomerOrder(items) {
   return await axios.post("/orders/", {
