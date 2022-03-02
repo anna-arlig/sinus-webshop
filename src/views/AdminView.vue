@@ -2,12 +2,10 @@
   <div class="admin">
     <div class="info">
       <h1>Welcome admin!</h1>
-
       <p>
         Here you can view and update orders. You can also view, update, delete
         and create products.
       </p>
-
       <div class="buttons">
         <button @click="getOrders" class="order-btn">Display orders</button>
         <button @click="getProducts" class="products-btn">
@@ -18,6 +16,7 @@
 
     <AdminOrders v-if="toggleView" />
     <AdminProducts v-else />
+    
   </div>
 </template>
 
@@ -44,7 +43,7 @@ export default {
       this.toggleView = false;
     },
   },
-};
+}
 </script>
 
 <style scoped lang="scss">

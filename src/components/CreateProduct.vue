@@ -1,11 +1,7 @@
 <template>
-  <dialog open class="create" v-if="error">
-    <h1>{{error}}</h1>
-  </dialog>
-  <dialog open class="create" v-else>
+  <dialog open class="create">
     <i @click="$emit('close')"><Icon icon="mdi:close" width="25" /></i>
     <h2>Create a new product</h2>
-
     <form @submit.prevent="newProduct">
       <ul>
         <li>
@@ -89,18 +85,12 @@ export default {
       this.$emit("close");
     },
   },
-  computed: {
-    error(){
-      return this.$store.state.error
-    }
-  }
 };
 </script>
 
 <style scoped lang="scss">
 @import "@/assets/styles/fonts-colors.scss";
 @import "@/assets/styles/mixins.scss";
-
 .create {
   transform: translateY(-50%);
   @include flex-col-center;

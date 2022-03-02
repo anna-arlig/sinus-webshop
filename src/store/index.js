@@ -39,7 +39,7 @@ export default new Vuex.Store({
       state.orders = orders},
 
     [Mutation.SAVE_ERROR](state, error){
-      state.loginError = error
+      state.error = error
     },
 
     [Mutation.UPDATE_ORDER](state, {id, status}){

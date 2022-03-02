@@ -13,7 +13,7 @@ const accessoriesQueryPageTwo =
       return await axios.post(`/items/`, {title, category, price, specialEdition, shortDesc, longDesc, imgFile})
     }
     catch(error){
-      return {error: 'Bad request'}
+      return {error: 'Nånting gick fel. Produkt ej tillagd.'}
     }
   }
 
