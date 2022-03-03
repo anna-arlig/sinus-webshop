@@ -25,7 +25,7 @@
       <button @click="signIn">Log in</button>
       <button @click="closeModal">Cancel</button>
     </span>
-    <p v-if="registerSuccess">
+    <p v-if="registerSuccess && !error">
       User registered! Please enter email and password to log in
     </p>
     <p class="signup-text">

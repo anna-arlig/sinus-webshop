@@ -106,10 +106,10 @@ export async function getOneProduct(id) {
 export async function logIn({ email, password }) {
   try{
     return await axios
-    .post("/auth/", {
-      email,
-      password,
-    })
+      .post("/auth/", {
+        email,
+        password,
+      })
   }
   catch { 
     return {error: 'Kunde ej logga in. Försök igen'}
@@ -121,28 +121,45 @@ export async function getMe() {
 }
 
 export async function createUser({ email, password, name, address }) {
-  return await axios.post("/register/", {
-    email,
-    password,
-    name,
-    address,
-  })
+  try{
+    return await axios.post("/register/", {
+      email,
+      password,
+      name,
+      address,
+    })
+  }catch{
+    return {error: 'Kunde inte skapa användare'}
+  }
 }
 
 export async function saveOrder({ items, shippingAddress }) {
-  return await axios.post("/orders/", {
-    items,
-    shippingAddress,
-  })
+  try{
+    return await axios.post("/orders/", {
+      items,
+      shippingAddress,
+    })
+  }
+  catch{
+    return {error: 'Nånting blev fel. Kunde inte skicka order'}
+  }
 }
 export async function saveCustomerOrder(items) {
-  return await axios.post("/orders/", {
-    items,
-  })
+  try{
+    return await axios.post("/orders/", {
+      items,
+    })
+  }catch{
+    return {error: 'Kunde inte skicka order'}
+  }
 }
 
 export async function getAllOrders() {
-  return await axios.get("/orders/")
+  try{
+    return await axios.get("/orders/")
+  }catch{
+    return {error: 'Kunde inte hämta ordrar'}
+  }
 }
 
 export async function searchItems(searchString) {
@@ -153,6 +170,9 @@ export async function getItem(id) {
 }
 
 export async function updateUserInfo(userInfo) {
-  console.log(userInfo)
-  return await axios.patch("/me", userInfo)
+  try{
+    return await axios.patch("/me", userInfo)
+  }catch{
+    return {error: 'Uppdateringen slutfördes inte korrekt, försök igen.'}
+  }
 }

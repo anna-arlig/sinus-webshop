@@ -21,9 +21,8 @@
             Update my info <Icon icon="clarity:edit-line" width="20" />
           </button>
           <button v-if="edit" @click="updateInfo">Save my info</button>
-          <router-link to="/"
-            ><button @click="logOut">Log out</button></router-link
-          >
+          <router-link to="/"><button @click="logOut">Log out</button></router-link>
+          <ErrorModal />
         </div>
       </div>
 
@@ -56,6 +55,7 @@
 </template>
 
 <script>
+import ErrorModal from "@/components/ErrorModal.vue"
 import { Icon } from "@iconify/vue2"
 import Action from "../store/Action.types"
 import OrderComponent from "../components/admin/OrderComponent.vue"
@@ -78,10 +78,10 @@ export default {
       edit: false,
     }
   },
-  components: { Icon, OrderComponent },
-  methods: {
-    async updateInfo() {
-      this.edit = false
+  components:{Icon, OrderComponent, ErrorModal},
+  methods:{
+    async updateInfo(){
+      this.edit=false
       await this.$store.dispatch(Action.UPDATE_USER_INFO, {
         email: this.email,
         password: this.password,
@@ -94,10 +94,13 @@ export default {
     },
     logOut() {
       this.$store.dispatch(Action.LOG_OUT)
-    },
+    }
   },
-  computed: {
-    userData() {
+  computed:{
+    error(){
+      return this.$store.state.error.messageOnModal
+    },
+    userData(){
       return this.$store.state.user
     },
     orders() {
@@ -110,7 +113,6 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/styles/fonts-colors.scss";
 @import "@/assets/styles/mixins.scss";
-
 h1 {
   color: $teal;
   text-align: center;
@@ -149,6 +151,10 @@ button {
     margin: 0px;
     font-size: 18px;
   }
+  p.error{
+  color: red;
+  font-size: 12px;
+}
 }
 
 img {

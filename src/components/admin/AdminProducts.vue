@@ -16,6 +16,7 @@
         <option value="Apparel">Apparel</option>
         <option value="Accessories">Accessories</option>
       </select>
+      <p v-if="error" class="error">{{error}}</p>
     </div>
     <div class="product-list">
       <h2>{{ categoryTitel }}</h2>
@@ -56,10 +57,14 @@ export default {
         return this.$store.getters.accessories
       }
     },
+    error(){
+      return this.$store.state.error.messageOnPage
+    }
   },
   methods: {
     getCategory() {
-      this.$store.dispatch(Action.GET_CATEGORY, this.categoryTitel)
+      this.$store.dispatch(Action.CLEAR_ERROR_ON_PAGE)
+      this.$store.dispatch(Action.GET_CATEGORY, this.categoryTitel);
     },
   },
 }
@@ -68,7 +73,9 @@ export default {
 <style scoped lang="scss">
 @import "@/assets/styles/fonts-colors.scss";
 @import "@/assets/styles/mixins.scss";
-
+.error{
+  color: red;
+}
 h1,
 h2 {
   margin-left: 20px;
