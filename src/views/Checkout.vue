@@ -10,8 +10,8 @@
         <button class="login-btn">Log in</button>
       </div>
     </section>
-    <ThankYou v-if="orderPlaced" />
-    <LogInPopup />
+    <ThankYou v-if="orderPlaced && !error" />
+    <p v-if="error" class="error">{{error}}</p>
     <form class="checkout" v-if="!orderPlaced" @submit.prevent="placeOrder">
       <div class="checkout-info">
         <section class="form">
@@ -166,10 +166,12 @@
 
 <script>
 import Action from "@/store/Action.types"
-import LogInPopup from "../components/loginPopup.vue"
 import CartProduct from "@/components/cart/cartProduct.vue"
 import ThankYou from "@/components/ThankYou.vue"
 export default {
+  beforeDestroy(){
+    this.$store.dispatch(Action.CLEAR_ERROR_ON_PAGE)
+  },
   mounted() {
     if (this.userRole === "customer") {
       this.name = this.userInfo.name
@@ -189,7 +191,6 @@ export default {
     }
   },
   components: {
-    LogInPopup,
     CartProduct,
     ThankYou,
   },
@@ -206,6 +207,9 @@ export default {
     }
   },
   computed: {
+    error(){
+      return this.$store.state.error.messageOnPage
+    },
     cart() {
       return this.$store.state.cart
     },
@@ -258,6 +262,10 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/styles/fonts-colors.scss";
 @import "@/assets/styles/mixins.scss";
+.error{
+  color: red;
+  margin: 5rem;
+}
 h2 {
   margin: 3rem 6rem;
   letter-spacing: 1px;

@@ -1,5 +1,5 @@
 <template>
-  <div class="fade" v-if="fading"></div>
+  <div class="fade" v-if="fading || errorModal"></div>
 </template>
 
 <script>
@@ -9,6 +9,9 @@ export default {
     fading() {
       return this.$store.state.showLogIn && this.$store.state.error;
     },
+    errorModal(){
+      return this.$store.state.error.messageOnModal
+    }
   },
 };
 </script>

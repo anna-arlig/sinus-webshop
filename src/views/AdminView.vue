@@ -31,13 +31,11 @@ import Action from "@/store/Action.types"
 
 export default {
   components: { AdminOrders, AdminProducts, ErrorModal },
-
   data() {
     return {
       toggleView: true,
     }
   },
-
   methods: {
     getOrders() {
       this.toggleView = true

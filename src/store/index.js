@@ -185,9 +185,8 @@ export default new Vuex.Store({
       await API.uploadImg(formData)
     },
 
-    [Action.CLEAR_ERROR](context){
-
-      context.commit(Mutation.CLEAR_ERROR)
+    [Action.CLEAR_ERROR_ON_PAGE](context){
+      context.commit(Mutation.CLEAR_ERROR_ON_PAGE)
     },
     [Action.UPDATE_ORDER](context, status) {
       context.commit(Mutation.UPDATE_ORDER, status)
@@ -221,12 +220,15 @@ export default new Vuex.Store({
     async [Action.CHANGE_STATUS](context, status) {
       const response = await API.updateOrder(status)
       if (response.error) {
-        context.commit(Mutation.SET_ERROR, response.error)
+        context.commit(Mutation.SET_ERROR_ON_MODAL, response.error)
       }
     },
 
     async [Action.GET_ALL_ORDERS](context) {
       const response = await API.getAllOrders()
+      if(response.error){
+        context.commit(Mutation.SET_ERROR_ON_MODAL, response.error)
+      }else
       context.commit(Mutation.SAVE_ALL_ORDERS, response.data)
     },
 
@@ -253,7 +255,6 @@ export default new Vuex.Store({
 
     async [Action.LOG_IN](context, user) {
       const response = await API.logIn(user)
-      console.log(response);
       if (response.error) {
         context.commit(Mutation.SET_ERROR_ON_MODAL, response.error)
       } else {
@@ -263,11 +264,14 @@ export default new Vuex.Store({
       }
     },
     async [Action.UPDATE_USER_INFO](context, userInfo) {
-      await API.updateUserInfo(userInfo)
-
-      userInfo.role = context.state.user.role
-      userInfo.name = context.state.user.name
-      context.commit(Mutation.SAVE_USER, userInfo)
+      const response = await API.updateUserInfo(userInfo)
+      if(response.error){
+        context.commit(Mutation.SET_ERROR_ON_MODAL, response.error)
+      }else{
+        userInfo.role = context.state.user.role
+        userInfo.name = context.state.user.name
+        context.commit(Mutation.SAVE_USER, userInfo)
+      }
     },
 
     async getUserInfo(context) {
@@ -300,16 +304,25 @@ export default new Vuex.Store({
       context.commit(Mutation.UPDATE_SEARCH_RESULTS, search)
     },
 
-    async [Action.CREATE_USER](_, newUser) {
-      await API.createUser(newUser)
+    async [Action.CREATE_USER](context, newUser) {
+      const response = await API.createUser(newUser)
+      if(response.error){
+        context.commit(Mutation.SET_ERROR_ON_MODAL, response.error)
+      }
     },
 
-    async [Action.CREATE_ORDER](_, payload) {
-      await API.saveOrder(payload)
+    async [Action.CREATE_ORDER](context, payload) {
+      const response = await API.saveOrder(payload)
+      if(response.error){
+        context.commit(Mutation.SET_ERROR_ON_PAGE, response.error)
+      }
     },
 
-    async [Action.CREATE_CUSTOMER_ORDER](_, items) {
-      await API.saveCustomerOrder(items)
+    async [Action.CREATE_CUSTOMER_ORDER](context, items) {
+      const response = await API.saveCustomerOrder(items)
+      if(response.error){
+        context.commit(Mutation.SET_ERROR_ON_PAGE, response.error)
+      }
     },
 
     async [Action.MARKUS_SEARCH](context, search) {
@@ -335,9 +348,7 @@ export default new Vuex.Store({
       context.commit(Mutation.UPDATE_DELIVERY, shippingFee)
     },
     async [Action.GET_ITEM](context, id) {
-     
       const response = await API.getItem(id)
-      console.log(response.data)
       context.commit(Mutation.SAVE_PRODUCTS, response.data)
     },
   },
