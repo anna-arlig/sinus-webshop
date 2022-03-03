@@ -10,8 +10,8 @@
         <button class="login-btn">Log in</button>
       </div>
     </section>
-    <ThankYou v-if="orderPlaced" />
-    <LogInPopup />
+    <ThankYou v-if="orderPlaced && !error" />
+    <p v-if="error" class="error">{{error}}</p>
     <form class="checkout" v-if="!orderPlaced" @submit.prevent="placeOrder">
       <div class="checkout-info">
         <section class="form">
@@ -165,15 +165,15 @@
 </template>
 
 <script>
-import Action from "../store/Action.types"
-import LogInPopup from "../components/loginPopup.vue"
-import CartProduct from "@/components/cartProduct.vue"
+import Action from "@/store/Action.types"
+import CartProduct from "@/components/cart/cartProduct.vue"
 import ThankYou from "@/components/ThankYou.vue"
 export default {
+  beforeDestroy(){
+    this.$store.dispatch(Action.CLEAR_ERROR_ON_PAGE)
+  },
   mounted() {
-    if (this.$store.state.user.role === "customer") {
-      this.$store.dispatch("getUserInfo")
-      console.log()
+    if (this.userRole === "customer") {
       this.name = this.userInfo.name
       this.email = this.userInfo.email
       this.street = this.userInfo.address.street
@@ -183,8 +183,6 @@ export default {
   },
   beforeUpdate() {
     if (this.$store.state.user.role === "customer") {
-      this.$store.dispatch("getUserInfo")
-      console.log()
       this.name = this.userInfo.name
       this.email = this.userInfo.email
       this.street = this.userInfo.address.street
@@ -193,7 +191,6 @@ export default {
     }
   },
   components: {
-    LogInPopup,
     CartProduct,
     ThankYou,
   },
@@ -210,6 +207,9 @@ export default {
     }
   },
   computed: {
+    error(){
+      return this.$store.state.error.messageOnPage
+    },
     cart() {
       return this.$store.state.cart
     },
@@ -231,17 +231,29 @@ export default {
   },
   methods: {
     modalToggle() {
-      if (this.user == null) {
-        this.$store.dispatch(Action.TOGGLE_MODAL)
-      }
+      this.$store.dispatch(Action.TOGGLE_MODAL)
     },
     updateDelivery() {
       this.$store.dispatch(Action.UPDATE_DELIVERY, this.shippingFee)
     },
     placeOrder() {
-      this.$store.dispatch(Action.CREATE_ORDER, this.cartIds)
+      if (this.userRole === "") {
+        const address = {
+          city: this.city,
+          street: this.street,
+          zip: this.zip,
+        }
+        const payload = {
+          items: this.cartIds,
+          shippingAddress: address,
+        }
+        this.$store.dispatch(Action.CREATE_ORDER, payload)
+      } else {
+        this.$store.dispatch(Action.CREATE_CUSTOMER_ORDER, this.cartIds)
+      }
       this.orderPlaced = true
-      this.$store.state.cart = []
+      this.shippingFee = ""
+      this.$store.dispatch(Action.EMPTY_CART)
     },
   },
 }
@@ -250,6 +262,10 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/styles/fonts-colors.scss";
 @import "@/assets/styles/mixins.scss";
+.error{
+  color: red;
+  margin: 5rem;
+}
 h2 {
   margin: 3rem 6rem;
   letter-spacing: 1px;

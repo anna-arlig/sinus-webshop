@@ -56,6 +56,10 @@ html {
     button {
       cursor: pointer;
     }
+    a:hover{
+      color: #6e6d6e;
+      transition: .2s;
+    }
   }
 }
 </style>

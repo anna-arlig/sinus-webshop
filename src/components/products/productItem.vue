@@ -26,11 +26,11 @@
         </div>
         <h3 v-if="small">{{ product.title }}</h3>
         <div class="stars">
-          <img src="../assets/images/star.svg" alt="star" />
-          <img src="../assets/images/star.svg" alt="star" />
-          <img src="../assets/images/star.svg" alt="star" />
-          <img src="../assets/images/star.svg" alt="star" />
-          <img src="../assets/images/star.svg" alt="star" />
+          <img src="@/assets/images/star.svg" alt="star" />
+          <img src="@/assets/images/star.svg" alt="star" />
+          <img src="@/assets/images/star.svg" alt="star" />
+          <img src="@/assets/images/star.svg" alt="star" />
+          <img src="@/assets/images/star.svg" alt="star" />
           <p class="reviews" v-if="large">Read 15 other reviews</p>
         </div>
         <p v-if="large">
@@ -43,14 +43,16 @@
         <p v-if="large">
           Free delivery on orders over <strong>1000 kr</strong>
         </p>
-        <button v-if="large" @click="addProductToCart(product)">Add to cart</button>
+        <button v-if="large" @click="addProductToCart(product)">
+          Add to cart
+        </button>
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import Action from '@/store/Action.types.js'
+import Action from "@/store/Action.types.js"
 export default {
   props: {
     product: Object,
@@ -216,14 +218,14 @@ section.large {
         font-size: 1.3rem;
         font-weight: 500;
         text-transform: uppercase;
-        transition: transform .5s ease;
-        &:hover{
+        transition: transform 0.5s ease;
+        &:hover {
           cursor: pointer;
-          background-color: #FFFFFF;
+          background-color: #ffffff;
           color: $teal;
           border: 1px solid $teal;
         }
-        &:active{
+        &:active {
           transform: scale(1.1);
         }
       }

@@ -13,20 +13,20 @@
           <p class="category">{{ productObject.category }} -</p>
           <p class="title">{{ productObject.title }}</p>
         </div>
-        <button @click="removeFromCart(inCartProduct.id)">
+        <span @click="removeFromCart(inCartProduct.id)">
           <Icon icon="ci:trash-empty" color="#bf3600" />
-        </button>
+        </span>
       </div>
       <div class="info-part">
         <p class="price">{{ productObject.price }} kr</p>
         <div class="quantity">
-          <button @click="decrease(inCartProduct)">
+          <span @click="decrease(inCartProduct)">
             <Icon class="qty-btn" icon="akar-icons:minus" color="#006a72" />
-          </button>
+          </span>
           <p class="quantity-paragraph">{{ inCartProduct.amount }}</p>
-          <button @click="increase(inCartProduct)" class="qty-btn">
+          <span @click="increase(inCartProduct)" class="qty-btn">
             <Icon icon="akar-icons:plus" color="#006a72" />
-          </button>
+          </span>
         </div>
       </div>
     </div>
@@ -76,7 +76,7 @@ export default {
 <style scoped lang="scss">
 @import "@/assets/styles/fonts-colors.scss";
 @import "@/assets/styles/mixins.scss";
-button {
+span {
   background: none;
   color: inherit;
   border: none;
@@ -119,6 +119,10 @@ p {
   border: 1px solid $neutral;
   border-radius: 3px;
   max-height: 24px;
+  button{
+    display: flex;
+    justify-content: center;
+  }
 }
 .quantity-paragraph {
   text-align: center;

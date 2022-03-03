@@ -1,11 +1,14 @@
 <template>
   <div class="carousel">
     <h3>{{ mockTag }}</h3>
-
     <ul>
-      <li v-for="product of carouselProducts" :key="product.id">
+      <router-link
+        :to="`/product/${product.id}`"
+        v-for="product of carouselProducts"
+        :key="product.id"
+      >
         <ProductItem small :product="product" />
-      </li>
+      </router-link>
     </ul>
     <div class="carousel-nav">
       <button @click="updatePageCounter('back')">
@@ -22,7 +25,7 @@
 </template>
 
 <script>
-import ProductItem from "@/components/productItem.vue"
+import ProductItem from "@/components/products/productItem.vue"
 import Action from "../store/Action.types"
 import { Icon } from "@iconify/vue2"
 export default {
@@ -133,5 +136,9 @@ button {
   &:hover {
     transform: scale(1.1);
   }
+}
+a {
+  text-decoration: none;
+  color: #312f30;
 }
 </style>

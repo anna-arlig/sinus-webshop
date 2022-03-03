@@ -1,25 +1,28 @@
 <template>
   <div class="profile">
     <div class="user">
-      <h1>Welcome {{userData.name}}!</h1>
+      <h1>Welcome {{ userData.name }}!</h1>
       <div class="user-container">
         <div class="user-info">
           <h2>About me</h2>
           <div class="address">
-            <h5>Name: {{userData.name}}</h5>
-            <p>Street: {{userData.address.street}}</p>
-            <input v-if="edit" v-model="street" placeholder="Street">
-            <p>Zip:{{userData.address.zip}}</p>
-            <input v-if="edit" v-model="zip" placeholder="Zip code">
-            <p>City: {{userData.address.city}}</p>
-            <input v-if="edit" v-model="city" placeholder="City">
-            <p>Email: {{userData.email}}</p>
-            <input v-if="edit" v-model="email" placeholder="email">
-            <input v-if="edit" v-model="password" placeholder="password">
+            <h5>Name: {{ userData.name }}</h5>
+            <p>Street: {{ userData.address.street }}</p>
+            <input v-if="edit" v-model="street" placeholder="Street" />
+            <p>Zip:{{ userData.address.zip }}</p>
+            <input v-if="edit" v-model="zip" placeholder="Zip code" />
+            <p>City: {{ userData.address.city }}</p>
+            <input v-if="edit" v-model="city" placeholder="City" />
+            <p>Email: {{ userData.email }}</p>
+            <input v-if="edit" v-model="email" placeholder="email" />
+            <input v-if="edit" v-model="password" placeholder="password" />
           </div>
-          <button v-if="!edit" @click="edit=true">Update my info <Icon icon="clarity:edit-line" width="20" /></button>
+          <button v-if="!edit" @click="edit = true">
+            Update my info <Icon icon="clarity:edit-line" width="20" />
+          </button>
           <button v-if="edit" @click="updateInfo">Save my info</button>
           <router-link to="/"><button @click="logOut">Log out</button></router-link>
+          <ErrorModal />
         </div>
       </div>
 
@@ -40,64 +43,76 @@
       </div>
     </div>
 
-    <div class="orders">
+    <div class="orders" v-if="orders.length">
       <h3>My orders</h3>
+      <!-- <section class="order">
+      <li v-for="product of orderData" :key="product.id">{{product.id}}</li>
+      </section> -->
+      <!-- <CartViewProduct v-for="product of orderData" :key="product.id" :productInCart="product" /> -->
+      <OrderComponent v-for="order of orders" :key="order.id" :order="order" />
     </div>
   </div>
 </template>
 
 <script>
+import ErrorModal from "@/components/ErrorModal.vue"
 import { Icon } from "@iconify/vue2"
 import Action from "../store/Action.types"
+import OrderComponent from "../components/admin/OrderComponent.vue"
 export default {
-  mounted(){
-    if(this.$store.state.user.name === ''){
-      this.$store.dispatch('getUserInfo')
-    }
+  async mounted() {
+    // if(this.$store.state.user.name === ''){
+    //  await this.$store.dispatch('getUserInfo')
+    // }
+    await this.$store.dispatch(Action.GET_ALL_ORDERS)
   },
+
   data() {
     return {
       BASE_URL: process.env.VUE_APP_BASE_URL,
-      zip: '',
-      street: '',
-      city: '',
-      email: '',
-      password: '',
+      zip: "",
+      street: "",
+      city: "",
+      email: "",
+      password: "",
       edit: false,
-      
-    };
+    }
   },
-  components:{Icon},
+  components:{Icon, OrderComponent, ErrorModal},
   methods:{
     async updateInfo(){
       this.edit=false
       await this.$store.dispatch(Action.UPDATE_USER_INFO, {
         email: this.email,
         password: this.password,
-        address:{
+        address: {
           zip: this.zip,
           street: this.street,
           city: this.city,
-          },
+        },
       })
-      
     },
-    logOut(){
+    logOut() {
       this.$store.dispatch(Action.LOG_OUT)
     }
   },
   computed:{
+    error(){
+      return this.$store.state.error.messageOnModal
+    },
     userData(){
-        return this.$store.state.user
-    }
-  }
-};
+      return this.$store.state.user
+    },
+    orders() {
+      return this.$store.state.orders
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>
 @import "@/assets/styles/fonts-colors.scss";
 @import "@/assets/styles/mixins.scss";
-
 h1 {
   color: $teal;
   text-align: center;
@@ -136,6 +151,10 @@ button {
     margin: 0px;
     font-size: 18px;
   }
+  p.error{
+  color: red;
+  font-size: 12px;
+}
 }
 
 img {

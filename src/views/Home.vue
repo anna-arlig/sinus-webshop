@@ -12,7 +12,7 @@
     </section>
     <NavSection />
     <Carousel/>
-    <GretaSection />
+    <GretaSection :gretaProducts='specialEdition' />
     <Carousel />
   </main>
 </template>
@@ -24,9 +24,14 @@ import GretaSection from '@/components/GretaSection.vue'
 import Action from '@/store/Action.types'
 export default {
   components: { NavSection, Carousel, GretaSection },
-  async mounted() {
+  async beforeMount() {
     this.$store.dispatch(Action.SEARCH_ITEMS, "greta")
   },
+  computed:{
+    specialEdition(){
+      return this.$store.getters.specialEdition
+    }
+  }
 }
 </script>
 

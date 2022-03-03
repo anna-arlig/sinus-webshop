@@ -9,8 +9,10 @@
     <router-link :to="{ name: 'Products', params: { category: 'Accessories' } }"
       ><h2>Accessories</h2>
     </router-link>
-    <router-link to="/products">
-      <h2>Limited Edition</h2>
+    <router-link
+      :to="{ name: 'Products', params: { category: 'Special Edition' } }"
+    >
+      <h2>Special Edition</h2>
     </router-link>
   </section>
 </template>
@@ -27,7 +29,7 @@
   a {
     width: 30rem;
     height: 25rem;
-    margin: .5rem 0;
+    margin: 0.5rem 0;
     background-size: cover;
     background-repeat: no-repeat;
     font-family: $heading;
