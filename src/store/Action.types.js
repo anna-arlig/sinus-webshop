@@ -27,6 +27,7 @@ export const CLEAR_ERROR_ON_MODAL = 'CLEAR_ERROR_ON_MODAL'
 export const CLEAR_ERROR_ON_PAGE = 'CLEAR_ERROR_ON_PAGE'
 export const UPLOAD_IMAGE = 'UPLOAD_IMAGE'
 export const GET_ONE_PRODUCT = 'GET_ONE_PRODUCT'
+export const GET_USER = 'GET_USER'
 
 export default {
     GET_CATEGORY,
@@ -57,5 +58,6 @@ export default {
     CLEAR_ERROR_ON_MODAL,
     CLEAR_ERROR_ON_PAGE,
     UPLOAD_IMAGE,
-    GET_ONE_PRODUCT
+    GET_ONE_PRODUCT,
+    GET_USER
 }

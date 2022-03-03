@@ -20,7 +20,11 @@
       </div>
 
       <div class="buttons">
-        <button v-if="userRole == 'admin'" class="user-btn">
+        <button
+          v-if="userRole == 'admin'"
+          class="user-btn"
+          @click="getUser(order.UserId)"
+        >
           View user info
         </button>
         <button class="order-items-btn" @click="viewOrder = !viewOrder">
@@ -35,7 +39,8 @@
 </template>
 
 <script>
-import OrderProduct from "@/components/admin/OrderProduct.vue"
+import OrderProduct from "@/components/admin/OrderProduct.vue";
+import Action from "@/store/Action.types";
 
 export default {
   components: { OrderProduct },
@@ -45,26 +50,29 @@ export default {
     return {
       selectedStatus: "",
       viewOrder: false,
-    }
+    };
   },
   computed: {
     newStatus() {
       return {
         id: "",
         status: this.selectedStatus,
-      }
+      };
     },
     userRole() {
-      return this.$store.state.user.role
+      return this.$store.state.user.role;
     },
   },
   methods: {
     changeStatus(id) {
-      this.newStatus.id = id
-      this.$emit("changeStatus", this.newStatus)
+      this.newStatus.id = id;
+      this.$emit("changeStatus", this.newStatus);
+    },
+    getUser(id) {
+      this.$store.dispatch(Action.GET_USER, id);
     },
   },
-}
+};
 </script>
 
 <style scoped lang="scss">

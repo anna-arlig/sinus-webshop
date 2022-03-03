@@ -8,6 +8,10 @@ const accessoriesQuery =
 const accessoriesQueryPageTwo =
   "/items?category=cap&category=totebag&category=socks&category=wheel&page=2"
 
+  export async function getUserAdmin(id){
+    return await axios.get(`/users/${id}`)
+  }
+
   export async function uploadImg(formData){
     return await axios.post('/images/', formData)
   }
