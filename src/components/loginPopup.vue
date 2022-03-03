@@ -51,8 +51,8 @@ export default {
     return {
       registerSuccess: false,
       currentModal: "login",
-      email: "admin@example.com",
-      password: "password",
+      email: "",
+      password: "",
     };
   },
   computed: {
