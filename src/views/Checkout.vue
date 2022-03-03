@@ -12,7 +12,6 @@
     </section>
     <ThankYou v-if="orderPlaced && !error" />
     <p v-if="error" class="error">{{error}}</p>
-    <LogInPopup />
     <form class="checkout" v-if="!orderPlaced" @submit.prevent="placeOrder">
       <div class="checkout-info">
         <section class="form">
@@ -167,7 +166,6 @@
 
 <script>
 import Action from "@/store/Action.types"
-import LogInPopup from "../components/loginPopup.vue"
 import CartProduct from "@/components/cart/cartProduct.vue"
 import ThankYou from "@/components/ThankYou.vue"
 export default {
@@ -193,7 +191,6 @@ export default {
     }
   },
   components: {
-    LogInPopup,
     CartProduct,
     ThankYou,
   },

@@ -238,7 +238,6 @@ export default new Vuex.Store({
 
     async [Action.LOG_IN](context, user) {
       const response = await API.logIn(user)
-      console.log(response);
       if (response.error) {
         context.commit(Mutation.SET_ERROR_ON_MODAL, response.error)
       } else {
@@ -332,9 +331,7 @@ export default new Vuex.Store({
       context.commit(Mutation.UPDATE_DELIVERY, shippingFee)
     },
     async [Action.GET_ITEM](context, id) {
-     
       const response = await API.getItem(id)
-      console.log(response.data)
       context.commit(Mutation.SAVE_PRODUCTS, response.data)
     },
   },
