@@ -1,7 +1,7 @@
 <template>
   <div class="userinfo">
-    <h4 v-if="user == 'Guest'">This order was placed by a guest</h4>
-    <section v-if="user != 'Guest'">
+    <h4 v-if="!order.UserId">This order was placed by a guest</h4>
+    <section v-if="order.UserId">
       <h3>This order was placed by</h3>
       <h5>{{ user.name }}</h5>
       <p>{{ user.street }}</p>
@@ -14,7 +14,12 @@
 </template>
 
 <script>
+import Action from "@/store/Action.types";
 export default {
+  props: ["order"],
+  created() {
+    this.$store.dispatch(Action.GET_USER, this.order.UserId);
+  },
   computed: {
     user() {
       return this.$store.state.userOrder;

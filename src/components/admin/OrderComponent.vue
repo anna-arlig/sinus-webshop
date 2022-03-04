@@ -23,7 +23,7 @@
         <button
           v-if="userRole == 'admin'"
           class="user-btn"
-          @click="getUser(order.UserId)"
+          @click="viewUser = !viewUser"
         >
           View user info
         </button>
@@ -35,7 +35,7 @@
         <OrderProduct v-for="item of order.items" :key="item.id" :item="item" />
       </section>
       <section v-if="viewUser">
-        <UserInfoAdmin />
+        <UserInfoAdmin :order="order" />
       </section>
     </div>
   </div>
@@ -44,7 +44,6 @@
 <script>
 import OrderProduct from "@/components/admin/OrderProduct.vue";
 import UserInfoAdmin from "@/components/admin/UserInfoAdmin.vue";
-import Action from "@/store/Action.types";
 
 export default {
   components: { OrderProduct, UserInfoAdmin },
@@ -72,10 +71,6 @@ export default {
     changeStatus(id) {
       this.newStatus.id = id;
       this.$emit("changeStatus", this.newStatus);
-    },
-    async getUser(id) {
-      await this.$store.dispatch(Action.GET_USER, id);
-      this.viewUser = !this.viewUser;
     },
   },
 };

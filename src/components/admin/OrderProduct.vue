@@ -14,8 +14,8 @@
 <script>
 import Action from "@/store/Action.types";
 export default {
-  async created() {
-    await this.$store.dispatch(Action.GET_ONE_PRODUCT, this.item.ProductId);
+  created() {
+    this.$store.dispatch(Action.GET_ONE_PRODUCT, this.item.ProductId);
   },
   data() {
     return {
