@@ -22,7 +22,7 @@
 @import "../assets/styles/mixins.scss";
 .categories {
   margin: 5rem 0;
-  width: 70%;
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   place-items: center;
