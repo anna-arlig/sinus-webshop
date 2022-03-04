@@ -2,9 +2,9 @@
   <dialog open class="login-popup" v-if="modal && currentModal == 'login'">
     <span>
       <h2>Log in</h2>
-      <i @click="logInToggle"><Icon icon="mdi:close" width="25" /></i>
+      <i @click="closeModal"><Icon icon="mdi:close" width="25" /></i>
     </span>
-    <form @:submit.prevent="signIn">
+    <form @submit.prevent="signIn">
       <label for="email">Email</label>
       <input
         type="text"
@@ -23,7 +23,7 @@
       />
       <p v-if="error" class="error">{{ error }}</p>
       <span class="btn-controller">
-        <button @click="signIn">Log in</button>
+        <button>Log in</button>
         <button @click="closeModal">Cancel</button>
       </span>
     </form>
@@ -66,14 +66,11 @@ export default {
     },
   },
   methods: {
-    logInToggle() {
-      this.$store.dispatch(Action.TOGGLE_MODAL);
-      this.$store.dispatch(Action.CLEAR_ERROR_ON_MODAL)
-    },
     setCurrentModal() {
       this.currentModal = "login";
     },
     closeModal() {
+      this.$store.dispatch(Action.CLEAR_ERROR_ON_MODAL)
       this.$store.dispatch(Action.TOGGLE_MODAL);
     },
     signIn() {
