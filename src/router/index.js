@@ -8,6 +8,7 @@ import ProfileAccount from "../views/ProfileAccount.vue"
 import Checkout from "../views/Checkout.vue"
 import AdminView from "../views/AdminView.vue"
 
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -44,7 +45,20 @@ const routes = [
   {
     path: "/admin",
     name: "AdminView",
-    component: AdminView,
+    component: AdminView, 
+    beforeEnter(to, from, next){
+      try{
+        if(this.$store.state.user.role == 'admin'){
+          next({
+            name: "Admin"
+          })
+        }
+      }catch {
+        next({
+          name: "Home"
+        })
+      }
+    },
   },
 ]
 
