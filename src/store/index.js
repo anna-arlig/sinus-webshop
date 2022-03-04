@@ -357,13 +357,7 @@ export default new Vuex.Store({
 
   getters: {
     idsOfCartItems(state) {
-      let ids= []
-      for (let item of state.cart){
-        for(let i = 0; i < item.amount; i++){
-          ids.push(item.id)
-        }
-      }
-      return ids
+      return state.cart.map(item => Array(item.amount).fill(item.id)).flat()
     },
     subTotalForCheckout(state) {
       return state.cart.reduce((sum, cartItem) => {
