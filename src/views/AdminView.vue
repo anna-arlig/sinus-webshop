@@ -30,6 +30,7 @@ import AdminProducts from "@/components/admin/AdminProducts.vue"
 import Action from "@/store/Action.types"
 
 export default {
+ 
   components: { AdminOrders, AdminProducts, ErrorModal },
   data() {
     return {
