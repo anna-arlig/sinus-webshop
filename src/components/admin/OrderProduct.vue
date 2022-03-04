@@ -8,6 +8,7 @@
     />
     <p>{{ product.title }}</p>
     <p>{{ product.price }} kr</p>
+    <p>x {{ item.amount }}</p>
   </main>
 </template>
 
