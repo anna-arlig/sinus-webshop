@@ -53,8 +53,11 @@ export default {
         return this.$store.getters.skateboards
       } else if (this.categoryTitel === "Apparel") {
         return this.$store.getters.apparel
-      } else {
+      } else if(this.categoryTitel === 'Accessories') {
         return this.$store.getters.accessories
+      }
+      else{
+        return null
       }
     },
     error(){
