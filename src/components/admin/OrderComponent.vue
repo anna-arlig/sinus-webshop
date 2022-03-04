@@ -34,22 +34,27 @@
       <section class="products" v-if="viewOrder">
         <OrderProduct v-for="item of order.items" :key="item.id" :item="item" />
       </section>
+      <section v-if="viewUser">
+        <UserInfoAdmin />
+      </section>
     </div>
   </div>
 </template>
 
 <script>
 import OrderProduct from "@/components/admin/OrderProduct.vue";
+import UserInfoAdmin from "@/components/admin/UserInfoAdmin.vue";
 import Action from "@/store/Action.types";
 
 export default {
-  components: { OrderProduct },
+  components: { OrderProduct, UserInfoAdmin },
   props: ["order"],
 
   data() {
     return {
       selectedStatus: "",
       viewOrder: false,
+      viewUser: false,
     };
   },
   computed: {
@@ -68,8 +73,9 @@ export default {
       this.newStatus.id = id;
       this.$emit("changeStatus", this.newStatus);
     },
-    getUser(id) {
-      this.$store.dispatch(Action.GET_USER, id);
+    async getUser(id) {
+      await this.$store.dispatch(Action.GET_USER, id);
+      this.viewUser = !this.viewUser;
     },
   },
 };
@@ -89,6 +95,10 @@ export default {
 
 .select {
   @include flex-left;
+}
+
+.buttons {
+  @include flex-center;
 }
 
 button {

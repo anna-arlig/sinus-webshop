@@ -46,19 +46,19 @@ const routes = [
     path: "/admin",
     name: "AdminView",
     component: AdminView, 
-    beforeEnter(to, from, next){
-      try{
-        if(this.$store.state.user.role == 'admin'){
-          next({
-            name: "Admin"
-          })
-        }
-      }catch {
-        next({
-          name: "Home"
-        })
-      }
-    },
+    // beforeEnter(to, from, next){
+    //   try{
+    //     if(this.$store.state.user.role == 'admin'){
+    //       next({
+    //         name: "AdminView"
+    //       })
+    //     }
+    //   }catch {
+    //     next({
+    //       name: "Home"
+    //     })
+    //   }
+    // },
   },
 ]
 

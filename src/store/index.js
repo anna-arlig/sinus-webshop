@@ -31,12 +31,13 @@ export default new Vuex.Store({
     cart: [], 
     deliveryFee: 0,
     orders: [],
+    userOrder: null
     
   },
   mutations: {
 
-    [Mutation.SAVE_USER_ORDER](_, user){
-      console.log(user)
+    [Mutation.SAVE_USER_ORDER](state, user){
+      state.userOrder = user
     },
 
     [Mutation.SAVE_NEW_PRODUCT](state, newSavedProduct){
@@ -169,11 +170,12 @@ export default new Vuex.Store({
 
     async [Action.GET_USER](context, id){
       if (!id){
-      context.commit[Mutation.SAVE_USER_ORDER, "Guest"]
+      
+      context.commit(Mutation.SAVE_USER_ORDER, "Guest")
       }else{
         const response = await API.getUserAdmin(id)
-        console.log(response.data)
-        context.commit[Mutation.SAVE_USER_ORDER, response.data]
+       
+        context.commit(Mutation.SAVE_USER_ORDER, response.data)
       }
 
     },
