@@ -7,6 +7,7 @@ import Cart from "../views/Cart.vue"
 import ProfileAccount from "../views/ProfileAccount.vue"
 import Checkout from "../views/Checkout.vue"
 import AdminView from "../views/AdminView.vue"
+import store from "../store"
 
 
 Vue.use(VueRouter)
@@ -46,19 +47,13 @@ const routes = [
     path: "/admin",
     name: "AdminView",
     component: AdminView, 
-    // beforeEnter(to, from, next){
-    //   try{
-    //     if(this.$store.state.user.role == 'admin'){
-    //       next({
-    //         name: "AdminView"
-    //       })
-    //     }
-    //   }catch {
-    //     next({
-    //       name: "Home"
-    //     })
-    //   }
-    // },
+    beforeEnter(to, from, next){
+      if(store.state.user.role == 'admin'){
+        next()
+      }else{
+        next({name:'Home'})
+      }
+    },
   },
 ]
 

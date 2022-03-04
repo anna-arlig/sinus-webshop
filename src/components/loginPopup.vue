@@ -2,29 +2,31 @@
   <dialog open class="login-popup" v-if="modal && currentModal == 'login'">
     <span>
       <h2>Log in</h2>
-      <i @click="logInToggle"><Icon icon="mdi:close" width="25" /></i>
+      <i @click="closeModal"><Icon icon="mdi:close" width="25" /></i>
     </span>
-    <label for="email">Email</label>
-    <input
-      type="text"
-      id="email"
-      required
-      placeholder="bingo@berra.com"
-      v-model="email"
-    />
-    <label for="password">Password</label>
-    <input
-      type="password"
-      id="password"
-      required
-      placeholder="********"
-      v-model="password"
-    />
-    <p v-if="error" class="error">{{ error }}</p>
-    <span class="btn-controller">
-      <button @click="signIn">Log in</button>
-      <button @click="closeModal">Cancel</button>
-    </span>
+    <form @submit.prevent="signIn">
+      <label for="email">Email</label>
+      <input
+        type="text"
+        id="email"
+        required
+        placeholder="bingo@berra.com"
+        v-model="email"
+      />
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        required
+        placeholder="********"
+        v-model="password"
+      />
+      <p v-if="error" class="error">{{ error }}</p>
+      <span class="btn-controller">
+        <button>Log in</button>
+        <button @click="closeModal">Cancel</button>
+      </span>
+    </form>
     <p v-if="registerSuccess && !error">
       User registered! Please enter email and password to log in
     </p>
@@ -64,13 +66,11 @@ export default {
     },
   },
   methods: {
-    logInToggle() {
-      this.$store.dispatch(Action.TOGGLE_MODAL);
-    },
     setCurrentModal() {
       this.currentModal = "login";
     },
     closeModal() {
+      this.$store.dispatch(Action.CLEAR_ERROR_ON_MODAL)
       this.$store.dispatch(Action.TOGGLE_MODAL);
     },
     signIn() {
@@ -79,6 +79,7 @@ export default {
         email: this.email,
         password: this.password,
       };
+      this.$store.dispatch(Action.CLEAR_ERROR_ON_MODAL)
       this.$store.dispatch(Action.LOG_IN, user);
       this.email = "";
       this.password = "";
