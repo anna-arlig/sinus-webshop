@@ -20,7 +20,11 @@
       </div>
 
       <div class="buttons">
-        <button v-if="userRole == 'admin'" class="user-btn">
+        <button
+          v-if="userRole == 'admin'"
+          class="user-btn"
+          @click="viewUser = !viewUser"
+        >
           View user info
         </button>
         <button class="order-items-btn" @click="viewOrder = !viewOrder">
@@ -30,41 +34,46 @@
       <section class="products" v-if="viewOrder">
         <OrderProduct v-for="item of order.items" :key="item.id" :item="item" />
       </section>
+      <section v-if="viewUser">
+        <UserInfoAdmin :order="order" />
+      </section>
     </div>
   </div>
 </template>
 
 <script>
-import OrderProduct from "@/components/admin/OrderProduct.vue"
+import OrderProduct from "@/components/admin/OrderProduct.vue";
+import UserInfoAdmin from "@/components/admin/UserInfoAdmin.vue";
 
 export default {
-  components: { OrderProduct },
+  components: { OrderProduct, UserInfoAdmin },
   props: ["order"],
 
   data() {
     return {
       selectedStatus: "",
       viewOrder: false,
-    }
+      viewUser: false,
+    };
   },
   computed: {
     newStatus() {
       return {
         id: "",
         status: this.selectedStatus,
-      }
+      };
     },
     userRole() {
-      return this.$store.state.user.role
+      return this.$store.state.user.role;
     },
   },
   methods: {
     changeStatus(id) {
-      this.newStatus.id = id
-      this.$emit("changeStatus", this.newStatus)
+      this.newStatus.id = id;
+      this.$emit("changeStatus", this.newStatus);
     },
   },
-}
+};
 </script>
 
 <style scoped lang="scss">
@@ -81,6 +90,10 @@ export default {
 
 .select {
   @include flex-left;
+}
+
+.buttons {
+  @include flex-center;
 }
 
 button {
