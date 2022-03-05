@@ -1,5 +1,7 @@
 <template>
-  <div class="fade" v-if="fading || errorModal"></div>
+  <Transition>
+    <div class="fade" v-if="fading || errorModal"></div>
+  </Transition>
 </template>
 
 <script>

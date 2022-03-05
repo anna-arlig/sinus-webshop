@@ -1,10 +1,11 @@
 <template>
+<Transition>
   <dialog open class="login-popup" v-if="modal && currentModal == 'login'">
     <span>
       <h2>Log in</h2>
       <i @click="closeModal"><Icon icon="mdi:close" width="25" /></i>
     </span>
-    <form @submit.prevent="signIn">
+    <form v-on:submit.prevent="">
       <label for="email">Email</label>
       <input
         type="text"
@@ -23,7 +24,7 @@
       />
       <p v-if="error" class="error">{{ error }}</p>
       <span class="btn-controller">
-        <button>Log in</button>
+        <button @click="signIn">Log in</button>
         <button @click="closeModal">Cancel</button>
       </span>
     </form>
@@ -41,6 +42,7 @@
     @goBack="setCurrentModal"
     @success="registerSuccess = true"
   />
+  </Transition>
 </template>
 
 <script>
@@ -90,6 +92,29 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/styles/fonts-colors.scss";
+.v-enter-active,
+.v-leave-active {
+  transition: opacity .5s ease;
+  
+}
+.v-enter-active{
+  animation: scale-in .5s
+}
+@keyframes scale-in{
+  0% {
+    transform: scale(0)
+  }
+  50%{
+    transform: scale(1.25)
+  }
+  100%{
+    transform: scale(1)
+  }
+}
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
 form {
   display: flex;
   flex-direction: column;
