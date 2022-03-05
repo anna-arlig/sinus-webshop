@@ -22,14 +22,13 @@
 @import "../assets/styles/mixins.scss";
 .categories {
   margin: 5rem 0;
-  width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   place-items: center;
   a {
     width: 30rem;
     height: 25rem;
-    margin: 0.5rem 0;
+    margin: 0.5rem 0.5rem;
     background-size: cover;
     background-repeat: no-repeat;
     font-family: $heading;
