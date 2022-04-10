@@ -1,5 +1,6 @@
 <template>
   <section class="categories">
+    <!-- $TIPS: Generate this with a `v-for` -->
     <router-link :to="{ name: 'Products', params: { category: 'Skateboards' } }"
       ><h2>Skateboards</h2>
     </router-link>

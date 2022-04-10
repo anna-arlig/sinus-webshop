@@ -50,7 +50,7 @@ const routes = [
     beforeEnter(to, from, next){
       if(store.state.user.role == 'admin'){
         next()
-      }else{
+      }else{ // YOU SHALL NOT PASS!
         next({name:'Home'})
       }
     },
