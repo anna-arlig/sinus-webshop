@@ -48,9 +48,11 @@ export default {
     }
   },
   methods: {
+    // $QUESTION: This only works for 3 pages?
     updatePageCounter(direction) {
+      // $FEEDBACK: Avoid magic numbers
       if (direction === "back" && this.currentPage > 1) {
-        this.start -= 3
+        this.start -= 3 
         this.end -= 3
         this.currentPage--
       } else if (
